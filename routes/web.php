@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+
+//后台首页 路由
+Route::get('admin','Admin\Indexcontroller@index');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
