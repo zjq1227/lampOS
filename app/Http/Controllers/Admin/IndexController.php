@@ -4,13 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\ViewErrorBag;
 
 class IndexController extends Controller
 {
-    //后台首页
-    Public function index()
-    {
-    	//显示后台模板
-    	return view('admin.index.index');
+    public function Index(){
+        return view('admin.index');
     }
 }
