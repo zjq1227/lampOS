@@ -42,8 +42,8 @@ class LoginController extends Controller
       		exit;
    		}
 		//登录成功
-		// session(['admin_login'=>true]);
-		// session(['admin_userinfo'=>$userinfo]);
+		session(['admin_login'=>true]);
+		session(['admin_userinfo'=>$userinfo]);
 
 		//跳转
 		return redirect('admin/index');

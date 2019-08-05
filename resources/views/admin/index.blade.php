@@ -2,6 +2,7 @@
     <head></head>
     <body>
 	@include('layouts.Abefore') @section('content') @endsection
+
         <div class="main-container" id="main-container">
             <script type="text/javascript">try {
                     ace.settings.check('main-container', 'fixed')
@@ -79,10 +80,6 @@
                                     <li class="home">
                                         <a href="javascript:void(0)" name="{{ route('Uadmin_Istrator') }}" title="管理员列表" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>管理员列表</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Uadmin_Info')}}" title="个人信息" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>个人信息</a>
                                     </li>
                                 </ul>
                             </li>
