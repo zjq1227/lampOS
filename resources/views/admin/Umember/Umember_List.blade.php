@@ -42,22 +42,17 @@
     <div id="Member_Ratings">
       <div class="d_Confirm_Order_style">
     <div class="search_style">
-     
-      <ul class="search_content clearfix">
-       <li><label class="l_f">会员名称</label><input name="" type="text"  class="text_add" placeholder="输入会员名称、电话、邮箱"  style=" width:400px"/></li>
-       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
-       <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
-      </ul>
-    </div>
-     <!---->
+    <!--用户时间搜做-->
+    
+     <!--操作按钮-->
      <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()" id="member_add" class="btn btn-warning"><i class="icon-plus"></i>添加用户</a>
         <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
        </span>
-       <span class="r_f">共：<b>2345</b>条</span>
+       <span class="r_f">共：<b>{{ $count }}</b>条</span>
      </div>
-     <!---->
+     <!--操作按钮-->
      <div class="table_menu_list">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
 		<thead>
@@ -76,126 +71,83 @@
 			</tr>
 		</thead>
 	<tbody>
+      @foreach($users as $k=>$v)
 		<tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','500','400')">张三</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
+          <td>{{ $num++ }}</td>
+          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','{{ $v->id }}','500','400')">{{ $v->Uname }}</u></td>
+          <td>
+              @if($v->Sex == "1")
+              男
+              @else
+              女
+              @endif
+          </td>
+          <td>{{ $v->Phone }}</td>
+          <td>{{ $v->Email }}</td>
+          <td class="text-l">{{ $v->Adress }}</td>
+          <td>{{ $v->Addtime }}</td>
           <td>普通用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
+          <td class="td-status">
+              @if($v->Status == "1")
+              <span class="label label-success radius">已启用</span>
+              @else
+              <span class="label label-defaunt radius">已停用</span>
+              @endif
+           
+          </td>
           <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
+              @if($v->Status == "1")
+              <a onClick="member_stop(this,'{{ $v }}')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success">
+                  <i class="icon-ok bigger-120"></i>
+                </a> 
+              @else
+              <a style="text-decoration:none" class="btn btn-xs " onClick="member_start(this,id)" href="javascript:;" title="启用">
+                <i class="icon-ok bigger-120"></i></a>
+              @endif
+          
+          <a title="编辑" onclick="member_edit('550')" href="javascript:;"  class="btn btn-xs btn-info" >
+            <i class="icon-edit bigger-120"></i>
+          </a> 
           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
           </td>
-		</tr>
-        <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>2</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>普通用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('310')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>3</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10301','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>银牌用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit(,'410')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
          
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>4</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10001','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>银牌用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('560')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>5</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10001','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td class="text-l">北京市 海淀区</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>银牌用户</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-      </tbody>
+    </tr>     
+   
+    @endforeach  
+  </tbody>
 	</table>
    </div>
   </div>
  </div>
 </div>
 <!--添加用户图层-->
+<form class="mws-form" action="Admin\Umember\UmemberController@addUser" method="post" enctype="multipart/form-data">
+  {{ csrf_field() }}
 <div class="add_menber" id="add_menber_style" style="display:none">
   
     <ul class=" page-content">
-     <li><label class="label_name">用&nbsp;&nbsp;户 &nbsp;名：</label><span class="add_name"><input value="" name="用户名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">真实姓名：</label><span class="add_name"><input name="真实姓名" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">用&nbsp;&nbsp;户 &nbsp;名：</label><span class="add_name"><input value="" name="Uname" type="text" name1="用户名" class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码：</label><span class="add_name"><input name="Password" type="password"  name1="密码" class="text_add"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：</label><span class="add_name">
-     <label><input name="form-field-radio" type="radio" checked="checked" class="ace"><span class="lbl">男</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">女</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">保密</span></label>
-     </span>
-     <div class="prompt r_f"></div>
-     </li>
-     <li><label class="label_name">固定电话：</label><span class="add_name"><input name="固定电话" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">移动电话：</label><span class="add_name"><input name="移动电话" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li><label class="label_name">电子邮箱：</label><span class="add_name"><input name="电子邮箱" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
-     <li class="adderss"><label class="label_name">家庭住址：</label><span class="add_name"><input name="家庭住址" type="text"  class="text_add" style=" width:350px"/></span><div class="prompt r_f"></div></li>
+        <label><input type="radio"  class="ace" name="Sex" value="1"><span class="lbl">男</span></label>&nbsp;&nbsp;&nbsp;
+        <label><input type="radio"  class="ace" name="Sex" value="0"><span class="lbl">女</span></label>&nbsp;&nbsp;&nbsp;
+     {{-- <li><label class="label_name">固定电话：</label><span class="add_name"><input name="固定电话" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li> --}}
+     <li><label class="label_name">移动电话：</label><span class="add_name"><input name="Phone" name1="手机号" type="text"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li><label class="label_name">电子邮箱：</label><span class="add_name"><input name="Email" type="text" name1="邮箱"  class="text_add"/></span><div class="prompt r_f"></div></li>
+     <li class="adderss"><label class="label_name">家庭住址：</label><span class="add_name"><input name="Adress" type="text" name1="地址" class="text_add" style=" width:350px"/></span><div class="prompt r_f"></div></li>
      <li><label class="label_name">状&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;态：</label><span class="add_name">
-     <label><input name="form-field-radio1" type="radio" checked="checked" class="ace"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
-     <label><input name="form-field-radio1"type="radio" class="ace"><span class="lbl">关闭</span></label></span><div class="prompt r_f"></div></li>
+     <label><input name="Status" type="radio"  value="1" class="ace"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
+     <label><input name="Status" type="radio" value="0" class="ace"><span class="lbl" >关闭</span></label></span><div class="prompt r_f"></div></li>
     </ul>
+   
+    
+ 
  </div>
+</form>
 </body>
 </html>
-<script>
+<script type="text/javascript">
 jQuery(function($) {
 				var oTable1 = $('#sample-table').dataTable( {
 				"aaSorting": [[ 1, "desc" ]],//默认第几个排序
@@ -248,7 +200,7 @@ jQuery(function($) {
           if($(this).val()=="")
           {
                
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+			   layer.alert(str+=""+$(this).attr("name1")+"不能为空！\r\n",{
                 title: '提示框',				
 				icon:0,								
           }); 
@@ -258,6 +210,30 @@ jQuery(function($) {
 		 });
 		  if(num>0){  return false;}	 	
           else{
+            // console.log($("input[name='sex']")['0'].checked == false);
+            if($("input[name='Sex']")['0'].checked == false){
+              var xingbie=$("input[name='Sex']:eq(1)").val();
+            }else{
+              var xingbie=$("input[name='Sex']:eq(0)").val();
+            }
+
+            if($("input[name='Status']")['0'].checked == false){
+              var Status=$("input[name='Status']:eq(1)").val();
+            }else{
+              var Status=$("input[name='Status']:eq(0)").val();
+            }
+            $.post('{{route("addUser")}}',{'_token':'{{csrf_token()}}',
+            'Uname':$("input[name='Uname']").val(),
+            'Password':$("input[name='Password']").val(),
+            'Sex':xingbie,
+            'Status':Status,
+            'Phone':$("input[name='Phone']").val(),
+            'Email':$("input[name='Email']").val(),
+            'Adress':$("input[name='Adress']").val(),},
+            function(data) //第二个参数要传token的值 再传参数要用逗号隔开
+            {
+              console.log(data);
+            });
 			  layer.alert('添加成功！',{
                title: '提示框',				
 			icon:1,		
