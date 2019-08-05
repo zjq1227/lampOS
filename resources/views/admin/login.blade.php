@@ -62,7 +62,7 @@
 					   	</li>
 					   <li class="frame_style form_error">
 					   		<label class="password_icon"></label>
-					   		<input name="userpw" type="password"   id="userpwd" lay-verify="required"/><i>密码</i>
+					   		<input name="userpwd" type="password"   id="userpwd" lay-verify="required"/><i>密码</i>
 					   	</li>
 					<!--    <li class="frame_style form_error">
 					   		<label class="Codes_icon"></label>

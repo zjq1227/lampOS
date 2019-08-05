@@ -1,4 +1,4 @@
-<?php
+	<?php
 
 /*
 |--------------------------------------------------------------------------
@@ -162,9 +162,91 @@ Route::get('/', function () {
                 // 系统日志
                 Route::get('Logs','Admin\System\SystemLogsController@index')->name('System_Logs');
             });
-    Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
-    Route::post('login', 'Admin\LoginController@login'); 
-    Route::post('logout', 'Admin\LoginController@logout');
+    // Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
+    // Route::post('login', 'Admin\LoginController@login'); 
+    // Route::post('logout', 'Admin\LoginController@logout');
+    });
+        Route::group(['namespace'=>'Home','prefix' => 'home'], function () {
+        Route::get('/Index', 'IndexController@index')->name('Index');
+        Route::get('/Login', 'Login\LoginController@index')->name('Hlogin');
+        Route::resource('Register','Login\RegisterController');
+        Route::get('/emailStatus','Login\RegisterController@emailStatus')->name('emailStatus');
+        // 个人中心
+        Route::group(['namespace'=>'Center','prefix' => 'Center'], function () {
+            // 个人中心-个人资料
+            Route::get('/','CenterController@index')->name('Center');
+            // 个人资料
+            Route::group(['namespace'=>'Personal','prefix' => 'Personal'], function () {
+                // 个人信息
+                Route::get('/Information','InformationController@index')->name('Information');
+                // 安全设置
+                Route::get('/Safety','SafetyController@index')->name('Safety');
+                    // 登陆密码修改
+                    Route::get('/Password','SafetyController@Password')->name('Password');
+                    // 支付密码修改
+                    Route::get('/Setpay','SafetyController@Setpay')->name('Setpay');
+                    // 手机验证换绑
+                    Route::get('/Bindphone','SafetyController@Bindphone')->name('Bindphone');
+                    // 邮箱验证换绑
+                    Route::get('/Email','SafetyController@Email')->name('Email');
+                    // 实名认证
+                    Route::get('/Idcard','SafetyController@Idcard')->name('Idcard');
+                    // 安全问题认证
+                    Route::get('/Question','SafetyController@Question')->name('Question');
+                // 收货地址
+                Route::get('/Address','AddressController@index')->name('Address');
+            });
+            // 我的交易
+            Route::group(['namespace'=>'Deal','prefix' => 'Deal'], function () {
+                // 订单管理
+                Route::get('/Order','OrderController@index')->name('Order');
+                // 订单详情
+                Route::get('/Orderinfo','OrderController@orderInfo')->name('Orderinfo');
+                //  物流跟踪
+                Route::get('/Logistics','OrderController@logistics')->name('Logistics');
+                    // 一键支付
+                    Route::get('/Pay','OrderController@pay')->name('Pay');
+                    // 支付成功
+                    Route::get('/Success','OrderController@success')->name('Success');
+                // 退款售后
+                Route::get('/Change','ChangeController@index')->name('Change');
+                    // 钱款去向
+                    Route::get('/Record','ChangeController@create')->name('Record');
+            });
+            // 我的资产
+            Route::group(['namespace'=>'Assets','prefix' => 'Assets'], function () {
+                // 优惠券
+                Route::get('/Coupon','CouponController@index')->name('Coupon');                
+                // 红包
+                Route::get('/Bonus','BonusController@index')->name('Bonus');                
+                // 账单明细
+                Route::get('/Bill','BillController@index')->name('Bill');
+                // 查看详情
+                Route::get('/BillList','BillController@billList')->name('BillList');  
+            });
+            // 我的小窝
+            Route::group(['namespace'=>'Aboutmy','prefix' => 'Aboutmy'], function () {
+                // 收藏
+                Route::get('/Collection','CollectionController@index')->name('Collection');
+                // 足迹
+                Route::get('/Foot','FootController@index')->name('Foot');
+                // 评价
+                Route::get('/Comment','CommentController@index')->name('Comment');
+                // 消息
+                Route::get('/News','NewsController@index')->name('News');
+                // 新闻
+                Route::get('/Blog','NewsController@blog')->name('Blog');                
+            });
+        });
+        // 详情
+        Route::group(['namespace'=>'Details','prefix' => 'Details'], function () {
+            // 搜索详情
+            Route::get('/Search','SearchController@index')->name('Search');
+            // 商品详情
+            Route::get('/Introduction','IntroductionController@index')->name('Introduction');            
+        });
+        // 购物车
+        Route::get('/Shopcart','Shopcart\ShopcartController@index')->name('Shopcart');
     });
 // Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');
