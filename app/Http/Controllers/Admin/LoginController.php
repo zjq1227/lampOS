@@ -2,107 +2,51 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Hash;
+use DB;
 
 class LoginController extends Controller
 {
-    /*
-    |--------------------------------------------------------------------------
-    | Login Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller handles authenticating users for the application and
-    | redirecting them to your home screen. The controller uses a trait
-    | to conveniently provide its functionality to your applications.
-    |
-    */
-
-    use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = '/admin';
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    //class LoginController extends Controller
+    public function index()
     {
-        $this->middleware('guest:admin')->except('logout');
-    }
-
-    public function showLoginForm()
-    {
-        return view('admin.login');
-    }
-
-    protected function guard()
-    {
-        return auth()->guard('admin');
-    }
-
-    /**
-     * 后台管理员退出跳转到后台登录页面
-     * Log the user out of the application.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function logout(Request $request)
-    {
-        $this->guard()->logout();
-
-        $request->session()->invalidate();
-
-        return redirect('/admin/login');
-    }
-    protected function attemptLogin(Request $request)
-    {
-        $username = $request->input('username');
-        $password = $request->input('password');
-
-        // 验证用户名登录方式
-        $usernameLogin = $this->guard()->attempt(
-            ['name' => $username, 'password' => $password], $request->has('remember')
-        );
-        if ($usernameLogin) {
-            return true;
+        if(\Auth::check()) {
+           
         }
-        // 验证手机号登录方式
-        $mobileLogin = $this->guard()->attempt(
-            ['mobile' => $username, 'password' => $password], $request->has('remember')
-        );
-        if ($mobileLogin) {
-            return true;
-        }
-
-        // 验证邮箱登录方式
-        $emailLogin = $this->guard()->attempt(
-            ['email' => $username, 'password' => $password], $request->has('remember')
-        );
-        if ($emailLogin) {
-            return true;
-        }
-        return false;
+        // 显示
+        return view("admin.login");
     }
 
-    protected function validateLogin(Request $request)
+    public function dologin(Request $request)
     {
-        $request->validate([
-            $this->username() => 'required|string',
-            'password' => 'required|string',
-        ]);
-    }
 
-    public function username()
-    {
-        return 'username';
+    	// dump($request->all());
+    	// 信息的获取
+    	$username = $request ->input('username','');
+    	$userpwd = $request -> input('userpwd','');
+    	//用户名的判断
+
+
+   		$userinfo = DB::table('user')->where('username',$username)->first();
+   		// dump($userinfo);
+   		if(!$userinfo){
+			echo "<script>alert('用户名或者密码错误');location.href='/admin/login';</script>";   			
+   			exit;
+   		}
+
+
+   		// 验证密码正确
+   		if (!Hash::check($userpwd, $userinfo->userpwd)) {
+   		    echo "<script>alert('用户名或者密码错误');location.href='/admin/login';</script>";   			
+      			exit;
+   		}
+		//登录成功
+		session(['admin_login'=>true]);
+		session(['admin_userinfo'=>$userinfo]);
+
+		//跳转
+		return redirect('admin/index');
     }
 }

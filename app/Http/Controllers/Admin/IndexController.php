@@ -9,6 +9,7 @@ use Illuminate\Support\ViewErrorBag;
 class IndexController extends Controller
 {
     public function Index(){
+    	// dd (session('admin_userinfo'));
         return view('admin.index');
     }
 }

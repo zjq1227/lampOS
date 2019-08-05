@@ -50,10 +50,10 @@
          <div class="side_list"><div class="widget-header header-color-green2"><h4 class="lighter smaller">管理员分类列表</h4></div>
          <div class="widget-body">
            <ul class="b_P_Sort_list">
-           <li><i class="fa fa-users green"></i> <a href="">全部管理员</a></li>
+           <li><i class="fa fa-users green"></i> <a href="{{route('Uadmin_Istrator')}}">全部管理员</a></li>
             <li><i class="fa fa-users orange"></i> <a href="{{route('Uadmin_Istrator0')}}">超级管理员</a></li>
             <li><i class="fa fa-users orange"></i> <a href="{{route('Uadmin_Istrator1')}}">普通管理员</a></li>
-            <li><i class="fa fa-users orange"></i> <a href="{{route('Uadmin_Istrator2')}}">产品编辑管理员</a></li>
+            <li><i class="fa fa-users orange"></i> <a href="#">产品编辑管理员</a></li>
            </ul>
         </div>
        </div>
@@ -76,14 +76,14 @@
 			</tr>
 		</thead>
 	<tbody>
-      @foreach ($users as $k=>$v)
+      @foreach ($auth2 as $k=>$v)
       <tr>
       <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
       <td>{{ $v->id -1}}</td>
       <td>{{ $v->username }}</td>
       <td>{{  $v->tel }}</td>
       <td>{{ $v->email }}</td>
-      <td>
+     <td>
       @if (($v->sex)==1 )
 		男
 	  @elseif (($v->sex)==0)
@@ -105,7 +105,7 @@
 	  @elseif (($v->path)==0)
 	    停用
 	  @endif</span></td>
-      <td class="td-manage">
+       <td class="td-manage">
         <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>  
         <a title="编辑" href="{{route('Uadmin_Istrator_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>       
         <form action="{{route('Uadmin_userdel',array('id'=>$v->id))}}"  method="post" style="display: inline;">
@@ -115,7 +115,7 @@
         </a>
        </td>
        </form>
-     </tr> 
+     </tr>
      @endforeach 
     </tbody>
     </table>

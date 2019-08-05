@@ -194,7 +194,7 @@ $('.change_Password').on('click', function(){
 	 icon:2,
     }, 
 	function(){
-	  location.href="login.html";
+	  location.href="{{route('loginout')}}";
         
     });
 });

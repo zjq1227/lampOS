@@ -14,9 +14,12 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
     Route::group(['prefix' => 'admin'], function () { 
             Route::get('/index', 'Admin\IndexController@index');
             Route::get('/home', 'Admin\HomeController@index')->name('home');
+            Route::get('/login','Admin\LoginController@index')->name('loginout');
+            Route::post('/login/dologin','Admin\LoginController@dologin');
             // 会员管理
             Route::group(['prefix' => 'Umember'], function () {
                 // 会员列表
@@ -28,6 +31,8 @@ Route::get('/', function () {
             });
             // 管理员管理
             Route::group(['prefix' => 'Uadmin'], function () {
+                
+
                 // 权限管理
                 Route::get('/UadminCompetence','Admin\Uadmin\UadminCompetenceController@index')->name('Uadmin_Competence');
                 // 权限管理添加
@@ -36,9 +41,15 @@ Route::get('/', function () {
                 Route::get('/UadminCompetence_upload','Admin\Uadmin\UadminCompetenceController@uploadList')->name('Competence_Upload');
                 // 管理员列表
                 Route::get('/UadminIstrator','Admin\Uadmin\UadminIstratorController@index')->name('Uadmin_Istrator');
+                Route::get('/UadminIstrator0','Admin\Uadmin\UadminIstratorController@index0')->name('Uadmin_Istrator0');
+                Route::get('/UadminIstrator1','Admin\Uadmin\UadminIstratorController@index1')->name('Uadmin_Istrator1');
+                Route::get('/UadminIstrator2','Admin\Uadmin\UadminIstratorController@index2')->name('Uadmin_Istrator2');
                 // 管理员列表修改
                 Route::get('/UadminIstrator_Upload','Admin\Uadmin\UadminIstratorController@uploadList')->name('Uadmin_Istrator_Upload');
-
+                //管理员添加
+                 Route::post('/UadminIstrator/useradd','Admin\Uadmin\UadminIstratorController@useradd')->name('Uadmin_Istrator_add');
+                //
+                Route::post('/UadminIstrator/userdel/{id}','Admin\Uadmin\UadminIstratorController@userdel')->name('Uadmin_userdel'); 
                 // 个人信息
                 Route::get('/UadminInfo','Admin\Uadmin\UadminIstratorController@index')->name('Uadmin_Info');
 
@@ -102,7 +113,7 @@ Route::get('/', function () {
                 Route::get('Management','Admin\Payment\PaymentManagementController@index')->name('Management');
                 // 
                 Route::get('Details','Admin\Payment\PaymentManagementController@addList')->name('Details');
-                // 支付方式
+                // 支付方式z
                 Route::get('Method','Admin\Payment\PaymentMethodController@index')->name('Method');
                 // 支付配置
                 Route::get('Configure','Admin\Payment\PaymentConfigureController@index')->name('Configure');

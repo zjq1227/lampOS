@@ -77,7 +77,7 @@
                                             <i class="icon-double-angle-right"></i>权限管理</a>
                                     </li>
                                     <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Uadmin_Istrator')}}" title="管理员列表" class="iframeurl">
+                                        <a href="javascript:void(0)" name="{{ route('Uadmin_Istrator') }}" title="管理员列表" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>管理员列表</a>
                                     </li>
                                     <li class="home">

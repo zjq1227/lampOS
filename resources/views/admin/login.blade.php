@@ -52,13 +52,23 @@
 
 											<div class="login_icon"><img src={{asset("admin/images/login.png")}} /></div>
 
-										<form method="post" class="layui-form">
-												<fieldset>
-										<ul>
-   <li class="frame_style form_error"><label class="user_icon"></label><input name="username" type="text"  id="username" lay-verify="required"/><i>用户名</i></li>
-   <li class="frame_style form_error"><label class="password_icon"></label><input name="password" type="password"   id="userpwd" lay-verify="required"/><i>密码</i></li>
-   <li class="frame_style form_error"><label class="Codes_icon"></label><input type="text" class="form-control {{$errors->has('captcha')?'parsley-error':''}}" id="Codes_text" name="captcha" placeholder=""><i>验证码</i><div class="Codes_region"><img src="{{captcha_src()}}" style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()"></div></li>
-    @if($errors->has('captcha'))
+						<form method="post" action="/admin/login/dologin" class="layui-form">
+						{{csrf_field()}}
+								<fieldset>
+						<ul>
+					   <li class="frame_style form_error">
+					   		<label class="user_icon"></label>
+					   		<input name="username" type="text"  id="username" lay-verify="required"/><i>用户名</i>
+					   	</li>
+					   <li class="frame_style form_error">
+					   		<label class="password_icon"></label>
+					   		<input name="userpw" type="password"   id="userpwd" lay-verify="required"/><i>密码</i>
+					   	</li>
+					<!--    <li class="frame_style form_error">
+					   		<label class="Codes_icon"></label>
+					   		<input type="text" class="form-control {{$errors->has('captcha')?'parsley-error':''}}" id="Codes_text" name="captcha" placeholder=""><i>验证码</i><div class="Codes_region"><img src="{{captcha_src()}}" style="cursor: pointer" onclick="this.src='{{captcha_src()}}'+Math.random()"></div>
+					   	</li>
+ -->    @if($errors->has('captcha'))
         <div class="col-md-12">
             <p class="text-danger text-left"><strong>{{$errors->first('captcha')}}</strong></p>
         </div>
