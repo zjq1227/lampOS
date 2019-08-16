@@ -9,7 +9,18 @@ use Illuminate\Support\ViewErrorBag;
 class IndexController extends Controller
 {
     public function Index(){
+    	// dump($cc);
     	// dd (session('admin_userinfo'));
-        return view('admin.index');
+        if(session('admin_userinfo') == null){
+        	return redirect('admin/login');
+        }else{
+       		return view('admin/index');
+        }
+
     }
+    public function indexout()
+    {
+        session()->flush('admin_userinfo');
+       return redirect('admin/login');
+     }
 }

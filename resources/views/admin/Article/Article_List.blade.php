@@ -143,7 +143,7 @@ $('#add_page').on('click', function(){
     parent.$('#parentIframe').html(cname);
     parent.$('#iframe').attr("src",chref).ready();;
 	parent.$('#parentIframe').css("display","inline-block");
-	parent.$('.Current_page').attr({"name":herf,"href":"javascript:void(0)"}).css({"color":"#4c8fbd","cursor":"pointer"});
+	parent.$('.Current_page').attr({"name":herf,"href":""}).css({"color":"#4c8fbd","cursor":"pointer"});
 	//parent.$('.Current_page').html("<a href='javascript:void(0)' name="+herf+" class='iframeurl'>" + cnames + "</a>");
     parent.layer.close(index);
 	

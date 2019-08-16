@@ -194,8 +194,7 @@ $('.change_Password').on('click', function(){
 	 icon:2,
     }, 
 	function(){
-	  location.href="{{route('loginout')}}";
-        
+	  location.href="{{route('loginout')}}";  
     });
 });
 });
@@ -221,7 +220,7 @@ function link_operating(name,title){
 			</script>
 			<div class="navbar-container" id="navbar-container">
 				<div class="navbar-header pull-left">
-					<a href="https://item.taobao.com/item.htm?id=539837098284" class="navbar-brand">
+					<a href="3" class="navbar-brand">
 						<small>					
 						<img src={{asset("Admin/images/logo.png")}} width="470px">
 						</small>
@@ -234,7 +233,15 @@ function link_operating(name,title){
                <ul class="nav ace-nav">	
                 <li class="light-blue">
 				<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-				 <span  class="time"><em id="time"></em></span><span class="user-info"><small>欢迎光临,</small>超级管理员</span>
+
+				 
+		@if (session('admin_login'))
+				 <span  class="time"><em id="time"></em></span><span class="user-info"><small>
+                        {{session('admin_userinfo')->uname}} </small>你好,</span>
+                 @elseif (!session('admin_login'))
+                 </em></span><span class="user-info"><small>
+                        </small>亲，请登录</span>
+                 @endif
 				 <i class="icon-caret-down"></i>
 				</a>
 				<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">

@@ -35,23 +35,19 @@
    <ul class="state-overview clearfix">
     <li class="Info">
      <span class="symbol red"><i class="fa fa-jpy"></i></span>
-     <span class="value"><h4>交易金额</h4><p class="Quantity color_red">34565.68</p></span>
+     <span class="value"><h4>交易金额</h4><p class="Quantity color_red">{{$counts}}</p></span>
     </li>
      <li class="Info">
      <span class="symbol  blue"><i class="fa fa-shopping-cart"></i></span>
-     <span class="value"><h4>订单数量</h4><p class="Quantity color_red">5656</p></span>
+     <span class="value"><h4>订单数量</h4><p class="Quantity color_red">{{$orders0}}</p></span>
     </li>
      <li class="Info">
      <span class="symbol terques"><i class="fa fa-shopping-cart"></i></span>
-     <span class="value"><h4>交易成功</h4><p class="Quantity color_red">34565</p></span>
+     <span class="value"><h4>交易成功</h4><p class="Quantity color_red">{{$orders4}}</p></span>
     </li>
      <li class="Info">
      <span class="symbol yellow"><i class="fa fa-shopping-cart"></i></span>
-     <span class="value"><h4>交易失败</h4><p class="Quantity color_red">34</p></span>
-    </li>
-     <li class="Info">
-     <span class="symbol darkblue"><i class="fa fa-jpy"></i></span>
-     <span class="value"><h4>退款金额</h4><p class="Quantity color_red">3441.68</p></span>
+     <span class="value"><h4>交易失败</h4><p class="Quantity color_red">{{$orders5}}</p></span>
     </li>
    </ul>
  
@@ -124,7 +120,7 @@
         {
             name:'所有订单',
             type:'bar',
-            data:[120, 49, 70, 232, 256, 767, 1356, 1622, 326, 200,164, 133],
+            data:[120, 49, 70, 232, 256, 767, 1356, 1622, {{$orders0}}, 200,164, 133],
             markPoint : {
                 data : [
                     {type : 'max', name: '最大值'},

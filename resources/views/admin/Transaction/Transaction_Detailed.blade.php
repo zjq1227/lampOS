@@ -33,65 +33,80 @@
  <div class="detailed_style">
  <!--收件人信息-->
     <div class="Receiver_style">
-     <div class="title_name">收件人信息</div>
+    @foreach ($orders as $k=>$v)
+     <div class="title_name">收件人信息 &nbsp; &nbsp; &nbsp;<a onclick="demo(this,{{$v->id}})" class="administrator_upd">修改：<i class="fa fa-edit bigger-120"></i></a></div>
      <div class="Info_style clearfix">
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 收件人姓名： </label>
-         <div class="o_content">张孝全</div>
+         <div class="o_content">{{$v->uname}}</div>
         </div>
         <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 收件人电话： </label>
-         <div class="o_content">16543432343</div>
+         <div class="o_content">{{$v->phone}}</div>
         </div>
          <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 收件地邮编： </label>
-         <div class="o_content">104545</div>
+         <div class="o_content">{{$v->Email}}</div>
         </div>
          <div class="col-xs-3">  
          <label class="label_name" for="form-field-2"> 收件地址： </label>
-         <div class="o_content">江苏南京市雨花台区郁金香软件大厦3懂3单元302室</div>
+         <div class="o_content">{{$v->acode}}</div>
         </div>
+        @endforeach
      </div>
     </div>
     <!--订单信息-->
     <div class="product_style">
     <div class="title_name">产品信息</div>
+    @foreach ($item as $k=>$v)
     <div class="Info_style clearfix">
-      <div class="product_info clearfix">
-      <a href="#" class="img_link"><img src={{asset("admin/products/p_3.jpg")}} /></a>
-      <span>
-      <a href="#" class="name_link">美果汇 美国进口嘎啦果苹果6粒装 加力果 姬娜果 伽利果 新鲜应季水果</a>
-      <b>也称为姬娜果，饱满色艳，个头小</b>
-      <p>规格：500g/斤</p>
-      <p>数量：2kg</p>
-      <p>价格：<b class="price"><i>￥</i>56</b></p>  
-      <p>状态：<i class="label label-success radius">有货</i></p>   
-      </span>
-      </div>
       <div class="product_info clearfix">
       <a href="#" class="img_link"><img src={{asset("admin/products/p_5.jpg")}} /></a>
       <span>
-      <a href="#" class="name_link">美果汇 美国进口嘎啦果苹果6粒装 加力果 姬娜果 伽利果 新鲜应季水果</a>
+      <a href="#" class="name_link">{{$v->goods}}</a>
       <b>也称为姬娜果，饱满色艳，个头小</b>
       <p>规格：39.9/5kg</p>
-      <p>数量：2</p>
-      <p>价格：<b class="price"><i>￥</i>69.9</b></p>  
-      <p>状态：<i class="label label-success radius">有货</i></p>   
+      <p>数量：{{$v->nums}}</p>
+      <p>价格：<b class="price"><i>￥</i>{{$v->price}}</b></p>  
+      <p>状态：<i class="label label-success radius">
+           @if (($v->state)=="1")
+           新上货
+           @elseif (($v->state)=='2')
+           在售中
+           @elseif (($v->state)=='3')
+           下架
+           @endif</i></p>
+           &nbsp; &nbsp; &nbsp;<a onclick="demoint(this,{{$v->id}})" class="administrator_upd">修改：<i class="fa fa-edit bigger-120"></i></a>
       </span>
       </div>
-       <div class="product_info clearfix">
-      <a href="#" class="img_link"><img src={{asset("admin/products/p_8.jpg")}}/></a>
-      <span>
-      <a href="#" class="name_link">美果汇 美国进口嘎啦果苹果6粒装 加力果 姬娜果 伽利果 新鲜应季水果</a>
-      <b>也称为姬娜果，饱满色艳，个头小</b>
-      <p>规格：500g/斤</p>
-      <p>数量：2kg</p>
-      <p>价格：<b class="price"><i>￥</i>56</b></p>  
-      <p>状态：<i class="label label-success radius">有货</i></p>   
-      </span>
-      </div>
+      @endforeach
     </div>
     </div>
+<script>
+function demoint(obj,id){
+      var action = '{{Url("admin/Transaction/Detaiupd/")}}'+'/'+id;
+      document.getElementById('form-admin-upd').setAttribute('action',action);
+          layer.open({
+          type: 1,
+          title:'修改订单',
+          area: ['600px',''],
+          shadeClose: false,
+          content: $('#add_administratorupd_style'),
+          });
+    };
+function demo(obj,id){
+      var action = '{{Url("admin/Transaction/Adress/")}}'+'/'+id;
+      document.getElementById('form-admin-drs').setAttribute('action',action);
+          layer.open({
+          type: 1,
+          title:'修改订单',
+          area: ['600px',''],
+          shadeClose: false,
+          content: $('#add_administratorupd_style01'),
+          });
+    };
+</script>
+
     <!--总价-->
     <div class="Total_style">
      <div class="Info_style clearfix">
@@ -164,14 +179,57 @@
         </div>
     </div>
     </div>
-<div class="Button_operation">
-				<button onclick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="icon-save "></i>返回上一步</button>
-				
-				<button onclick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
-			</div>
-            
-            
+      
  </div>
 </div>
+    <div id="add_administratorupd_style"   style="display:none">
+        <form action="" method="post" enctype="multipart/form-data" id="form-admin-upd">
+              {{ csrf_field() }}
+           <div class="form-group">
+                <label class="form-label"><span class="c-red">*</span>数量：</label>
+                <div class="formControls">
+                  <input type="text" class="input-text" value="" placeholder="" id="num" name="num" datatype="*2-16" nullmsg="数量不能为空">
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+              </div>
+             <div class="form-group">  
+            </div>
+                <div class="col-4"> <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"> </div>
+              </div>
+              <div> 
+        </form>
+    </div>
+    <!--地址修改-->
+    <div id="add_administratorupd_style01"   style="display:none">
+        <form action="" method="post" enctype="multipart/form-data" id="form-admin-drs">
+              {{ csrf_field() }}
+           <div class="form-group">
+                <label class="form-label"><span class="c-red">*</span>收货人：</label>
+                <div class="formControls">
+                  <input type="text" class="input-text" value="" placeholder="" id="name" name="name" datatype="*10-26" nullmsg="请填写地址" style="width: 300px;">
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+            </div>
+            <div class="form-group">
+                <label class="form-label"><span class="c-red">*</span>手机号：</label>
+                <div class="formControls">
+                  <input type="text" class="input-text" value="" placeholder="" id="phone" name="phone" datatype="*10-26" nullmsg="请填写地址" style="width: 300px;">
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+            </div>
+           <div class="form-group">
+                <label class="form-label"><span class="c-red">*</span>地址：</label>
+                <div class="formControls">
+                  <input type="text" class="input-text" value="" placeholder="" id="acode" name="acode" datatype="*10-26" nullmsg="请填写地址" style="width: 300px;">
+                </div>
+                <div class="col-4"> <span class="Validform_checktip"></span></div>
+            </div>
+             <div class="form-group">  
+            </div>
+                <div class="col-4"> <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;"> </div>
+              </div>
+              <div> 
+        </form>
+    </div>
 </body>
 </html>

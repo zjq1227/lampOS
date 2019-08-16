@@ -45,28 +45,52 @@
                                     <i class="icon-home"></i>
                                     <span class="menu-text">系统首页</span></a>
                             </li>
+                            @if (session('admin_userinfo')->auth ==1)
                             <li>
-                                <a href="#" class="dropdown-toggle">
-                                    <i class="icon-user"></i>
-                                    <span class="menu-text">会员管理</span>
-                                    <b class="arrow icon-angle-down"></b>
-                                </a>
-                                <ul class="submenu">
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Umember')}}" title="会员列表" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>会员列表</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Umember_Grading')}}" title="等级管理" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>等级管理</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Umember_Record')}}" title="会员记录管理" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>会员记录管理</a>
-                                    </li>
-                                </ul>
-                            </li>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-user"></i>
+                                        <span class="menu-text">会员管理</span>
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Umember')}}" title="会员列表" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>会员列表</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Umember_Grading')}}" title="等级管理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>等级管理</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Umember_Record')}}" title="会员记录管理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>会员记录管理</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @elseif (session('admin_userinfo')->auth ==0)
                             <li>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-user"></i>
+                                        <span class="menu-text">会员管理</span>
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Umember')}}" title="会员列表" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>会员列表</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Umember_Grading')}}" title="等级管理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>等级管理</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @else
+
+                            @endif
+
+                            @if (session('admin_userinfo')->auth ==0)   
+                             <li>
                                 <a href="#" class="dropdown-toggle">
                                     <i class="icon-group"></i>
                                     <span class="menu-text">管理员管理</span>
@@ -83,7 +107,10 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li>
+                            @else
+
+                            @endif
+                               <li>
                                 <a href="#" class="dropdown-toggle">
                                     <i class="icon-desktop"></i>
                                     <span class="menu-text">产品管理</span>
@@ -121,78 +148,154 @@
                                     </li>
                                 </ul>
                             </li>
+                            @if (session('admin_userinfo')->auth ==1) 
                             <li>
-                                <a href="#" class="dropdown-toggle">
-                                    <i class="icon-list"></i>
-                                    <span class="menu-text">交易管理</span>
-                                    <b class="arrow icon-angle-down"></b>
-                                </a>
-                                <ul class="submenu">
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Transaction')}}" title="交易信息" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>交易信息</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Order_Chart')}}" title="交易订单（图）" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>交易订单(图)</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Orderform')}}" title="订单管理" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>订单管理</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Order_Amounts')}}" title="交易金额" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>交易金额</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Order_Handling')}}" title="订单处理" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>订单处理</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Refund')}}" title="退款管理" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>退款管理</a>
-                                    </li>
-                                </ul>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-list"></i>
+                                        <span class="menu-text">交易管理</span>
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Transaction')}}" title="交易信息" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>交易信息</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Order_Chart')}}" title="交易订单（图）" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>交易订单(图)</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Orderform')}}" title="订单管理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>订单管理</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Order_Amounts')}}" title="交易金额" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>交易金额</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Order_Handling')}}" title="订单处理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>订单处理</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Refund')}}" title="退款管理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>退款管理</a>
+                                        </li>
+                                    </ul>
                             </li>
+                                <li>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-credit-card"></i>
+                                        <span class="menu-text">支付管理</span>
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Management')}}" title="账户管理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>账户管理</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Method')}}" title="支付方式" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>支付方式</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Configure')}}" title="支付配置" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>支付配置</a>
+                                        </li>
+                                    </ul>
+                                </li>
                             <li>
-                                <a href="#" class="dropdown-toggle">
-                                    <i class="icon-credit-card"></i>
-                                    <span class="menu-text">支付管理</span>
-                                    <b class="arrow icon-angle-down"></b>
-                                </a>
-                                <ul class="submenu">
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Management')}}" title="账户管理" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>账户管理</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Method')}}" title="支付方式" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>支付方式</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Configure')}}" title="支付配置" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>支付配置</a>
-                                    </li>
-                                </ul>
-                            </li>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-laptop"></i>
+                                        <span class="menu-text">店铺管理</span>
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Shop_List')}}" title="店铺列表" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>店铺列表</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Shop_Audit')}}" title="店铺审核" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>店铺审核
+                                                <span class="badge badge-danger">5</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @elseif (session('admin_userinfo')->auth ==0)
                             <li>
-                                <a href="#" class="dropdown-toggle">
-                                    <i class="icon-laptop"></i>
-                                    <span class="menu-text">店铺管理</span>
-                                    <b class="arrow icon-angle-down"></b>
-                                </a>
-                                <ul class="submenu">
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Shop_List')}}" title="店铺列表" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>店铺列表</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Shop_Audit')}}" title="店铺审核" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>店铺审核
-                                            <span class="badge badge-danger">5</span></a>
-                                    </li>
-                                </ul>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-list"></i>
+                                        <span class="menu-text">交易管理</span>
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Transaction')}}" title="交易信息" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>交易信息</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Order_Chart')}}" title="交易订单（图）" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>交易订单(图)</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Orderform')}}" title="订单管理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>订单管理</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Order_Amounts')}}" title="交易金额" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>交易金额</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Order_Handling')}}" title="订单处理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>订单处理</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Refund')}}" title="退款管理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>退款管理</a>
+                                        </li>
+                                    </ul>
                             </li>
+                                <li>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-credit-card"></i>
+                                        <span class="menu-text">支付管理</span>
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Management')}}" title="账户管理" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>账户管理</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Method')}}" title="支付方式" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>支付方式</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Configure')}}" title="支付配置" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>支付配置</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <li>
+                                    <a href="#" class="dropdown-toggle">
+                                        <i class="icon-laptop"></i>
+                                        <span class="menu-text">店铺管理</span>
+                                        <b class="arrow icon-angle-down"></b>
+                                    </a>
+                                    <ul class="submenu">
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Shop_List')}}" title="店铺列表" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>店铺列表</a>
+                                        </li>
+                                        <li class="home">
+                                            <a href="javascript:void(0)" name="{{route('Shop_Audit')}}" title="店铺审核" class="iframeurl">
+                                                <i class="icon-double-angle-right"></i>店铺审核
+                                                <span class="badge badge-danger">5</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            @elseif (session('admin_userinfo')->auth ==2)
+                            @endif
                             <li>
                                 <a href="#" class="dropdown-toggle">
                                     <i class="icon-comments-alt"></i>
@@ -225,8 +328,14 @@
                                         <a href="javascript:void(0)" name="{{route('Article_Sort')}}" title="分类管理" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>分类管理</a>
                                     </li>
+                                     <li class="home">
+                                        <a href="javascript:void(0)" name="{{route('Article_pen')}}" title="友情链接" class="iframeurl">
+                                            <i class="icon-double-angle-right"></i>友情链接</a>
+                                    </li>
                                 </ul>
                             </li>
+
+                            @if (session('admin_userinfo')->auth ==0) 
                             <li>
                                 <a href="#" class="dropdown-toggle">
                                     <i class="icon-cogs"></i>
@@ -248,6 +357,9 @@
                                     </li>
                                 </ul>
                             </li>
+                            @else
+
+                            @endif
                         </ul>
                     </div>
                     <script type="text/javascript">$("#menu_style").niceScroll({
