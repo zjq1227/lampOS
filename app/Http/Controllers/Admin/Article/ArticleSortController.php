@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Admin\Article;
-
+use DB;
+use  App\Models\article_type;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,13 +15,16 @@ class ArticleSortController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin.Article.Article_Sort');
+        //从表中拿取数据
+        $configs = DB::table('article_type')->get();
+        $count = DB::table('article_type')->count();
+        // dd($count);
+        $num = 1;
+        return view('admin.Article.Article_Sort', ['configer' => $configs])->with('num',$num)->with('counts',$count);
+        
     }
 
-    public function addList(){
-        return view('admin.Article.Article_Sort_Add');
-    }
+   
     public function uploadList(){
         return view('admin.Article.Article_Sort_Upload');
     }
@@ -29,9 +33,28 @@ class ArticleSortController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request  $request)
     {
-        //
+        //接受数据准备添加
+        // dd($request->input());
+        $tname = $request->input('tname');
+        $jianjie = $request->input('jianjie');
+        $status = $request->input('status');
+        $created_at = date('YmdHis',time());
+        $updated_at = date('YmdHis',time());
+        $arr=['tname'=>$tname,'jianjie'=>$jianjie,'status'=>$status,'created_at'=>$created_at,'updated_at'=>$updated_at];
+
+    	// dd($arr);
+		$add = DB::table('article_type')->insert($arr);
+        // return redirect('Admin/Article/Sort');
+        if($add){
+            // DB::commit();
+            return redirect('admin/Article/Sort')->with('success', '添加成功');
+        }else{
+            // DB::rollBack();
+            return back()->with('error', '添加失败');
+        }
+
     }
 
     /**
@@ -40,11 +63,7 @@ class ArticleSortController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
+    
     /**
      * Display the specified resource.
      *
@@ -74,10 +93,36 @@ class ArticleSortController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        //获取修改数据
+        $id=$request->id;
+        $status=$request->status;
+        $update = DB::update("update article_type set status=? where id=?",[$status,$id]);
+        // $delete1 = DB::table('replays')->where('Pid',$request->id)->delete();
+       // echo $request;
+        if($update){
+            echo 1;
+        }else{
+            echo 0;
+        }
     }
+    public function store($id)
+    {
+        //获取删除的id
+        // dump($id);
+        $del = DB::table('article_type')->where('id',$id)->delete();
+        $del2 = DB::table('article')->where('type',$id)->delete();
+        // dd($del);
+        if($del){
+            // DB::commit();
+            return back()->with('success', '删除成功');
+        }else{
+            // DB::rollBack();
+            return back()->with('error', '删除失败');
+        }
+    }
+
 
     /**
      * Remove the specified resource from storage.

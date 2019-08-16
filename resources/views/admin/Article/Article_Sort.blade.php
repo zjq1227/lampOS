@@ -25,14 +25,30 @@
 </head>
 
 <body>
+     <!-- 读取 提示 消息 -->
+ @if (session('success'))
+ <div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong> {{ session('success') }}!</strong> 
+</div>
+@endif
+@if (session('error'))
+<div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong> {{ session('error') }}!</strong> 
+    </div>
+@endif
+@section('content')
+@show
 <div class="margin clearfix">
  <div class="sort_style">
   <div class="border clearfix">
        <span class="l_f">
         <a href="javascript:ovid()"id="add_page" class="btn btn-warning" onclick="add_article_sort()"><i class="fa fa-plus"></i> 添加分类</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a>
+        <a href="javascript:location.replace(location.href);" class="btn btn-success"><i class="fa fa-plus"></i> 点击刷新</a>
+        {{-- <a class=""  href="javascript:location.replace(location.href);" title="刷新" > --}}
        </span>
-       <span class="r_f">共：<b>5</b>分类</span>
+       <span class="r_f">共：<b>{{ $counts }}</b>分类</span>
      </div>
      <!--分类类表-->
      <div class="article_sort_list">
@@ -41,67 +57,43 @@
 		 <tr>
 				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 				<th width="80px">ID</th>
-                <th width="80px">排序</th>
-				<th width="150px">分类名称</th>
-				<th width="">简介</th>
+                <th width="80px">分类名</th>
+				<th width="150px">分类简介</th>
+				{{-- <th width="">简介</th> --}}
 				<th width="150px">添加时间</th>
                 <th width="80px">状态</th>                
 				<th width="150px">操作</th>
 			</tr>
 		</thead>
         <tbody>
+            @foreach ($configer as $k)
          <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1234</td>
-          <td>1</td>
-          <td>帮助中心</td>
-          <td class="displayPart" displayLength="60">帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心</td>
-          <td>2016-7-25</td>
-          <td>启用</td>          
-          <td class="td-manage">   
-           <a title="编辑" href="{{route('Article_Sort_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-         </tr>
-          <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1234</td>
-          <td>1</td>
-          <td>帮助中心</td>
-          <td class="displayPart" displayLength="60">帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心</td>
-          <td>2016-7-25</td>
-          <td>启用</td>          
-          <td class="td-manage">   
-           <a title="编辑" href="{{route('Article_Sort_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'3')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-         </tr>
-          <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1234</td>
-          <td>1</td>
-          <td>帮助中心</td>
-          <td class="displayPart" displayLength="60">帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心</td>
-          <td>2016-7-25</td>
-          <td>启用</td>          
-          <td class="td-manage">   
-           <a title="编辑" href="{{route('Article_Sort_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'4')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-         </tr>
-          <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1234</td>
-          <td>1</td>
-          <td>帮助中心</td>
-          <td class="displayPart" displayLength="60">帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心</td>
-          <td>2016-7-25</td>
-          <td>启用</td>          
-          <td class="td-manage">   
-           <a title="编辑"  href="{{route('Article_Sort_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'5')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-         </tr>
+          <td>{{ $num++ }}</td>
+          <td>{{ $k->tname }}</td>
+          <td>{{ $k->jianjie }}</td>
+          {{-- <td class="displayPart" displayLength="60">帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心帮助中心</td> --}}
+          <td>{{ $k->created_at }}</td>
+          
+            @if ( $k->status == 1)
+            <td class="td-status">
+                <span class="label label-success radius">已启用</span>
+            </td>    
+            <td class="td-manage">   
+                <a style="text-decoration:none" class="btn btn-xs btn-success" onClick="member_stop(this,{{ $k->id }})" href="javascript:;" title="停用"><i class="fa fa-check bigger-120"></i></a>
+                {{-- <a title="删除" href="{{route('Article_Del').'/'.$k->id}}"   class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a> --}}
+            </td>
+            @else
+            <td class="td-status">
+                <span class="label label-default radius">已关闭</span>
+            </td>
+            <td class="td-manage">   
+              <a style="text-decoration:none" class="btn btn-xs " onClick="member_start(this,{{ $k->id }})" href="javascript:;" title="启用"><i class="fa fa-close bigger-120"></i></a>
+              {{-- <a title="删除" href="{{route('Article_Del').'/'.$k->id}}"   class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a> --}}
+            </td>
+            @endif
+         </tr>   
+         @endforeach
         </tbody>
         </table>
      </div>
@@ -109,19 +101,30 @@
 </div>
 <!--添加文章分类图层-->
 <div id="addsort_style" style="display:none" class="article_style">
+    <form class="mws-form" action="{{route('Article_Create')}}" method="post" enctype="multipart/form-data">
+      {{ csrf_field() }}
  <div class="add_content" id="form-article-add">
     <ul>
      <li class="clearfix Mandatory"><label class="label_name"><i>*</i>分类名称</label>
-     <span class="formControls w_txt"><input name="分类名称" type="text" id="form-field-1" class="col-xs-7 col-sm-5 "></span>
+     <span class="formControls w_txt"><input name1="分类名称" name="tname" type="text" id="form-field-1" class="col-xs-7 col-sm-5 "></span>
      </li>
-     <li class="clearfix"><label class="label_name">排序</label>
-     <span class="formControls w_txt"><input name="排序" type="text" id="form-field-1" value="0" class="col-xs-7 col-sm-2 "></span>
+     <li class="clearfix"><label class="label_name">分类简介</label>
+     <span class="formControls w_txt">
+       <input name1="简介" name="jianjie" type="text" id="form-field-1" value="" class="col-xs-7 col-sm-5 ">
+      </span>
      </li>
-     <li class="clearfix"><label class="label_name">简介</label>
-     <span class="formControls w_txt"><textarea name="权限描述" class="form-control" id="form_textarea" placeholder="" onkeyup="checkLength(this);"></textarea><span  style=" margin-left:10px;">剩余字数：<span id="sy" style="color:Red;">200</span>字</span></span>
-     </li>
+     <li class="clearfix"><label class="label_name">状态</label><span class="add_name"> <span class="formControls w_txt">
+        <label><input name="status" type="radio"  value="1" class="ace"><span class="lbl">开启</span></label>&nbsp;&nbsp;&nbsp;
+        <label><input name="status" type="radio" value="2" class="ace"><span class="lbl" >关闭</span></label></span><div class="prompt r_f"></div>
+      </li>
+      <li class="clearfix"><span class="formControls w_txt">
+        <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">
+        </span>
+      </li>
+       </ul>
     </ul>
  </div>
+    </form>
 </div>
 </body>
 </html>
@@ -152,7 +155,7 @@ $(function() {
 		shadeClose: true, //点击遮罩关闭层
         area : ['600px' , ''],
         content:$('#addsort_style'),
-		btn:['提交','取消'],
+		// btn:['提交','取消'],
 		yes:function(index,layero){
 			 var num=0;
 		 var str="";
@@ -160,7 +163,7 @@ $(function() {
           if($(this).val()=="")
           {
                
-			   layer.alert(str+=""+$(this).attr("name")+"不能为空！\r\n",{
+			   layer.alert(str+=""+$(this).attr("name1")+"不能为空！\r\n",{
                 title: '提示框',				
 				icon:0,								
           }); 
@@ -180,11 +183,51 @@ $(function() {
 		}
 	 })	 	 
 }
-/*文章-删除*/
-function member_del(obj,id){
-	layer.confirm('确认要删除吗？',{icon:0,},function(index){
-		$(obj).parents("tr").remove();
-		layer.msg('已删除!',{icon:1,time:1000});
+/*栏目-停用*/
+function member_stop(obj,id){
+	layer.confirm('确认要停用该栏目吗？',function(index){
+    $.ajax({
+				type:'GET',
+				url:"{{route('Article_Update')}}",
+				data:{'id':id,'status':2},
+				dataType:'json',
+				success: function(data){
+		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs " onClick="member_start(this,{{ $k->id }})" href="javascript:;" title="启用"><i class="fa fa-close bigger-120"></i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">停用</span>');
+		$(obj).remove();
+		layer.msg('停用!',{icon: 5,time:1000});
+  },
+				error:function(data) {
+					console.log(data.msg);
+				}
+			});		
 	});
 }
+/*栏目-启用*/
+function member_start(obj,id){
+	layer.confirm('确认要启用该栏目吗？',function(index){
+    $.ajax({
+				type:'GET',
+				url:"{{route('Article_Update')}}",
+				data:{'id':id,'status':1},
+				dataType:'json',
+				success: function(data){
+		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs btn-success" onClick="member_stop(this,{{ $k->id }})" href="javascript:;" title="停用"><i class="fa fa-check bigger-120"></i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">启用</span>');
+		$(obj).remove();
+		layer.msg('启用!',{icon: 6,time:1000});
+  },
+				error:function(data) {
+					console.log(data.msg);
+				}
+			});		
+	});
+}
+/*文章-删除*/
+// function member_del(obj,id){
+// 	layer.confirm('确认要删除吗？',{icon:0,},function(index){
+// 		$(obj).parents("tr").remove();
+// 		layer.msg('已删除!',{icon:1,time:1000});
+// 	});
+// }
 </script>

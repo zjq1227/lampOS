@@ -1,3 +1,4 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -30,70 +31,58 @@
 
 <body>
 <div class="margin clearfix">
+   <!-- 读取 提示 消息 -->
+ @if (session('success'))
+ <div class="mws-form-message success">
+     {{ session('success') }}
+ </div>
+@endif
+@if (session('error'))
+ 
+<div class="alert alert-danger alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>修改失败!</strong> 
+  </div>
+@endif
+@section('content')
+@show
  <div class="stystems_style">
   <div class="tabbable">
 	<ul class="nav nav-tabs" id="myTab">
 	  <li class="active">
 		<a data-toggle="tab" href="#home"><i class="green fa fa-home bigger-110"></i>&nbsp;基本设置</a></li>
-      <li class="">
-		<a data-toggle="tab" href="#profile">消息通知<span class="badge badge-danger">4</span></a></li>
-      <li class="">
-		<a data-toggle="tab" data-toggle="dropdown" class="dropdown-toggle" href="#dropdown">底部菜单</a>
-      </li>
-        <li class="">
-		<a data-toggle="tab" data-toggle="dropdown" class="dropdown-toggle" href="#other">其他设置</a>
-      </li>
 	</ul>
     <div class="tab-content">
+    <form class="mws-form" action="{{route('System_Create')}}" method="post" enctype="multipart/form-data">
+          {{ csrf_field() }}
+          @foreach ($configer as $k)
 		<div id="home" class="tab-pane active">
          <div class="form-group"><label class="col-sm-1 control-label no-padding-right" for="form-field-1"><i>*</i>网站名称： </label>
-          <div class="col-sm-9"><input type="text" id="website-title" placeholder="控制在25个字、50个字节以内" value="" class="col-xs-10 "></div>
+          <div class="col-sm-9"><input type="text" id="website-title" name="name" placeholder="控制在25个字、50个字节以内" value="{{ $k->name }}" class="col-xs-10 "></div>
           </div>
            <div class="form-group"><label class="col-sm-1 control-label no-padding-right" for="form-field-1"><i>*</i>网站icon图标： </label>
-          <div class="col-sm-9"><input type="file" id="id-input-file-2"  /></div>
+          <div class="col-sm-9"><input type="file" id="id-input-file-2" name="pic" /></div>
           </div>
           <div class="form-group"><label class="col-sm-1 control-label no-padding-right" for="form-field-1"><i>*</i>关键词： </label>
-          <div class="col-sm-9"><input type="text" id="website-title" placeholder="5个左右,8汉字以内,用英文,隔开" value="" class="col-xs-10 "></div>
+          <div class="col-sm-9"><input type="text" id="website-title" name="keyword" placeholder="5个左右,8汉字以内,用英文,隔开" value="{{ $k->keyword }}" class="col-xs-10 "></div>
           </div>
-	      <div class="form-group"><label class="col-sm-1 control-label no-padding-right" for="form-field-1"><i>*</i>文件路径配置： </label>
-          <div class="col-sm-9"><input type="text" id="website-title" placeholder="默认为空，为相对路径" value="" class="col-xs-10"></div>
-          </div>
+          <input type="hidden" name="id" value="{{ $k->id }}">
           <div class="form-group"><label class="col-sm-1 control-label no-padding-right" for="form-field-1"><i>*</i>描述： </label>
-          <div class="col-sm-9"><input type="text" id="website-title" placeholder="空制在80个汉字，160个字符以内" value="" class="col-xs-10"></div>
+          <div class="col-sm-9"><input type="text" id="website-title" name="miaoshu" placeholder="空制在80个汉字，160个字符以内" value="{{ $k->miaoshu }}" class="col-xs-10"></div>
           </div>
           <div class="form-group"><label class="col-sm-1 control-label no-padding-right" for="form-field-1"><i>*</i>底部版权信息： </label>
-          <div class="col-sm-9"><input type="text" id="website-title" placeholder="" value="" class="col-xs-10 "></div>
+          <div class="col-sm-9"><input type="text" id="website-title" name="banquan" placeholder="" value="{{ $k->miaoshu }}" class="col-xs-10 "></div>
           </div>
           <div class="form-group"><label class="col-sm-1 control-label no-padding-right" for="form-field-1"><i>*</i>备案号： </label>
-          <div class="col-sm-9"><input type="text" id="website-title" placeholder="" value="" class="col-xs-10 "></div>
-          </div>
-           <div class="form-group"><label class="col-sm-1 control-label no-padding-right" for="form-field-1"><i>*</i>统计代码： </label>
-          <div class="col-sm-9"><textarea class="textarea"></textarea></div>
+          <div class="col-sm-9"><input type="text" id="website-title" name="beian" placeholder="" value="{{ $k->beian }}" class="col-xs-10 "></div>
           </div>
           <div class="Button_operation"> 
-				<button onclick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="fa fa-save "></i>&nbsp;保存</button>
-				
-				<button onclick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
-               
-			</div>
-        </div>
-        <div id="profile" class="tab-pane ">
-        
-        </div>
-        <div id="dropdown" class="tab-pane">
-          
-		</div>
-		<div id="other" class="tab-pane">
-		   <div class="form-group"><label class="col-sm-1 control-label no-padding-right" for="form-field-1"><i>*</i>屏蔽词： </label>
-          <div class="col-sm-9"><textarea class="textarea"></textarea></div>          
-          </div>
-          <div class="Button_operation"> 
-				<button onclick="article_save_submit();" class="btn btn-primary radius" type="submit"><i class="fa fa-save "></i>&nbsp;保存</button>
-				
-				<button onclick="layer_close();" class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>
-               
-			</div>
-	    </div>
+				<button class="btn btn-primary radius" type="submit"><i class="fa fa-save "></i>&nbsp;更改</button>
+				{{-- <button  class="btn btn-default radius" type="button">&nbsp;&nbsp;取消&nbsp;&nbsp;</button>             --}}
+		  	</div>
+      </div>
+      @endforeach
+      </form>
 		</div>
 		</div>
  </div>

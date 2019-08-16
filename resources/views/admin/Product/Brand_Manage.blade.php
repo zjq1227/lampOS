@@ -34,25 +34,32 @@
 </head>
 
 <body>
+  <!-- 读取 提示 消息 -->
+  @if (session('success'))
+  <div class="alert alert-success alert-dismissible" role="alert">
+   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+   <strong> {{ session('success') }}!</strong> 
+ </div>
+ @endif
+ @if (session('error'))
+ <div class="alert alert-danger alert-dismissible" role="alert">
+       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+       <strong> {{ session('error') }}!</strong> 
+     </div>
+ @endif
+ @section('content')
+ @show   
 <div class="page-content clearfix">
   <div id="brand_style">
-    <div class="search_style">
-     
-      <ul class="search_content clearfix">
-       <li><label class="l_f">品牌名称</label><input name="" type="text"  class="text_add" placeholder="输入品牌名称"  style=" width:250px"/></li>
-       <li><label class="l_f">添加时间</label><input class="inline laydate-icon" id="start" style=" margin-left:10px;"></li>
-       <li><select name="" class="text_add"><option  value="1">国内品牌</option><option value="2">国外品牌</option></select></li>
-       <li style="width:90px;"><button type="button" class="btn_search"><i class="icon-search"></i>查询</button></li>
-      </ul>
-    </div>
+    
      <div class="border clearfix">
        <span class="l_f">
         <a href="{{route('Brand_add')}}"  title="添加品牌" class="btn btn-warning Order_form"><i class="icon-plus"></i>添加品牌</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a>
-        <a href="javascript:ovid()" class="btn btn-info">国内品牌</a>
-        <a href="javascript:ovid()" class="btn btn-success">国外品牌</a>
+        {{-- <a href="javascript:ovid()" class="btn btn-danger"><i class="icon-trash"></i>批量删除</a> --}}
+        {{-- <a href="javascript:ovid()" class="btn btn-info">国内品牌</a> --}}
+        {{-- <a href="javascript:ovid()" class="btn btn-success">国外品牌</a> --}}
        </span>
-       <span class="r_f">共：<b>234</b>个品牌</span>
+       <span class="r_f">共：<b>{{ $count }}</b>个品牌</span>
      </div>
     <!--品牌展示-->
      <div class="brand_list clearfix" id="category">
@@ -79,118 +86,31 @@
 			</tr>
 		</thead>
 	<tbody>
+    @foreach ($brand as $k)
 		<tr>
           <td width="25px"><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td width="80px">45631</td>
-          <td width="50px"><input type="text" class="input-text text-c" value="1" style="width:60px"></td>
-          <td><img src={{asset("admin/products/logo/156.jpg")}}  width="130"/></td>
-          <td><a href="javascript:ovid()" name="Brand_detailed.html" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('561');" title="玉兰油OLAY">玉兰油OLAY</a></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
+          <td width="80px">{{ $num }}</td>
+          <td width="50px"><input type="text" class="input-text text-c" value="{{ $k->number }}" style="width:60px"></td>
+          <td><img src={{asset("uploads".'/'.$k->blogo)}}  width="130"/></td>
+          <td><a href="javascript:ovid()" name="Brand_detailed.html" style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('561');" title="">{{ $k->bname }}</a></td>
+          <td>{{ $k->country }}</td>
+          <td class="text-l">{{ $k->describe }}</td>
+          <td>{{ $k->created_at }}</td>
+          @if ( $k->status == 1)
           <td class="td-status"><span class="label label-success radius">已启用</span></td>
           <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','{{route('Brand_upload')}}','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+          <a onClick="member_stop(this,'{{ $k->id }}')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
+          <a title="编辑"  href="{{route('Brand_upload',$k->id)}}"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
           </td>
-		</tr>
-        <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src={{asset("admin/products/logo/34.jpg")}}  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('5621');" title="玉兰油OLAY">玉兰油OLAY</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
+          @else
+          <td class="td-status"><span class="label label-defaunt radius">已停用</span></td>
           <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','{{route('Brand_upload')}}','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
+            <a  class="btn btn-xs " onClick="member_start(this,{{ $k->id }})" href="javascript:;" title="启用"><i class="icon-ok bigger-120"></i></a>
+          <a title="编辑"  href="{{route('Brand_upload',$k->id)}}"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
           </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src={{asset("admin/products/logo/245.jpg")}}  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="generateOrders('461');" title="御泥坊">御泥坊</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','{{route('Brand_upload')}}','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src={{asset("admin/products/logo/199.jpg")}}  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="member_show('张三','member-show.html','10001','360','400')">薇姿</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','{{route('Brand_upload')}}','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src={{asset("admin/products/logo/152.jpg")}}  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="member_show('张三','member-show.html','10001','360','400')">丝塔芙</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','{{route('Brand_upload')}}','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src={{asset("admin/products/logo/42.jpg")}}  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="member_show('张三','member-show.html','10001','360','400')">比克度</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','{{route('Brand_upload')}}','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace" ><span class="lbl"></span></label></td>
-          <td>2045</td>
-          <td><input type="text" class="input-text text-c" value="2" style="width:60px"></td>
-          <td><img src={{asset("admin/products/logo/42.jpg")}}  width="130"/></td>
-          <td><u style="cursor:pointer" class="text-primary brond_name" onclick="member_show('张三','member-show.html','10001','360','400')">比克度</u></td>
-          <td>法国</td>
-          <td class="text-l">玉兰油OLAY，是宝洁公司全球著名的护肤品牌，OLAY以全球高科技护肤研发技术为后盾......</td>
-          <td>2014-6-11 11:11:42</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="icon-ok bigger-120"></i></a> 
-          <a title="编辑" onclick="member_edit('编辑','{{route('Brand_upload')}}','4','','510')" href="javascript:;"  class="btn btn-xs btn-info" ><i class="icon-edit bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="icon-trash  bigger-120"></i></a>
-          </td>
-		</tr>
+          @endif
+        </tr>
+        @endforeach
         </tbody>
         </table>
         </div>
@@ -285,20 +205,42 @@ function member_show(title,url,id,w,h){
 /*品牌-停用*/
 function member_stop(obj,id){
 	layer.confirm('确认要停用吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs " onClick="member_start(this,id)" href="javascript:;" title="启用"><i class="icon-ok bigger-120"></i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">已停用</span>');
+		$.ajax({
+		type:'GET',
+		url:"{{route('Brand_status_update')}}",
+		data:{'id':id,'status':2},
+		dataType:'json',
+		success: function(data){
+		$(obj).parents("tr").find(".td-manage").prepend('<a  class="btn btn-xs " onClick="member_start(this,{{ $k->id }} )" href="javascript:;" title="启用"><i class="icon-ok bigger-120"></i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">停用</span>');
 		$(obj).remove();
-		layer.msg('已停用!',{icon: 5,time:1000});
+		layer.msg('停用!',{icon: 5,time:1000});
+  },
+		error:function(data) {
+			console.log(data.msg);
+		}
+	});		
 	});
 }
 
 /*用户-启用*/
 function member_start(obj,id){
 	layer.confirm('确认要启用吗？',function(index){
-		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs btn-success" onClick="member_stop(this,id)" href="javascript:;" title="停用"><i class="icon-ok bigger-120"></i></a>');
-		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+        $.ajax({
+		type:'GET',
+		url:"{{route('Brand_status_update')}}",
+		data:{'id':id,'status':1},
+		dataType:'json',
+		success: function(data){
+		$(obj).parents("tr").find(".td-manage").prepend('<a  class="btn btn-xs btn-success" onClick="member_stop(this,$k->id)" href="javascript:;" title="停用"><i class="icon-ok bigger-120"></i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">启用</span>');
 		$(obj).remove();
-		layer.msg('已启用!',{icon: 6,time:1000});
+		layer.msg('启用!',{icon: 6,time:1000});
+  },
+	error:function(data) {
+		console.log(data.msg);
+		}
+	});		
 	});
 }
 /*品牌-编辑*/
@@ -379,8 +321,8 @@ laydate({
             radius : '55%',
             center: ['50%', '60%'],
             data:[
-                {value:335, name:'国内品牌'},
-                {value:210, name:'国外品牌'},
+                {value:{{ $guonei }}, name:'国内品牌'},
+                {value:{{ $guowai }}, name:'国外品牌'},
 
             ]
         }

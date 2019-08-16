@@ -27,7 +27,23 @@
 </head>
 
 <body>
+
 <div class="clearfix">
+       <!-- 读取 提示 消息 -->
+ @if (session('success'))
+ <div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong> {{ session('success') }}!</strong> 
+</div>
+@endif
+@if (session('error'))
+<div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong> {{ session('error') }}!</strong> 
+    </div>
+@endif
+@section('content')
+@show
  <div class="article_style" id="article_style">
           <div id="scrollsidebar" class="left_Treeview">
     <div class="show_btn" id="rightArrow"><span></span></div>
@@ -39,15 +55,10 @@
       </div>
       <div class="widget-body">
          <ul class="b_P_Sort_list">
-             <li><i class="orange  fa fa-list "></i><a href="#">全部(235)</a></li>
-             <li><i class="fa fa-newspaper-o pink "></i> <a href="#">帮助中心(5)</a></li>
-             <li> <i class="fa fa-newspaper-o pink "></i> <a href="#">常见问题(3)</a> </li>
-             <li> <i class="fa fa-newspaper-o pink "></i> <a href="#">客服服务(3)</a></li>
-             <li> <i class="fa fa-newspaper-o pink "></i> <a href="#">购物指南(3)</a></li>
-             <li> <i class="fa fa-newspaper-o pink "></i> <a href="#">配送方式(33)</a></li>
-             <li> <i class="fa fa-newspaper-o pink "></i> <a href="#">支付方式(13)</a></li>
-             <li> <i class="fa fa-newspaper-o pink "></i> <a href="#">特色服务(23)</a></li>
-             <li><i class="fa fa-newspaper-o pink "></i> <a href="#">售后服务(6)</a></li>
+            <li><i class="orange  fa fa-list "></i>全部({{ $counts }})</li>
+             @foreach ($configer as $k)
+             <li><i class="fa fa-newspaper-o pink "></i> {{ $k->tname }}</li>
+             @endforeach
          </ul>
   </div>
   </div>
@@ -57,10 +68,10 @@
  <div class="Ads_list">
     <div class="border clearfix">
        <span class="l_f">
-        <a href="{{route('Article_Sort_Add')}}"  title="添加文章" id="add_page" class="btn btn-warning"><i class="fa fa-plus"></i> 添加文章</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a>
+        <a href="{{route('Article_List_Add')}}"  title="添加文章" id="add_page" class="btn btn-warning"><i class="fa fa-plus"></i> 添加文章</a>
+        {{-- <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a> --}}
        </span>
-       <span class="r_f">共：<b>45</b>条文章</span>
+       <span class="r_f">共：<b>{{ $countt }}</b>条文章</span>
      </div>
      <div class="article_list">
        <table class="table table-striped table-bordered table-hover" id="sample-table">
@@ -68,7 +79,7 @@
 		 <tr>
 				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 				<th width="80px">ID</th>
-                <th  width="80px">排序</th>
+                {{-- <th  width="80px">排序</th> --}}
 				<th width="100">所属分类</th>
 				<th width="220px">标题</th>
 				<th width="">简介</th>
@@ -78,48 +89,38 @@
 			</tr>
 		</thead>
         <tbody>
+         
+        
+          @foreach ($contents as $v)
          <tr>
           <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>12</td>
-          <td>2</td>
-          <td>帮助中心</td>
-          <td> 订单已提交成功，如何付款？</td>
-          <td class="displayPart" displayLength="60">付款方式分为以下几种：（注：先款订单请您在订单提交后24小时内完成支付， 否则订单会自动取消）</td>
-          <td>2016-7-25 12:34</td>
-          <td>显示</td>
+          <td>{{ $num++ }}</td>
+          {{-- <td>1</td> --}}
+          <td>
+               {{ $v->tname }}
+        </td>
+          <td> {{ $v->name }}</td>
+          <td class="displayPart" displayLength="60">{{ $v->jianjie }}</td>
+          <td>{{ $v->created_at }}</td>
+          @if ( $v->status == 1)
+          <td class="td-status">
+              <span class="label label-success radius">启用</span>
+          </td>    
           <td class="td-manage">   
-           <a title="编辑" href="{{route('Article_List_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
+              <a style="text-decoration:none" class="btn btn-xs btn-success" onClick="member_stop(this,{{ $v->id }})" href="javascript:;" title="停用"><i class="fa fa-check bigger-120"></i></a>
+              
           </td>
-         </tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>12</td>
-          <td>3</td>
-          <td>帮助中心</td>
-          <td> 我所在的地区支持货到付款吗？</td>
-          <td class="displayPart" displayLength="60">付款方式分为以下几种：（注：先款订单请您在订单提交后24小时内完成支付， 否则订单会自动取消）</td>
-          <td>2016-7-25 12:34</td>
-          <td>未显示</td>
+          @else
+          <td class="td-status">
+              <span class="label label-default radius">关闭</span>
+          </td>
           <td class="td-manage">   
-           <a title="编辑" href="{{route('Article_List_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
+            <a style="text-decoration:none" class="btn btn-xs " onClick="member_start(this,{{ $v->id }})" href="javascript:;" title="启用"><i class="fa fa-close bigger-120"></i></a>
+          
           </td>
+          @endif
          </tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>12</td>
-          <td>1</td>
-          <td>帮助中心</td>
-          <td> 支付方式有哪些？如何支付？</td>
-          <td class="displayPart" displayLength="60">付款方式分为以下几种：（注：先款订单请您在订单提交后24小时内完成支付， 否则订单会自动取消）</td>
-          <td>2016-7-25 12:34</td>
-          <td>待发布</td>
-          <td class="td-manage">   
-           <a title="编辑" href="{{route('Article_List_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>      
-           <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-danger" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-         </tr>
+         @endforeach
         </tbody>
        </table>    
      </div>
@@ -188,7 +189,46 @@ $(function() {
 	$(".widget-box").height($(window).height());
 	 $(".Ads_list").width($(window).width()-220);
 });
-
+/*栏目-停用*/
+function member_stop(obj,id){
+	layer.confirm('确认要停用该栏目吗？',function(index){
+    $.ajax({
+		type:'GET',
+		url:"{{route('Article_Article_update')}}",
+		data:{'id':id,'status':2},
+		dataType:'json',
+		success: function(data){
+		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs " onClick="member_start(this,{{ $v->id }} )" href="javascript:;" title="启用"><i class="fa fa-close bigger-120"></i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-defaunt radius">停用</span>');
+		$(obj).remove();
+		layer.msg('停用!',{icon: 5,time:1000});
+  },
+		error:function(data) {
+			console.log(data.msg);
+		}
+	});		
+	});
+}
+/*栏目-启用*/
+function member_start(obj,id){
+	layer.confirm('确认要启用该栏目吗？',function(index){
+    $.ajax({
+		type:'GET',
+		url:"{{route('Article_Article_update')}}",
+		data:{'id':id,'status':1},
+		dataType:'json',
+		success: function(data){
+		$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" class="btn btn-xs btn-success" onClick="member_stop(this,$v->id)" href="javascript:;" title="停用"><i class="fa fa-check bigger-120"></i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">启用</span>');
+		$(obj).remove();
+		layer.msg('启用!',{icon: 6,time:1000});
+  },
+	error:function(data) {
+		console.log(data.msg);
+		}
+	});		
+	});
+}
 /*文章-删除*/
 function member_del(obj,id){
 	layer.confirm('确认要删除吗？',{icon:0,},function(index){

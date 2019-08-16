@@ -111,55 +111,46 @@
            <table class="table table-bordered">
            <tbody>
            <tr><td class="name">注册会员登陆：</td><td class="munber"><a href="#">3240</a>&nbsp;次</td></tr>
-           <tr><td class="name">新浪会员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
-           <tr><td class="name">支付宝登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
-           <tr><td class="name">QQ会员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
+            <tr><td class="name">管理员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
+           {{-- <tr><td class="name">支付宝登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr> --}}
+           {{-- <tr><td class="name">QQ会员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr> --}} 
            </tbody>
           </table>
          </div> 
              <!--<div class="t_Record">
                <div id="main" style="height:300px; overflow:hidden; width:100%; overflow:auto" ></div>     
               </div> -->
-         <div class="news_style">
-          <div class="title_name">最新消息</div>
-          <ul class="list">
-           <li><i class="icon-bell red"></i><a href="#">后台系统找那个是开通了。</a></li>
-           <li><i class="icon-bell red"></i><a href="#">6月共处理订单3451比，作废为...</a></li>
-           <li><i class="icon-bell red"></i><a href="#">后台系统找那个是开通了。</a></li>
-           <li><i class="icon-bell red"></i><a href="#">后台系统找那个是开通了。</a></li>
-           <li><i class="icon-bell red"></i><a href="#">后台系统找那个是开通了。</a></li>
-          </ul>
-         </div> 
+      
          </div>
  <!--记录-->
  <div class="clearfix">
   <div class="home_btn">
      <div>
-     <a href="picture-add.html"  title="添加商品" class="btn  btn-info btn-sm no-radius">
+     <a href="{{ route('Product') }}"  title="添加商品" class="btn  btn-info btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-addp.png" /></i>
      <h5 class="margin-top">添加商品</h5>
      </a>
-     <a href="Category_Manage.html"  title="产品分类" class="btn  btn-primary btn-sm no-radius">
+     <a href="{{ route('Category') }}"  title="产品分类" class="btn  btn-primary btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-cpgl.png" /></i>
      <h5 class="margin-top">产品分类</h5>
      </a>
-     <a href="admin_info.html"  title="个人信息" class="btn  btn-success btn-sm no-radius">
+     <a href="{{ route('Umember') }}"  title="个人信息" class="btn  btn-success btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-grxx.png" /></i>
-     <h5 class="margin-top">个人信息</h5>
+     <h5 class="margin-top">会员管理</h5>
      </a>
-     <a href="Systems.html"  title="系统设置" class="btn  btn-info btn-sm no-radius">
+     <a href="{{ route('System_Section') }}"  title="系统设置" class="btn  btn-info btn-sm no-radius">
      <i class="bigger-200"><img src="images/xtsz.png" /></i>
      <h5 class="margin-top">系统设置</h5>
      </a>
-     <a href="Order_handling.html"  title="商品订单" class="btn  btn-purple btn-sm no-radius">
+     <a href="{{ route('Transaction') }}"  title="商品订单" class="btn  btn-purple btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-gwcc.png" /></i>
      <h5 class="margin-top">商品订单</h5>
      </a>
-     <a href="picture-add.html"  title="添加广告" class="btn  btn-pink btn-sm no-radius">
+     <a href="{{ route('PictureAdvertising') }}"  title="添加广告" class="btn  btn-pink btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-ad.png" /></i>
      <h5 class="margin-top">添加广告</h5>
      </a>
-      <a href="article_add.html"  title="添加文章" class="btn  btn-info btn-sm no-radius">
+      <a href="{{ route('Article_List') }}"  title="添加文章" class="btn  btn-info btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-addwz.png" /></i>
      <h5 class="margin-top">添加文章</h5>
      </a>

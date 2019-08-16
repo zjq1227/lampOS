@@ -33,14 +33,14 @@
     <span class="title_name">账户基本信息</span>
     <div class="Account_Balance">
      <h4>账户余额(￥)</h4>
-     <h2>32345.67</h2>
-     <h6>2016-7-21</h6>
+     <h2>{{ $zhxinxi[0]->uyuer }}</h2>
+     <h6>{{ date("Y-m-d",time()) }}</h6>
     </div>
     <ul class="Account_info">
-     <li><label class="label_name">账户名（用户名）：</label><span class="content">化海天堂</span></li>
-     <li><label class="label_name">用户注册时间：</label><span class="content">2016-3-12</span></li>
-     <li><label class="label_name">账户开通时间：</label><span class="content">2016-4-12</span></li>
-     <li><label class="label_name">账户状态：</label><span class="content">启用</span></li>
+     <li><label class="label_name">账户名（用户名）：</label><span class="content">{{ $zhxinxi[0]->uname }}</span></li>
+     <li><label class="label_name">用户注册时间：</label><span class="content">{{ $zhxinxi[0]->created_at }}</span></li>
+    <li><label class="label_name">账户开通时间：</label><span class="content">{{ $czlist[0]->kttime }}</span></li>
+     <li><label class="label_name">账户状态：</label><span class="content">{{ $czlist[0]->zhstatus==1?"开启":"关闭" }}</span></li>
     </ul>
  
  </div>
@@ -50,7 +50,7 @@
   <div class="hd"><ul><li>充值记录</li><li>消费记录</li></ul></div>
    <div class="bd">
     <ul class="">
-       <div class="Records"><span>共345条记录</span></div>
+       {{-- <div class="Records"><span>共345条记录</span></div> --}}
        <table class="table table-striped table-bordered table-hover" id="sample-table">
       <thead>
 		 <tr>
@@ -64,126 +64,30 @@
           </tr>
       </thead>
 	<tbody>
+      @foreach ($czlist as $k)
 		<tr>
         <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值成功</td>
-        <td></td>
+        <td>{{ $k->czxuhao }}</td>
+        <td>{{ $k->czvalue }}</td>
+        <td>{{ $k->name }}</td>
+        <td>{{ $k->cztime }}</td>
+        <td>{{ $k->czstatus==1?"充值成功":"充值失败" }}</td>
+        <td>{{ $k->czbeizhu }}</td>
         </tr>
-        	<tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-7-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>100.00</td>
-        <td>支付宝</td>
-        <td>2016-4-21</td>
-        <td>充值成功</td>
-        <td></td>
-        </tr>
-        <tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>5667675756756</td>
-        <td>200.00</td>
-        <td>支付宝</td>
-        <td>2016-4-21</td>
-        <td>充值失败</td>
-        <td>充值发生异常，无法完成充值。</td>
-        </tr>
+        @endforeach
+
         </tbody>
         </table>
     </ul>
     <ul class="">
-       <div class="Records"><span>共345条记录</span></div>
+       {{-- <div class="Records"><span>共345条记录</span></div> --}}
        <table class="table table-striped table-bordered table-hover" id="sconsumption-table">
       <thead>
 		 <tr>
           <th width=""><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
           <th width="">订单编号</th>
-          <th width="">订单名称</th>
-          <th width="">商品数量</th>
+          {{-- <th width="">订单名称</th> --}}
+          {{-- <th width="">商品数量</th> --}}
           <th width="">消费金额</th> 
           <th width="">消费时间</th> 
           <th width="">状态</th> 
@@ -191,27 +95,20 @@
           </tr>
       </thead>
 	<tbody>
-		<tr>
-        <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>手机数码消费</td>
-        <td>3</td>
-        <td>231.90</td>
-        <td>2016-7-21</td>
-        <td>成功</td>
-        <td></td>
-        </tr>
-        	<tr>
+   
+      <tr>
+          @foreach ($xfjl as $k)
         <tr>
         <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-        <td>4546464654654</td>
-        <td>手机数码消费</td>
-        <td>3</td>
-        <td>231.90</td>
+        <td>{{ $k->code }}</td>
+        {{-- <td>手机数码消费</td> --}}
+        {{-- <td>3</td> --}}
+        <td>{{ $k->total }}</td>
         <td>2016-7-21</td>
-        <td>失败</td>
-        <td>订单过期</td>
+        <td>{{ $k->xfstatus==1?"消费成功":"消费失败" }}</td>
+        <td>{{ $k->xfbeizhu?$k->xfbeizhu:"无" }}</td>
         </tr>
+        @endforeach
         </tbody>
         </table>
     </ul>

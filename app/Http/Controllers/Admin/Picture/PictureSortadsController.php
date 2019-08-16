@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 
 class PictureSortadsController extends Controller
 {
-    //
+    
     public function Index(){
         return view('admin.Picture.Picture_Sortads');
     }

@@ -25,6 +25,21 @@
 </head>
 
 <body>
+   <!-- 读取 提示 消息 -->
+ @if (session('success'))
+ <div class="alert alert-success alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong> {{ session('success') }}!</strong> 
+</div>
+@endif
+@if (session('error'))
+<div class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <strong> {{ session('error') }}!</strong> 
+    </div>
+@endif
+@section('content')
+@show
 <div class="margin clearfix">
  <div class="defray_style">
   <div class="alert alert-danger"> <button type="button" class="close" data-dismiss="alert"><i class="fa fa-remove"></i></button>注：该支付方式启用并不能正常使用，需要开通支付功能才能使用相应的支付方式，</div>
@@ -36,103 +51,56 @@
     <!--支付列表-->
     <div class="defray_list cover_style clearfix" >
      <div class="type_title">支付方式</div>
+
       <div class="defray_content clearfix">
+          @foreach ($pay as $k)
        <ul class="defray_info">
-       <li class="defray_name">支付宝</li>
-        <li class="name_logo"><img src={{asset("admin/products/black/zhifb.jpg")}}  width="100%" height="150px;" /> </li>
-        <li class="description">支付宝（中国）网络技术有限公司是国内领先的第三方支付平台，致力于提供“简单、安全、快速”的支付解决方案</li>
-        <li class="select">
-        <label><input name="form-field-radio" type="radio" class="ace" checked="checked"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <label><input name="form-field-radio" type="radio" class="ace"><span class="lbl">关闭</span></label>
-        </li>
+       <li class="defray_name">{{ $k->name }}</li>
+        <li class="name_logo"><img src={{asset("uploads".'/'.$k->zfpic)}}  width="100%" height="150px;" /> </li>
+        <li class="description">{{ $k->content }}</li>
+        @if ( $k->status == 1)
         <li class="operating">
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;删除</a>
-         <a href="javascript:ovid()" class="btn btn-success"><i class="fa  fa-edit "></i>&nbsp;设置</a>
+        <a href="javascript:ovid()" class="btn btn-success" onClick="member_start(this,{{ $k->id }})">&nbsp;已开启点击关闭</a>
         </li>
-       </ul>
-       <ul class="defray_info">
-       <li class="defray_name">微信支付</li>
-        <li class="name_logo"><img src={{asset("admin/products/black/weixin.jpg")}}  width="100%" height="150px;" /> </li>
-        <li class="description">微信支付是集成在微信客户端的支付功能，用户可以通过手机完成快速的支付流程。</li>
-        <li class="select">
-        <label><input name="form-field-radio1" type="radio" class="ace" checked="checked"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <label><input name="form-field-radio1" type="radio" class="ace"><span class="lbl">关闭</span></label>
-        </li>
+        @else
         <li class="operating">
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;删除</a>
-       <!-- <a href="javascript:ovid()" class="btn btn-success details_btn"><i class="fa  fa-newspaper-o "></i>&nbsp;详细</a>-->
-        </li>
+            <a href="javascript:ovid()" class="btn btn-danger" onClick="member_stop(this,{{ $k->id }})">&nbsp;已关闭点击开启</a>
+            </li>
+         @endif
        </ul>
-       <ul class="defray_info">
-       <li class="defray_name">银联</li>
-        <li class="name_logo"><img src={{asset("admin/products/black/yinglian.jpg")}}  width="100%" height="150px;" /> </li>
-        <li class="description">中国银联是中国银行卡联合组织，通过银联跨行交易清算系统，实现商业银行系统间的互联互通和资源共享，保证银行卡跨行、跨地区和跨境的使用。</li>
-        <li class="select">
-        <label><input name="form-field-radio2" type="radio" class="ace" checked="checked"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <label><input name="form-field-radio2" type="radio" class="ace"><span class="lbl">关闭</span></label>
-        </li>
-        <li class="operating">
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;删除</a>
-        <a href="javascript:ovid()" name="Payment_details.html" title="银联支付详细" onclick="Paymentdetails('134')" class="btn btn-success details_btn"><i class="fa  fa-newspaper-o "></i>&nbsp;详细</a>
-        </li>
-       </ul>
-        <ul class="defray_info">
-       <li class="defray_name">怡宝支付</li>
-        <li class="name_logo"><img src={{asset("admin/products/black/yozhif.jpg")}}  width="100%" height="150px;" /> </li>
-        <li class="description">中国银联是中国银行卡联合组织，通过银联跨行交易清算系统，实现商业银行系统间的互联互通和资源共享，保证银行卡跨行、跨地区和跨境的使用。</li>
-        <li class="select">
-        <label><input name="form-field-radio3" type="radio" class="ace" checked="checked"><span class="lbl">启用</span></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-         <label><input name="form-field-radio3" type="radio" class="ace"><span class="lbl">关闭</span></label>
-        </li>
-        <li class="operating">
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i>&nbsp;删除</a>
-       <!-- <a href="javascript:ovid()" name="Payment_details.html" title="怡宝支付详细" onclick="Paymentdetails('234')" class="btn btn-success details_btn"><i class="fa  fa-newspaper-o "></i>&nbsp;详细</a>-->
-        </li>
-       </ul>
+      @endforeach
+
       </div>
     </div>
  </div>
 </div>
 <!--添加支付方式-->
 <div id="add_payment_style" style="display:none">
-<form id="payment_checkbox">
+<form class="mws-form" id="payment_checkbox" action="{{route('Method_add')}}" method="post" enctype="multipart/form-data">
+			{{ csrf_field() }}
  <ul class="margin payment_list  clearfix">
   <li>
-  <label><input name="checkbox" type="checkbox" class="ace" id="checkbox" onclick="select_payment(this,'123')"><span class="lbl"><img src={{asset("admin/products/black/yinglian.jpg")}}  width="120px" height="100%" /> </span></label>
-  </li>
-  <li>
-  <label><input name="checkbox" type="checkbox" class="ace" id="checkbox" onclick="select_payment(this,'125')"><span class="lbl"><img src={{asset("admin/products/black/yozhif.jpg")}}  width="120px" height="100%" /></label>
-  </li>
-  <li>
-  <label><input name="checkbox" type="checkbox" class="ace" id="checkbox" onclick="select_payment(this,'126')"><span class="lbl"><img src={{asset("admin/products/black/caifut.jpg")}}  width="120px" height="100%" /></label>
-  </li>
-  <li>
-  <label><input name="checkbox" type="checkbox" class="ace" id="checkbox" onclick="select_payment(this,'127')"><span class="lbl"><img src={{asset("admin/products/black/weixin.jpg")}}  width="120px" height="100%" /></label>
-  </li>
-   <li>
-  <label><input name="checkbox" type="checkbox" class="ace" id="checkbox" onclick="select_payment(this,'127')"><span class="lbl"><img src={{asset("admin/products/black/zhifb.jpg")}}  width="120px" height="100%" /></label>
+  <label><input name="checkbox" type="checkbox" class="ace" id="checkbox" onclick="select_payment(this,'123')"><span class="lbl">
+    {{-- 确认添加 --}}
+    添加支付方式
+   </span></label>
   </li>
  </ul>
  <div class="add_content clearfix">
    <ul>
-    <li class=" clearfix"><label class="label_name">支付方式名称</label><span><input name="支付方式名称" type="text" /></span></li>
+    <li class=" clearfix"><label class="label_name">支付方式名称</label><span><input name1="支付方式名称" name="name" type="text" /></span></li>
     <li  class=" clearfix"><label class="label_name">支持交易货币</label><span style=" margin-left:10px;">人民币</span></li>
-    <li  class=" clearfix"><label class="label_name">合作者身份</label><span><input name="合作者身份" type="text" /></span></li>
-    <li  class=" clearfix"><label class="label_name">交易安全校验码</label><span><input name="交易安全校验码" type="text" /></span></li>
-    <li  class=" clearfix">
-     <label class="label_name">选择接口类型</label>
-      <span>
-        <select class="form-control" id="form-field-select-1">
-          <option value="">--选择接口类型--</option>
-          <option value="1">使用标准双接口</option>
-          <option value="2">使用担保交易接口</option>
-          <option value="3">使用即时到帐交易接口</option>
-       </select>
-      </span>
-    </li>  
-    <li  class=" clearfix"><label class="label_name">支付费率</label><span><input name="支付费率" type="text" />%</span></li> 
-    <li  class=" clearfix"><label class="label_name">排序</label><span><input name="" type="text"  value="0" style="width:80px;"/></span></li> 
-    <li  class=" clearfix"><label class="label_name">说明</label><span><textarea name="说明" class="form-textarea" id="form_textarea" placeholder="" onkeyup="checkLength(this);"></textarea><span style=" margin-left:10px;">剩余字数：<em id="sy" style="color:Red;">200</em>字</span></span></li>
+    <li  class=" clearfix"><label class="label_name">说明</label><span><textarea name1="说明" name="content" class="form-textarea" id="form_textarea" placeholder="" onkeyup="checkLength(this);"></textarea><span style=" margin-left:10px;">剩余字数：<em id="sy" style="color:Red;">200</em>字</span></span></li>
+    <li class=" clearfix"><label class="label_name">状&nbsp;&nbsp;态：</label>
+      <span class="cont_style">
+        &nbsp;&nbsp;<label><input name="status" value="1" type="radio" checked="checked" class="ace"><span class="lbl">显示</span></label>&nbsp;&nbsp;&nbsp;
+        <label><input name="status" value="2" type="radio" class="ace"><span class="lbl">隐藏</span></label></span><div class="prompt r_f"></div>
+    </li>
+    <li class=" clearfix"><label class="label_name">图&nbsp;&nbsp;片</label><span class="cont_style">
+        <input type="file" name="zfpic" id="form-field-1">
+     </span>
+    </li>
+    <li  class=" clearfix"><label class="label_name"><input type="submit" value="提交" class="btn btn-primary radius" style="margin-left:100px;"></label></li>
    </ul>
  </div>
  </form>
@@ -190,7 +158,7 @@ function add_payment(index ){
 		shadeClose:false,
         area : ['830px' , ''],
         content:$('#add_payment_style'),
-		btn:['确定','取消'],
+		// btn:['确定','取消'],
 		yes: function(index){
 			var checkbox=$('input[name="checkbox"]');		    			
 			if(checkbox.length){
@@ -240,5 +208,42 @@ $('.details_btn').on('click', function(){
 function Paymentdetails(id){
 	window.location.href = "Payment_details.html?="+id;
 };
+function member_stop(obj,id){
+	layer.confirm('确认要开启吗？',{icon:0,},function(index){
+		$.ajax({
+		type:'GET',
+		url:"{{route('Method_update')}}",
+		data:{'id':id,'status':1},
+		dataType:'json',
+		success: function(data){
+		$(obj).parents("ul").find(".operating").prepend('<a href="javascript:ovid()" class="btn btn-success" onClick="member_start(this,{{ $k->id }})">&nbsp;已开启点击关闭</a>');
+		$(obj).remove();
+		layer.msg('开启!',{icon: 5,time:1000});
+  },
+		error:function(data) {
+			console.log(data.msg);
+		}
+	});		
+	});
+}
+/*广告图片-启用*/
+function member_start(obj,id){
+	layer.confirm('确认要关闭吗？',{icon:0,},function(index){
+		$.ajax({
+		type:'GET',
+		url:"{{route('Method_update')}}",
+		data:{'id':id,'status':2},
+		dataType:'json',
+		success: function(data){
+		$(obj).parents("ul").find(".operating").prepend('<a style="text-decoration:none" href="javascript:ovid()" class="btn btn-danger" onClick="member_stop(this,{{ $k->id }})">&nbsp;已关闭点击开启</a>');
+		$(obj).remove();
+		layer.msg('关闭!',{icon: 6,time:1000});
+  },
+	error:function(data) {
+		console.log(data.msg);
+		}
+	});		
+	});
+}
 
 </script>

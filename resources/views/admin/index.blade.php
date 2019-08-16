@@ -169,10 +169,10 @@
                                         <a href="javascript:void(0)" name="{{route('Method')}}" title="支付方式" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>支付方式</a>
                                     </li>
-                                    <li class="home">
+                                    {{-- <li class="home">
                                         <a href="javascript:void(0)" name="{{route('Configure')}}" title="支付配置" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>支付配置</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
                             <li>
@@ -234,18 +234,18 @@
                                     <b class="arrow icon-angle-down"></b>
                                 </a>
                                 <ul class="submenu">
-                                    <li class="home">
+                                    {{-- <li class="home">
                                         <a href="javascript:void(0)" name="{{route('System')}}" title="系统设置" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>系统设置</a>
-                                    </li>
+                                    </li> --}}
                                     <li class="home">
                                         <a href="javascript:void(0)" name="{{route('System_Section')}}" title="系统栏目管理" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>系统栏目管理</a>
                                     </li>
-                                    <li class="home">
+                                    {{-- <li class="home">
                                         <a href="javascript:void(0)" name="{{route('System_Logs')}}" title="系统日志" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>系统日志</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </li>
                         </ul>
@@ -324,7 +324,7 @@
                     ace.settings.check('footerstyle', 'fixed')
                 } catch(e) {}</script>
             <p class="l_f">版权所有：NumberOne专业开发</p>
-            <p class="r_f">qq：775747758</p></div>
+            <p class="r_f">qq：1310992327</p></div>
         <!--修改密码样式-->
         <div class="change_Pass_style" id="change_Pass">
             <ul class="xg_style">

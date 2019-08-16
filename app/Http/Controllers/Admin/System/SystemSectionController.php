@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers\Admin\System;
-
+use DB;
+use  App\Models\config;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,8 +15,9 @@ class SystemSectionController extends Controller
      */
     public function index()
     {
-        //
-        return view('admin.System.System_Section');
+        $configs = DB::table('config')->get();
+        // return view('user.i', ['users' => $users]);
+        return view('admin.System.System_Section', ['configer' => $configs])->with('num',1);
     }
 
     /**
