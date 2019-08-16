@@ -6,14 +6,16 @@ namespace App\Http\Controllers\Admin\Uadmin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\ViewErrorBag;
+use App\Http\Requests\AdminsStore;
 use DB;
 use Hash;
+use Illuminate\Support\Facades\Storage;
 class UadminIstratorController extends Controller
 {
     public function index()
     {
         // dd(123);
-        $users = DB::table('user')->Paginate(10);
+        $users = DB::table('uadmin')->Paginate(10);
         // dd($users);
       
         return view('admin.Uadmin.Uadmin_Istrator',['users'=>$users]);
@@ -21,40 +23,47 @@ class UadminIstratorController extends Controller
 
      public function Index0()
     {
-         $auth0 = DB::table('user')->where('auth', 0)->get();
+         $auth0 = DB::table('uadmin')->where('auth', 0)->get();
          return view('admin.Uadmin.Uadmin_Istrator0',['auth0'=>$auth0]);
     }
 
     public function Index1()
     {
-         $auth1 = DB::table('user')->where('auth', 1)->get();
+         $auth1 = DB::table('uadmin')->where('auth', 1)->get();
          return view('admin.Uadmin.Uadmin_Istrator1',['auth1'=>$auth1]);
     }
     public function Index2()
     {
-         $auth2 = DB::table('user')->where('auth', 2)->get();
+         $auth2 = DB::table('uadmin')->where('auth', 2)->get();
          return view('admin.Uadmin.Uadmin_Istrator2',['auth2'=>$auth2]);
     }
 
-    public function uploadList(){
-        return view('admin.Uadmin.Uadmin_Istrator_Upload');
+    public function authupd(){
+
+    }
+
+    public function uploadList($id){
+      // dd($id);
+        $admin = DB::table('uadmin')->find($id);
+        // dump($admin);
+        return view('admin.Uadmin.Uadmin_Istrator_Upload',['admin'=>$admin]);
     }
 
     public function useradd(Request $request)
     {
-    	// dump($request->all());
-    	$username = $request ->input('username','');
-    	$userpwd = Hash::make($request -> input('userpassword',''));
-    	// $userpwd2 = Hash::make($request -> input('userpwd2',''));
+    	// dd($request->all());
+    	$uname = $request ->input('uname','');
+    	$pass = Hash::make($request -> input('pass',''));
+    	// $pass2 = Hash::make($request -> input('pass2',''));
     	$sex = $request -> input('sex','');
     	$auth = $request -> input('auth','');
     	$email = $request -> input('email','');
-    	$tel = intval($request -> input('user-tel',''));
+    	$phone = intval($request -> input('phone',''));
     	// dump($sex);
-    	$arr=['username'=>$username,'userpwd'=>$userpwd,'sex'=>$sex,'auth'=>$auth,'email'=>$email,'tel'=>$tel];
+    	$arr=['uname'=>$uname,'pass'=>$pass,'sex'=>$sex,'auth'=>$auth,'email'=>$email,'phone'=>$phone];
     	// dd($arr);
-		DB::table('user')->insert($arr);
-		return redirect('admin/Uadmin/UadminIstrator');
+		  DB::table('uadmin')->insert($arr);
+		  return redirect('admin/Uadmin/UadminIstrator');
     }
 
     public function userdel($id)
@@ -62,7 +71,7 @@ class UadminIstratorController extends Controller
         // dd(123);
         //开启事务
       DB::beginTransaction();
-      $res = DB::table('user')->where('id',$id)->delete();
+      $res = DB::table('uadmin')->where('id',$id)->delete();
 
       if($res){
         DB::commit();
@@ -72,5 +81,44 @@ class UadminIstratorController extends Controller
         return back()->with('error','删除失败');
       }
       
+    }
+
+    public function userupd($id)
+    {
+      $res = DB::table('uadmin')->find($id);
+
+      if($res->status ==1){
+          $res1 = DB::table('uadmin')
+                ->where('id', $id)
+                ->update(['status' => '0']);
+          // dd($res1);
+          return redirect('admin/Uadmin/UadminIstrator');
+       }else{
+         $res2 = DB::table('uadmin')
+                ->where('id', $id)
+                ->update(['status' => '1']);
+          // dd($res2);
+           return redirect('admin/Uadmin/UadminIstrator');
+      }
+ 
+    }
+
+    public function userupdate(AdminsStore $request,$id)
+    {
+      // dump($id);
+      $admin = DB::table('uadmin')->find($id);
+      // dd($request->all());
+            $email= $request->input('email','');
+            $phone= $request->input('phone','');
+            $sex= $request->input('sex','');
+            $res1 = DB::table('uadmin')
+                  ->where('id', $id)
+                  ->update(['email' => $email,'sex'=>$sex,'phone'=>$phone]);               
+            if($res1){
+                return redirect('admin/Uadmin/UadminIstrator')->with('success','修改成功');
+            }else{
+                return back()->with('error','修改失败');
+            }
+
     }
 }
