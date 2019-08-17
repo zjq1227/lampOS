@@ -111,7 +111,9 @@
         <input type="submit" value="√" class="btn btn-xs btn-warning" />
         </a>
        </form> 
-        <a title="编辑" href="{{route('Uadmin_Istrator_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>       
+
+        <a title="编辑" href="{{route('Uadmin_Istrator_Upload',array('id'=>$v->id))}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
+
         <form action="{{route('Uadmin_userdel',array('id'=>$v->id))}}"  method="post" style="display: inline;">
         {{ csrf_field() }}
         

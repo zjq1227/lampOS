@@ -39,7 +39,7 @@
                              <i class="icon-user"></i>
                           </div>
                           <div class="value">
-                              <h1>34522</h1>
+                              <h1>{{$users}}</h1>
                               <p>商城用户</p>
                           </div>
                           </a>
@@ -51,7 +51,7 @@
                               <i class="icon-tags"></i>
                           </div>
                           <div class="value">
-                              <h1>140</h1>
+                              <h1>{{$item}}</h1>
                               <p>分销记录</p>
                           </div>
                       </section>
@@ -62,7 +62,7 @@
                               <i class="icon-shopping-cart"></i>
                           </div>
                           <div class="value">
-                              <h1>345</h1>
+                              <h1>{{$orders}}</h1>
                               <p>商城订单</p>
                           </div>
                       </section>
@@ -73,7 +73,7 @@
                               <i class="icon-bar-chart"></i>
                           </div>
                           <div class="value">
-                              <h1>￥34,500</h1>
+                              <h1>￥{{$money}}</h1>
                               <p>交易记录</p>
                           </div>
                       </section>
@@ -85,11 +85,11 @@
           <div class="title_name">订单统计信息</div>
            <table class="table table-bordered">
            <tbody>
-           <tr><td class="name">未处理订单：</td><td class="munber"><a href="#">0</a>&nbsp;个</td></tr>
-           <tr><td class="name">待发货订单：</td><td class="munber"><a href="#">10</a>&nbsp;个</td></tr>
-           <tr><td class="name">待结算订单：</td><td class="munber"><a href="#">13</a>&nbsp;个</td></tr>
-           <tr><td class="name">已成交订单数：</td><td class="munber"><a href="#">26</a>&nbsp;个</td></tr>
-           <tr><td class="name">交易失败：</td><td class="munber"><a href="#">26</a>&nbsp;个</td></tr>
+           <tr><td class="name">未付款订单：</td><td class="munber"><a href="#">{{$stu0}}</a>&nbsp;个</td></tr>
+           <tr><td class="name">待发货订单：</td><td class="munber"><a href="#">{{$stu1}}</a>&nbsp;个</td></tr>
+           <tr><td class="name">待收货订单：</td><td class="munber"><a href="#">{{$stu2}}</a>&nbsp;个</td></tr>
+           <tr><td class="name">已成交订单数：</td><td class="munber"><a href="#">{{$stu4}}</a>&nbsp;个</td></tr>
+           <tr><td class="name">交易失败：</td><td class="munber"><a href="#">{{$stu5}}</a>&nbsp;个</td></tr>
            </tbody>
           </table>
          </div> 

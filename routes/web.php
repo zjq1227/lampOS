@@ -310,7 +310,7 @@ Route::get('/', function () {
         // 详情
         Route::group(['namespace'=>'Details','prefix' => 'Details'], function () {
             // 搜索详情
-            Route::get('/Search','SearchController@index')->name('Search');
+            Route::post('/Search','SearchController@index')->name('Search');
             // 商品详情
             Route::get('/Introduction','IntroductionController@index')->name('Introduction');            
         });
