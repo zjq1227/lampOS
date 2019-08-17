@@ -12,10 +12,8 @@ class LoginController extends Controller
     //class LoginController extends Controller
     public function index()
     {
-        if(\Auth::check()) {
-           
-        }
-        // 显示
+      // session()->flush();
+     // 显示
         return view("admin.login");
     }
 
@@ -24,11 +22,11 @@ class LoginController extends Controller
 
     	// dd($request->all());
     	// 信息的获取
-    	$username = $request ->input('username');
+    	$uname = $request ->input('uname');
       // $userpwd = Hash::make($request -> input('userpwd',''));
       // dump($userpwd);
     	//用户名的判断
-   		$userinfo = DB::table('user')->where('username',$username)->first();
+   		$userinfo = DB::table('uadmin')->where('uname',$uname)->first();
    		// dd($userinfo);
    		if(!$userinfo){
 			echo "<script>alert('用户名或者密码错误111111');location.href='/admin/login';</script>";   			
@@ -37,15 +35,16 @@ class LoginController extends Controller
 
 
    		// 验证密码正确
-   		if (!Hash::check($request->userpwd, $userinfo->userpwd)) {
+   		if (!Hash::check($request->pass, $userinfo->pass)) {
    		    echo "<script>alert('用户名或者密码错误');location.href='/admin/login';</script>";   			
       		exit;
    		}
-		//登录成功
-		session(['admin_login'=>true]);
-		session(['admin_userinfo'=>$userinfo]);
+		  // 登录成功
+  		session(['admin_login'=>true]);
+  		session(['admin_userinfo'=>$userinfo]);
 
-		//跳转
-		return redirect('admin/index');
+  		//跳转
+  		return redirect('admin/index');
     }
+    
 }

@@ -14,12 +14,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+// Route::post('/Login/dologin','Admin\LoginController@dologin')->name('dologin');
+
 
     Route::group(['prefix' => 'admin'], function () { 
             Route::get('/index', 'Admin\IndexController@index');
             Route::get('/home', 'Admin\HomeController@index')->name('home');
-            Route::get('/login','Admin\LoginController@index')->name('loginout');
-            Route::post('/login/dologin','Admin\LoginController@dologin');
+            Route::get('/login','Admin\LoginController@index')->name('login');
+            Route::get('/indexout','Admin\IndexController@indexout')->name('loginout');
+            Route::post('/Login/dologin','Admin\LoginController@dologin')->name('dologin');
             // 会员管理
             Route::group(['prefix' => 'Umember'], function () {
                 // 会员列表
@@ -30,6 +33,12 @@ Route::get('/', function () {
                 Route::get('/Umember_Grading','Admin\Umember\UmemberGradeController@index')->name('Umember_Grading');
                 // 会员记录管理
                 Route::get('/Umember_Record','Admin\Umember\UmemberRecordController@index')->name('Umember_Record');
+                //会员权限修改
+                Route::any('/userupd/{id}','Admin\Umember\UmemberController@userupd')->name('useradmupd');
+                //会员信息修改
+                Route::any('/upd/{id}','Admin\Umember\UmemberController@update')->name('userupdate');
+                //会员信息删除
+                Route::any('/del/{id}','Admin\Umember\UmemberController@delete')->name('userdelete');
             });
             // 管理员管理
             Route::group(['prefix' => 'Uadmin'], function () {
@@ -37,21 +46,24 @@ Route::get('/', function () {
 
                 // 权限管理
                 Route::get('/UadminCompetence','Admin\Uadmin\UadminCompetenceController@index')->name('Uadmin_Competence');
-                // 权限管理添加
-                Route::get('/UadminCompetence_add','Admin\Uadmin\UadminCompetenceController@addList')->name('Competence');
                 // 权限管理修改
-                Route::get('/UadminCompetence_upload','Admin\Uadmin\UadminCompetenceController@uploadList')->name('Competence_Upload');
+                Route::get('/UadminCompetence_upload/{id}','Admin\Uadmin\UadminCompetenceController@uploadList')->name('Competence_Upload');
+                //权限修改
+                Route::post('/Competence_Update/{id}','Admin\Uadmin\UadminCompetenceController@update')->name('Competence_Update'); 
                 // 管理员列表
                 Route::get('/UadminIstrator','Admin\Uadmin\UadminIstratorController@index')->name('Uadmin_Istrator');
                 Route::get('/UadminIstrator0','Admin\Uadmin\UadminIstratorController@index0')->name('Uadmin_Istrator0');
                 Route::get('/UadminIstrator1','Admin\Uadmin\UadminIstratorController@index1')->name('Uadmin_Istrator1');
                 Route::get('/UadminIstrator2','Admin\Uadmin\UadminIstratorController@index2')->name('Uadmin_Istrator2');
                 // 管理员列表修改
-                Route::get('/UadminIstrator_Upload','Admin\Uadmin\UadminIstratorController@uploadList')->name('Uadmin_Istrator_Upload');
+                Route::get('/UadminIstrator_Upload/{id}','Admin\Uadmin\UadminIstratorController@uploadList')->name('Uadmin_Istrator_Upload');
                 //管理员添加
                  Route::post('/UadminIstrator/useradd','Admin\Uadmin\UadminIstratorController@useradd')->name('Uadmin_Istrator_add');
-                //
+                //管理员删除
                 Route::post('/UadminIstrator/userdel/{id}','Admin\Uadmin\UadminIstratorController@userdel')->name('Uadmin_userdel'); 
+                //管理状态修改
+                Route::post('/UadminIstrator/userupd/{id}','Admin\Uadmin\UadminIstratorController@userupd')->name('Uadmin_useradmupd'); 
+                Route::post('/userupdate/{id}','Admin\Uadmin\UadminIstratorController@userupdate')->name('Uadmin_Upd'); 
                 // 个人信息
                 Route::get('/UadminInfo','Admin\Uadmin\UadminIstratorController@index')->name('Uadmin_Info');
 
@@ -110,14 +122,29 @@ Route::get('/', function () {
                 Route::get('Order_Chart','Admin\Transaction\TransactionOrderController@index')->name('Order_Chart');
                 // 订单管理
                 Route::get('Orderform','Admin\Transaction\TransactionOrderformController@index')->name('Orderform');
+                Route::post('Orderupd/{id}','Admin\Transaction\TransactionOrderformController@update')->name('Orderupd');
+                Route::any('Orderdel/{id}','Admin\Transaction\TransactionOrderformController@delete')->name('Orderdel');
                 // 交易金额
                 Route::get('Order_Amounts','Admin\Transaction\TransactionOrderAmountsController@index')->name('Order_Amounts');
                 // 订单处理
                 Route::get('Order_handling','Admin\Transaction\TransactionOrderHandlingController@index')->name('Order_Handling');
+                Route::get('handling0','Admin\Transaction\TransactionOrderHandlingController@index0')->name('Order_Handling0');
+                Route::get('handling1','Admin\Transaction\TransactionOrderHandlingController@index1')->name('Order_Handling1');
+                Route::get('handling2','Admin\Transaction\TransactionOrderHandlingController@index2')->name('Order_Handling2');
+                Route::get('handling4','Admin\Transaction\TransactionOrderHandlingController@index4')->name('Order_Handling4');
+                //订单发货
+                Route::post('handdeal/{id}','Admin\Transaction\TransactionOrderHandlingController@deal')->name('handdeal');
+                Route::any('ordstu/{id}','Admin\Transaction\TransactionOrderHandlingController@ordstu')->name('ordstu');
                 // 订单列表
-                Route::get('Order_Detailed','Admin\Transaction\TransactionOrderHandlingController@addList')->name('Order_Detailed');
+                Route::get('detailed/{id}','Admin\Transaction\TransactionOrderHandlingController@addList')->name('Order_Detailed');
+                //订单列表修改
+                Route::post('Detaiupd/{id}','Admin\Transaction\TransactionOrderHandlingController@Listupd')->name('tailupd');
+                //订单地址修改
+                Route::post('Adress/{id}','Admin\Transaction\TransactionOrderHandlingController@Adress')->name('dresupd');
                 // 退款处理
                 Route::get('Refund','Admin\Transaction\TransactionRefundController@index')->name('Refund');
+                Route::get('Redres/{id}','Admin\Transaction\TransactionRefundController@dres')->name('Redres');
+                Route::get('delete/{id}','Admin\Transaction\TransactionRefundController@delete')->name('delete');
                 // 退款订单处理
                 Route::get('Refund_Detailed','Admin\Transaction\TransactionRefundController@addList')->name('Refund_Detailed');
             });
@@ -182,6 +209,11 @@ Route::get('/', function () {
                 Route::get('Sort_Update','Admin\Article\ArticleSortController@update')->name('Article_Update');
                 // 文章管理修改
                 Route::get('Sort_Upload','Admin\Article\ArticleSortController@uploadList')->name('Article_Sort_Upload');
+                // 友情链接
+                Route::get('Sort_pen','Admin\Article\ArticlePenController@index')->name('Article_pen');
+                Route::post('Addlink','Admin\Article\ArticlePenController@addlink')->name('pen_link');
+                Route::post('updlink/{id}','Admin\Article\ArticlePenController@upd')->name('pen_upd');
+                Route::any('dellinks/{id}','Admin\Article\ArticlePenController@del')->name('pen_del');
             });
             // 系统管理
             Route::group(['prefix' => 'System'], function () {
@@ -234,8 +266,10 @@ Route::get('/', function () {
             Route::group(['namespace'=>'Deal','prefix' => 'Deal'], function () {
                 // 订单管理
                 Route::get('/Order','OrderController@index')->name('Order');
+                //订单删除
+                Route::get('/Ordel/{id}','OrderController@Ordel')->name('Ordel');
                 // 订单详情
-                Route::get('/Orderinfo','OrderController@orderInfo')->name('Orderinfo');
+                Route::get('/Orderinfo/{id}','OrderController@orderInfo')->name('Orderinfo');
                 //  物流跟踪
                 Route::get('/Logistics','OrderController@logistics')->name('Logistics');
                     // 一键支付
@@ -244,8 +278,9 @@ Route::get('/', function () {
                     Route::get('/Success','OrderController@success')->name('Success');
                 // 退款售后
                 Route::get('/Change','ChangeController@index')->name('Change');
+                Route::get('/Chdit/{id}','ChangeController@edit')->name('Chdit');
                     // 钱款去向
-                    Route::get('/Record','ChangeController@create')->name('Record');
+                    Route::get('/Record/{id}','ChangeController@create')->name('Record');
             });
             // 我的资产
             Route::group(['namespace'=>'Assets','prefix' => 'Assets'], function () {

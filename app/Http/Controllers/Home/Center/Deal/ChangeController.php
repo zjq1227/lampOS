@@ -4,7 +4,10 @@ namespace App\Http\Controllers\home\Center\Deal;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\orders;
+use DB;
+use Hash;
+use Illuminate\Support\Facades\Storage;
 class ChangeController extends Controller
 {
     /**
@@ -15,7 +18,20 @@ class ChangeController extends Controller
     public function index()
     {
         //退款售后
-        return view('home.Center.Deal.Change');
+       $item = DB::table('orders')->where([['orders.uid',16],['ord_stu','2']])->get();
+        // $item = DB::table('orders')->where('status','0')->get();
+        
+        foreach ($item as $k => &$v) {
+             $v->sub  = DB::table('item')->where('oid',$v->id)->get();
+               foreach ($v->sub as $k2 => &$v2) {
+                //查询sku商品数据插入
+                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+            }
+        }
+
+        
+    // dd($count);
+        return view('home.Center.Deal.Change',['item'=>$item]);
     }
 
     /**
@@ -23,10 +39,21 @@ class ChangeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
+        // dd($id);
+        $item = DB::table('orders')->where([['orders.uid',16],['ord_stu','2']])->get();
+        // $item = DB::table('orders')->where('status','0')->get();
+        
+        foreach ($item as $k => &$v) {
+             $v->sub  = DB::table('item')->where('oid',$v->id)->get();
+               foreach ($v->sub as $k2 => &$v2) {
+                //查询sku商品数据插入
+                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+            }
+        }
         //钱款去向
-        return view('home.Center.Deal.Record');
+        return view('home.Center.Deal.Record',['item'=>$item]);
     }
 
     /**
@@ -59,7 +86,16 @@ class ChangeController extends Controller
      */
     public function edit($id)
     {
-        //
+        // dd($id);
+        $res = DB::table('orders')->find($id);
+         $orders = orders::all();
+          $res1 = DB::table('orders')
+                ->where('id', $id)
+                ->update(['ord_stu' => '2']);
+          $res2 = DB::table('orders')
+                ->where('id', $id)
+                ->update(['status' => '5']);
+        return redirect('home/Center/Deal/Change'); 
     }
 
     /**

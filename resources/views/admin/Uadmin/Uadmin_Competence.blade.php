@@ -25,59 +25,45 @@
 
 <body>
  <div class="margin clearfix">
-   <div class="border clearfix">
-       <span class="l_f">
-        <a href="{{route('Competence')}}" id="Competence_add" class="btn btn-warning" title="添加权限"><i class="fa fa-plus"></i> 添加权限</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a>
-       </span>
-       <span class="r_f">共：<b>5</b>类</span>
-     </div>
      <div class="compete_list">
        <table id="sample-table-1" class="table table-striped table-bordered table-hover">
 		 <thead>
 			<tr>
-			  <th class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
 			  <th>权限名称</th>
-			  <th>人数</th>
               <th>用户名称</th>
 			  <th class="hidden-480">描述</th>             
 			  <th class="hidden-480">操作</th>
              </tr>
 		    </thead>
+		      @foreach ($admin as $k=>$v)
              <tbody>
 			  <tr>
-				<td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-				<td>超级管理员</td>
-				<td>1</td>
-				<td class="hidden-480">admin</td>
-				<td>拥有至高无上的权利,操作系统的所有权限</td>
+				
 				<td>
-                 <a title="编辑" href="{{route('Competence_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
+				@if (($v->auth)==0 )
+					超级管理员
+				  @elseif (($v->auth)==1)
+				    普通管理员
+				  @elseif (($v->auth)==2)
+				  	编辑管理员
+				  @endif
+			  </td>
+			
+				<td class="hidden-480">{{ $v->uname }}</td>
+				<td>
+				@if (($v->auth)==0 )
+					有至高无上的权利,操作系统的所有权限
+				  @elseif (($v->auth)==1)
+				   拥有网站的系统大部分使用权限，没有权限管理功能。
+				  @elseif (($v->auth)==2)
+				  	拥有部分权限，主要进行编辑功能，无边界订单功能，权限分配功能。
+				  @endif</td>
+				<td>
+                 <a title="编辑" href="{{route('Competence_Upload',array('id'=>$v->id))}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
                  <a title="删除" href="javascript:;"  onclick="Competence_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
 				</td>
 			   </tr>
-               <tr>
-				<td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-				<td>普通管理员</td>
-				<td>3</td>
-				<td class="hidden-480">admin123 , 张小泉 ,克雷鲍</td>
-				<td>拥有网站的系统大部分使用权限，没有权限管理功能。</td>
-				<td>
-                 <a title="编辑" href="{{route('Competence_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-                 <a title="删除" href="javascript:;"  onclick="Competence_del(this,'2')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-				</td>
-			   </tr>	
-               <tr>
-				<td class="center"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-				<td>编辑管理员</td>
-				<td>5</td>
-				<td class="hidden-480">admin345,stysty,adminstyle,admin45678,admin123455</td>
-				<td>拥有部分权限，主要进行编辑功能，无边界订单功能，权限分配功能。</td>
-				<td>
-                 <a title="编辑" href="{{route('Competence_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>        
-                 <a title="删除" href="javascript:;"  onclick="Competence_del(this,'3')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-				</td>
-			   </tr>												
+			   		 @endforeach 												
 		      </tbody>
 	        </table>
      </div>

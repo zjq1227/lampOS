@@ -95,7 +95,9 @@
 					</div>
 					<hr/>
 					<div class="comment-list">
-
+						@foreach($item as $k=>$v)
+							@foreach($v->sub as $sub)
+								@foreach($sub->sub as $d)
 						<div class="record-aside">
 							<div class="item-pic">
 								<a href="#" class="J_MakePoint">
@@ -107,7 +109,7 @@
 
 								<div class="item-name">
 									<a href="#">
-										<p class="item-basic-info">美康粉黛醉美唇膏 持久保湿滋润防水不掉色</p>
+										<p class="item-basic-info">{{$d->goods}}</p>
 									</a>
 								</div>
 								<div class="info-little">
@@ -117,36 +119,35 @@
 							</div>
 							<div class="item-info">
 								<div class="item-ordernumber">
-									<span class="info-title">退款编号：</span><a>147478464147</a>
 								</div>
-
-								<div class="item-time">
-									<span class="info-title">申请时间：</span><span class="time">2015-12-16&nbsp;17:07</span>
-								</div>
-
 							</div>
 							<div class="clear"></div>
 						</div>
-
+						@endforeach
+						@endforeach
+						<div class="item-ordernumber" style="margin-left: 710px;margin-top: 0px;">
+									<span class="info-title">退款编号：</span><a>{{$v->code}}</a>
+						</div>
 						<div class="record-main">
 							<div class="detail-list refund-process">
 							    <div class="fund-tool">中国农业银行(尾号3361)</div>
-								<div class="money">66.00</div>
+								<div class="money"></div>
 							</div>
 							<div class="clear"></div>
 							<!--进度条-->
 							<div class="m-progress" style="height: 100px;">
 								<div class="m-progress-list">
+								@if(($v->outdor)=='0')
 									<span class="step-1 step">
                                 <em class="u-progress-stage-bg"></em>
                                 <i class="u-stage-icon-inner">1<em class="bg"></em></i>
-                                <p class="stage-name">卖家退款 </p>
+                                <p class="stage-name">申请退款 </p>
                                 <p class="stage-name">2015-12-21<br>17:38:29</p>
                             </span>
 									<span class="step-2 step">
                                 <em class="u-progress-stage-bg"></em>
                                 <i class="u-stage-icon-inner">2<em class="bg"></em></i>
-                                <p class="stage-name">银行受理</p>
+                                <p class="stage-name">商城受理</p>
                                 <p class="stage-name">2015-12-21<br>19:38:29</p>
                             </span>
 									<span class="step-3 step">
@@ -155,6 +156,45 @@
                                 <p class="stage-name">退款成功</p>
                                 <p class="stage-name">2015-12-21<br>19:58:29</p>
                             </span>
+                            	@elseif(($v->outdor)=='1')
+                            	<span class="step-2 step">
+                                <em class="u-progress-stage-bg"></em>
+                                <i class="u-stage-icon-inner">1<em class="bg"></em></i>
+                                <p class="stage-name">申请退款 </p>
+                                <p class="stage-name">2015-12-21<br>17:38:29</p>
+                            </span>
+									<span class="step-1 step">
+                                <em class="u-progress-stage-bg"></em>
+                                <i class="u-stage-icon-inner">2<em class="bg"></em></i>
+                                <p class="stage-name">商城受理</p>
+                                <p class="stage-name">2015-12-21<br>19:38:29</p>
+                            </span>
+									<span class="step-3 step">
+                                <em class="u-progress-stage-bg"></em>
+                                <i class="u-stage-icon-inner">3<em class="bg"></em></i>
+                                <p class="stage-name">退款成功</p>
+                                <p class="stage-name">2015-12-21<br>19:58:29</p>
+                            </span>
+                            	@elseif(($v->outdor)=='2')
+                            	<span class="step-3 step">
+                                <em class="u-progress-stage-bg"></em>
+                                <i class="u-stage-icon-inner">1<em class="bg"></em></i>
+                                <p class="stage-name">申请退款 </p>
+                                <p class="stage-name">2015-12-21<br>17:38:29</p>
+                            </span>
+									<span class="step-2 step">
+                                <em class="u-progress-stage-bg"></em>
+                                <i class="u-stage-icon-inner">2<em class="bg"></em></i>
+                                <p class="stage-name">商城受理</p>
+                                <p class="stage-name">2015-12-21<br>19:38:29</p>
+                            </span>
+									<span class="step-1 step">
+                                <em class="u-progress-stage-bg"></em>
+                                <i class="u-stage-icon-inner">3<em class="bg"></em></i>
+                                <p class="stage-name">退款成功</p>
+                                <p class="stage-name">2015-12-21<br>19:58:29</p>
+                            </span>
+                            @endif
 									<span class="u-progress-placeholder"></span>
 								</div>
 								<div class="u-progress-bar total-steps-2">
@@ -162,7 +202,7 @@
 								</div>
 							</div>
 						</div>
-
+					@endforeach
 					</div>
 					<div class="clear"></div>
 				</div>

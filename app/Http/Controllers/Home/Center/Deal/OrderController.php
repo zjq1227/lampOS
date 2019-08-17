@@ -4,7 +4,14 @@ namespace App\Http\Controllers\home\Center\Deal;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\orders;
+use App\Models\shop;
+use App\Models\shipping;
+use App\Models\Users;
+use App\Models\goods;
+use DB;
+use Hash;
+use Illuminate\Support\Facades\Storage;
 class OrderController extends Controller
 {
     /**
@@ -14,13 +21,122 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //订单管理
-        return view('home.Center.Deal.Order');
+ 
+        
+        $item = DB::table('orders')->where([['orders.uid',16],['ord_stu','0']])->get();
+        // $item = DB::table('orders')->where('status','0')->get();
+        
+        foreach ($item as $k => &$v) {
+             $v->sub  = DB::table('item')->where('oid',$v->id)->get();
+               foreach ($v->sub as $k2 => &$v2) {
+                //查询sku商品数据插入
+                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+            }
+        }
+        // dd( $item);
+        //未付款
+        $orders0 = DB::table('orders')->where([['orders.uid',16],['ord_stu','0'],['status','0']])->get();
+            // dd($orders0);
+            foreach ($orders0 as $k => &$v) {
+             $v->sub  = DB::table('item')->where('oid',$v->id)->get();
+               foreach ($v->sub as $k2 => &$v2) {
+                //查询sku商品数据插入
+                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+            }
+        }
+        //已发货
+        $orders1 = DB::table('orders')->where([['orders.uid',16],['ord_stu','0'],['status','1']])->get();
+            foreach ($orders1 as $k => &$v) {
+             $v->sub  = DB::table('item')->where('oid',$v->id)->get();
+               foreach ($v->sub as $k2 => &$v2) {
+                //查询sku商品数据插入
+                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+            }
+        }
+        //已收货
+        $orders2 = DB::table('orders')->where([['orders.uid',16],['ord_stu','0'],['status','2']])->get();
+            foreach ($orders2 as $k => &$v) {
+             $v->sub  = DB::table('item')->where('oid',$v->id)->get();
+               foreach ($v->sub as $k2 => &$v2) {
+                //查询sku商品数据插入
+                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+            }
+        }
+        //订单完成
+        $orders4 = DB::table('orders')->where([['orders.uid',16],['ord_stu','0'],['status','4']])->get();
+            foreach ($orders4 as $k => &$v) {
+             $v->sub  = DB::table('item')->where('oid',$v->id)->get();
+               foreach ($v->sub as $k2 => &$v2) {
+                //查询sku商品数据插入
+                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+            }
+        }
+        $i=0;
+        if($item){
+            foreach ($item as $key => $value) {
+                foreach ($value->sub as $k => $v) {
+                    
+                        foreach ($v->sub as $y => $e) {
+                            if($i==0){
+                                 $count=$v->nums*$e->price;
+                             }else{
+                                $count+=$v->nums*$e->price;
+                             }
+                            // dump($v->nums);
+                           $i++;
+                                    // dump($e->price);
+                        }
+                    }
+            }
+        }else{
+            echo $count='';
+        }
+        // dd($count);
+        // $orders = DB::table('orders')->get();
+        // dd($orders4);
+        return view('home.Center.Deal.Order',['item'=>$item,'orders0'=>$orders0,'orders1'=>$orders1,'orders2'=>$orders2,'orders4'=>$orders4,'count'=>$count]);
     }
 
-    public function orderInfo(){
+    public function orderInfo($id){
         //订单详情
-        return view('home.Center.Deal.Orderinfo');
+        dump($id);
+        $orders = DB::table('orders')
+            ->leftjoin('shop', 'orders.sid', '=', 'shop.id')
+            ->leftjoin('shipping', 'orders.shid', '=', 'shipping.id')
+            ->leftjoin('users', 'orders.uid','=','users.id')
+            ->select('orders.*', 'shop.sname', 'shipping.acode','users.uname')
+            ->get()->where('id',$id);
+            // dd($orders);
+        $item = DB::table('orders')->where([['orders.id',$id],['ord_stu','0']])->get();
+        foreach ($item as $k => &$v) {
+             $v->sub  = DB::table('item')->where('oid',$v->id)->get();
+               foreach ($v->sub as $k2 => &$v2) {
+                //查询sku商品数据插入
+                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+            }
+        }
+        $i=0;
+        if($item){
+            foreach ($item as $key => $value) {
+                foreach ($value->sub as $k => $v) {
+                    
+                        foreach ($v->sub as $y => $e) {
+                            if($i==0){
+                                 $count=$v->nums*$e->price;
+                             }else{
+                                $count+=$v->nums*$e->price;
+                             }
+                            // dump($v->nums);
+                           $i++;
+                                    // dump($e->price);
+                        }
+                    }
+            }
+        }else{
+            echo $count='';
+        }
+        // dd($item);
+        return view('home.Center.Deal.Orderinfo',['orders'=>$orders,'item'=>$item,'count'=>$count]);
     }
 
     public function logistics(){
@@ -65,9 +181,15 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function Ordel($id)
     {
-        //
+        // dd($id);
+      $res = DB::table('orders')->find($id);
+      $orders = orders::all();
+          $res1 = DB::table('orders')
+                ->where('id', $id)
+                ->update(['ord_stu' => '1']);
+        return redirect('home/Center/Deal/Order');  
     }
 
     /**

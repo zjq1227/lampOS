@@ -36,7 +36,6 @@
      <div class="border clearfix">
        <span class="l_f" class="inline laydate-icon" id="start">
         <a href="javascript:ovid()" id="administrator_add" class="btn btn-warning"><i class="fa fa-plus"></i> 添加管理员</a>
-        <a href="javascript:ovid()" class="btn btn-danger"><i class="fa fa-trash"></i> 批量删除</a>
        </span>
        <span class="r_f">共：<b>5</b>人</span>
      </div>
@@ -80,8 +79,8 @@
       <tr>
       <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
       <td>{{ $v->id -1}}</td>
-      <td>{{ $v->username }}</td>
-      <td>{{  $v->tel }}</td>
+      <td>{{ $v->uname }}</td>
+      <td>{{  $v->phone }}</td>
       <td>{{ $v->email }}</td>
       <td>
       @if (($v->sex)==1 )
@@ -100,13 +99,18 @@
 	  @endif
 	  </td>
      <td class="td-status"><span class="label label-success radius">
-       @if (($v->path)==1 )
+       @if (($v->status)==1 )
 		已启用
-	  @elseif (($v->path)==0)
+	  @elseif (($v->status)==0)
 	    停用
 	  @endif</span></td>
-       <td class="td-manage">
-        <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>  
+       < <td class="td-manage">
+         <form action="{{route('Uadmin_useradmupd',array('id'=>$v->id))}}"  method="post" style="display: inline;">
+        {{ csrf_field() }}
+        
+        <input type="submit" value="√" class="btn btn-xs btn-warning" />
+        </a>
+       </form> 
         <a title="编辑" href="{{route('Uadmin_Istrator_Upload')}}"  class="btn btn-xs btn-info" ><i class="fa fa-edit bigger-120"></i></a>       
         <form action="{{route('Uadmin_userdel',array('id'=>$v->id))}}"  method="post" style="display: inline;">
         {{ csrf_field() }}
@@ -130,22 +134,23 @@
 		<div class="form-group">
 			<label class="form-label"><span class="c-red">*</span>管理员：</label>
 			<div class="formControls">
-				<input type="text" class="input-text" value="" placeholder="" id="user-name" name="username" datatype="*2-16" nullmsg="用户名不能为空">
+				<input type="text" class="input-text" value="" placeholder="" id="user-name" name="uname" datatype="*2-16" nullmsg="用户名不能为空">
 			</div>
 			<div class="col-4"> <span class="Validform_checktip"></span></div>
 		</div>
 		<div class="form-group">
 			<label class="form-label"><span class="c-red">*</span>初始密码：</label>
 			<div class="formControls">
-			<input type="password" placeholder="密码" name="userpassword" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
+			<input type="password" placeholder="密码" name="pass" autocomplete="off" value="" class="input-text" datatype="*6-20" nullmsg="密码不能为空">
 			</div>
 			<div class="col-4"> <span class="Validform_checktip"></span></div>
 		</div>
 		<div class="form-group">
 			<label class="form-label "><span class="c-red">*</span>确认密码：</label>
 			<div class="formControls ">
-		<input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="userpassword" id="newpassword2" name="newpassword2">
+		<input type="password" placeholder="确认新密码" autocomplete="off" class="input-text Validform_error" errormsg="您两次输入的新密码不一致！" datatype="*" nullmsg="请再输入一次新密码！" recheck="pass" id="newpassword2" name="newpassword2">
 			</div>
+
 			<div class="col-4"> <span class="Validform_checktip"></span></div>
 		</div>
 		<div class="form-group">
@@ -160,7 +165,7 @@
 		<div class="form-group">
 			<label class="form-label "><span class="c-red">*</span>手机：</label>
 			<div class="formControls ">
-				<input type="text" class="input-text" value="" placeholder="" id="user-tel" name="user-tel" datatype="m" nullmsg="手机不能为空">
+				<input type="text" class="input-text" value="" placeholder="" id="phone" name="phone" datatype="m" nullmsg="手机不能为空">
 			</div>
 			<div class="col-4"> <span class="Validform_checktip"></span></div>
 		</div>
@@ -183,12 +188,6 @@
 				</span> </div>
 		</div>
 		<div class="form-group">
-			<label class="form-label">备注：</label>
-			<div class="formControls">
-				<textarea name="" cols="" rows="" class="textarea" placeholder="说点什么...100个字符以内" dragonfly="true" onkeyup="checkLength(this);"></textarea>
-				<span class="wordage">剩余字数：<span id="sy" style="color:Red;">100</span>字</span>
-			</div>
-			<div class="col-4"> </div>
 		</div>
 		<div> 
         <input class="btn btn-primary radius" type="submit" id="Add_Administrator" value="&nbsp;&nbsp;提交&nbsp;&nbsp;">

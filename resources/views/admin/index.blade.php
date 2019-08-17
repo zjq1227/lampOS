@@ -2,7 +2,6 @@
     <head></head>
     <body>
 	@include('layouts.Abefore') @section('content') @endsection
-
         <div class="main-container" id="main-container">
             <script type="text/javascript">try {
                     ace.settings.check('main-container', 'fixed')
@@ -78,9 +77,10 @@
                                             <i class="icon-double-angle-right"></i>权限管理</a>
                                     </li>
                                     <li class="home">
-                                        <a href="javascript:void(0)" name="{{ route('Uadmin_Istrator') }}" title="管理员列表" class="iframeurl">
+                                        <a href="javascript:void(0)" name="{{route('Uadmin_Istrator')}}" title="管理员列表" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>管理员列表</a>
                                     </li>
+                                   
                                 </ul>
                             </li>
                             <li>
@@ -91,7 +91,7 @@
                                 </a>
                                 <ul class="submenu">
                                     <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Product')}}" title="产品类表" class="iframeurl">
+                                        <a href="javascript:void(0)" name="{{route('Product','empty')}}" title="产品类表" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>产品类表</a>
                                     </li>
                                     <li class="home">
@@ -169,10 +169,10 @@
                                         <a href="javascript:void(0)" name="{{route('Method')}}" title="支付方式" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>支付方式</a>
                                     </li>
-                                    {{-- <li class="home">
+                                    <li class="home">
                                         <a href="javascript:void(0)" name="{{route('Configure')}}" title="支付配置" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>支付配置</a>
-                                    </li> --}}
+                                    </li>
                                 </ul>
                             </li>
                             <li>
@@ -183,13 +183,13 @@
                                 </a>
                                 <ul class="submenu">
                                     <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Shop_List')}}" title="店铺列表" class="iframeurl">
+                                        <a href="javascript:void(0)" name="{{route('Shop_List','empty')}}" title="店铺列表" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>店铺列表</a>
                                     </li>
                                     <li class="home">
                                         <a href="javascript:void(0)" name="{{route('Shop_Audit')}}" title="店铺审核" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>店铺审核
-                                            <span class="badge badge-danger">5</span></a>
+                                        <span class="badge badge-danger"></span></a>
                                     </li>
                                 </ul>
                             </li>
@@ -234,18 +234,12 @@
                                     <b class="arrow icon-angle-down"></b>
                                 </a>
                                 <ul class="submenu">
-                                    {{-- <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('System')}}" title="系统设置" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>系统设置</a>
-                                    </li> --}}
+                                    
                                     <li class="home">
                                         <a href="javascript:void(0)" name="{{route('System_Section')}}" title="系统栏目管理" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>系统栏目管理</a>
                                     </li>
-                                    {{-- <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('System_Logs')}}" title="系统日志" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>系统日志</a>
-                                    </li> --}}
+                                  
                                 </ul>
                             </li>
                         </ul>
@@ -324,7 +318,7 @@
                     ace.settings.check('footerstyle', 'fixed')
                 } catch(e) {}</script>
             <p class="l_f">版权所有：NumberOne专业开发</p>
-            <p class="r_f">qq：1310992327</p></div>
+            <p class="r_f">qq：775747758</p></div>
         <!--修改密码样式-->
         <div class="change_Pass_style" id="change_Pass">
             <ul class="xg_style">

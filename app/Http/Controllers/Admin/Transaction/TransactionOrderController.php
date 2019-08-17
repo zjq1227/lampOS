@@ -11,4 +11,5 @@ class TransactionOrderController extends Controller
     public function Index(){
         return view('admin.Transaction.Transaction_Order_Chart');
     }
+
 }

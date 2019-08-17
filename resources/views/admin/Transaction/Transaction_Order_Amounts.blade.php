@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -29,19 +29,17 @@
 <div class="margin clearfix">
  <div class="amounts_style">
    <div class="transaction_Money clearfix">
-      <div class="Money"><span >成交总额：1.2234.3456.00元</span><p>最新统计时间:2016-8-2</p></div>
-       <div class="Money"><span ><em>￥</em>3456.00元</span><p>当天成交额</p></div>
+      <div class="Money"><span >成交总额：{{$counts}}元</span><p>最新统计时间:{{date("Y-m-d",time())}}</p></div>
+
        <div class="l_f Statistics_btn"> 
-       <a href="javascript:ovid()" title="当月统计" onclick="Statistics_btn()" class="btn  btn-info btn-sm no-radius"><i class="bigger fa fa-bar-chart "></i><h5 class="margin-top">当月统计</h5></a>
+       <a href="javascript:ovid()" title="当月统计" onclick="Statistics_btn()" class="btn  btn-info btn-sm no-radius"><i class="bigger fa fa-bar-chart "></i><h5 class="margin-top"></h5></a>
      </div>
     </div>
     <div class="border clearfix">
       <span class="l_f">
       <a href="javascript:ovid()" class="btn btn-info">全部订单</a>
-      <a href="javascript:ovid()" class="btn btn-danger">当天订单</a>
-        <a href="javascript:ovid()" class="btn btn-danger">当月订单</a>
        </span>
-       <span class="r_f">共：<b>2334</b>笔</span>
+       <span class="r_f">共：<b>{{$cdi}}</b>笔</span>
      </div>
    <div class="Record_list">
     <table class="table table-striped table-bordered table-hover" id="sample-table">
@@ -56,45 +54,15 @@
 			</tr>
 		</thead>
         <tbody> 
+        @foreach($orders as $k=>$v)
         <tr>
-         <td>34</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>         
+         <td>{{$v->id}}</td>
+         <td>{{$v->code}}</td>
+         <td>{{$v->created_at}}</td>
+         <td>{{$v->total}}</td>
+         <td>已完成</td>         
         </tr>
-        <tr>
-         <td>24</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>
-         
-        </tr>
-        <tr>
-         <td>34</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>
-         
-        </tr>
-        <tr>
-         <td>14</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>
-         
-        </tr>
-        <tr>
-         <td>44</td>
-         <td>HD2016061200456787</td>
-         <td>2016-6-12</td>
-         <td>234</td>
-         <td>成功</td>
-         
-        </tr>
+        @endforeach
         </tbody>
         </table> 
     
@@ -143,7 +111,7 @@ function Statistics_btn(){
 	//统计
 	        require.config({
             paths: {
-                echarts: './assets/dist'
+                echarts: '../dist'
             }
         });
         require(
