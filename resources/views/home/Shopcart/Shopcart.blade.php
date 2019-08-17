@@ -70,7 +70,7 @@
 								<ul class="item-content clearfix">
 									<li class="td td-chk">
 										<div class="cart-checkbox ">
-											<input class="check" id="J_CheckBox_170037950254" name="items[]" value="170037950254" type="checkbox">
+										<input class="check" id="{{$cart->id}}" name="items[]" value="{{$cart->id}}" type="checkbox" onclick="total({{$cart->id}})">
 											<label for="J_CheckBox_170037950254"></label>
 										</div>
 									</li>
@@ -86,9 +86,9 @@
 										</div>
 									</li>
 									<li class="td td-info">
-										<div class="item-props item-props-can">
+										<div class="item-props">
 										<span class="sku-line">口味：{{$cart->tname}}</span>
-											<span tabindex="0" class="btn-edit-sku theme-login">修改</span>
+											{{-- <span tabindex="0" class="btn-edit-sku theme-login">修改</span> --}}
 											<i class="theme-login am-icon-sort-desc"></i>
 										</div>
 									</li>
@@ -134,66 +134,16 @@
 						</div>
 					</tr>
 
-					<div class="theme-popover">
-							<div class="theme-span"></div>
-							<div class="theme-poptit h-title">
-								<a href="javascript:;" title="关闭" class="close">×</a>
-							</div>
-							<div class="theme-popbod dform">
-								<form class="theme-signin" name="loginform" action="" method="post">
-									<div class="theme-signin-left">
-										
-										<li class="theme-options">
-											<div class="cart-title">口味：</div>
-											
-											<ul>
-													@foreach ($cart->type as $type)
-													@if($cart->tname == $type->name)
-														<li class="sku-line selected" onclick="img(this,{{$type->price}})" src="{{asset("uploads")}}/{{$type->img}}">{{$type->name}}<i></i></li>
-													@else
-														<li class="sku-line" onclick="img(this,{{$type->price}})" src="{{asset("uploads")}}/{{$type->img}}">{{$type->name}}<i></i></li>
-													@endif
-													@endforeach
-											</ul>
-										</li>
-										<script>
-											function img(obj,price){
-												console.log(price);
-												var img=$(obj).attr('src');
-												$('img[id=types-img]').attr('src',img);
-												$('.J_Price2').text(price);
-											}
-											function submit1(obj,id){
-												console.log(id);
-												console.log($(obj).parent().siblings('li[class=theme-options]').children().children('.selected').text())
-											}
-										</script>
-										<div class="clear"></div>
-										<div class="btn-op">
-											<div class="btn am-btn am-btn-warning" onclick="submit1(this,{{$cart->gid}})">确认</div>
-											<div class="btn close am-btn am-btn-warning">取消</div>
-										</div>
-			
-									</div>
-									<div class="theme-signin-right">
-										<div class="img-info">
-												@foreach ($cart->type as $type)
-												@if($cart->tname == $type->name)
-													<img id="types-img" src="{{asset("uploads")}}/{{$type->img}}" />
-												@endif
-												@endforeach
-										</div>
-									</div>
-			
-								</form>
-							</div>
-						</div>
 					@endforeach
 					<script>
 						// 每个商品的总价
 						for (let i = 0; i < $('.J_Price').length; i++) {
 							console.log($('.J_Price').eq(i).text());
 							$('.td-sum').eq(i).text(Number($('.J_Price').eq(i).text())*Number($('.text_box').eq(i).val()));
+						}
+						// check
+						function total(id){
+							
 						}
 						// +
 						function plus(obj,num,id){
