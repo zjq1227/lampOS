@@ -163,10 +163,14 @@
 												$('img[id=types-img]').attr('src',img);
 												$('.J_Price2').text(price);
 											}
+											function submit1(obj,id){
+												console.log(id);
+												console.log($(obj).parent().siblings('li[class=theme-options]').children().children('.selected').text())
+											}
 										</script>
 										<div class="clear"></div>
 										<div class="btn-op">
-											<div class="btn am-btn am-btn-warning">确认</div>
+											<div class="btn am-btn am-btn-warning" onclick="submit1(this,{{$cart->gid}})">确认</div>
 											<div class="btn close am-btn am-btn-warning">取消</div>
 										</div>
 			

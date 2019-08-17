@@ -14,7 +14,11 @@ class ShopCartController extends Controller
 {
     public function index(){
         //购物车页面
+        if(session('home_login')){
         return view('home.Shopcart.Shopcart');
+    }else{
+        return redirect("home/Login"); 
+    }
     }
     public function create(request $request,$id){
        
