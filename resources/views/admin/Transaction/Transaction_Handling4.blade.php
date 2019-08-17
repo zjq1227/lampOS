@@ -92,7 +92,8 @@
           <td></td>
          <td>
          <a onClick="Delivery_stop(this,'10001')"  href="javascript:;" title="发货"  class="btn btn-xs btn-success"><i class="fa fa-cubes bigger-120"></i></a> 
-         <a title="订单详细"  href="{{route('Order_Detailed')}}"  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a> 
+         <a title="订单详细"  href="{{route('Order_Detailed',$v->id)}}"  class="btn btn-xs btn-info order_detailed" ><i class="fa fa-list bigger-120"></i></a> 
+
           @if (($v->status)=="0")
           <a title="删除" href="javascript:;"  onclick="Order_form_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a> 
           @else
