@@ -4,7 +4,14 @@ namespace App\Http\Controllers\home\Center\Aboutmy;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\orders;
+use App\Models\foot;
+use App\Models\shipping;
+use App\Models\Users;
+use App\Models\goods;
+use DB;
+use Hash;
+use Illuminate\Support\Facades\Storage;
 class FootController extends Controller
 {
     /**
@@ -15,72 +22,24 @@ class FootController extends Controller
     public function index()
     {
         //足迹
-        return view('home.Center.Aboutmy.Foot');
+        $foot= DB::table('footprint')
+            ->leftjoin('goods', 'footprint.gid', '=', 'goods.id')
+            ->select('footprint.*', 'goods.goods', 'goods.price','goods.picname')
+            ->where('uid',16)
+            ->paginate(15);
+            // dd($foot);
+        return view('home.Center.Aboutmy.Foot',['foot'=>$foot]);
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destory($id)
     {
-        //
+          $res1 = foot::destroy($id);
+
+        return redirect('home/Center/Aboutmy/Foot');  
     }
 }

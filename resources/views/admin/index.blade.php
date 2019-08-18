@@ -2,6 +2,7 @@
     <head></head>
     <body>
 	@include('layouts.Abefore') @section('content') @endsection
+
         <div class="main-container" id="main-container">
             <script type="text/javascript">try {
                     ace.settings.check('main-container', 'fixed')
@@ -101,10 +102,9 @@
                                             <i class="icon-double-angle-right"></i>权限管理</a>
                                     </li>
                                     <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Uadmin_Istrator')}}" title="管理员列表" class="iframeurl">
+                                        <a href="javascript:void(0)" name="{{ route('Uadmin_Istrator') }}" title="管理员列表" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>管理员列表</a>
                                     </li>
-                                   
                                 </ul>
                             </li>
                             @else
@@ -118,7 +118,7 @@
                                 </a>
                                 <ul class="submenu">
                                     <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Product','empty')}}" title="产品类表" class="iframeurl">
+                                        <a href="javascript:void(0)" name="{{route('Product')}}" title="产品类表" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>产品类表</a>
                                     </li>
                                     <li class="home">
@@ -223,24 +223,6 @@
                                 </li>
                             @elseif (session('admin_userinfo')->auth ==0)
                             <li>
-
-                                <a href="#" class="dropdown-toggle">
-                                    <i class="icon-laptop"></i>
-                                    <span class="menu-text">店铺管理</span>
-                                    <b class="arrow icon-angle-down"></b>
-                                </a>
-                                <ul class="submenu">
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Shop_List','empty')}}" title="店铺列表" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>店铺列表</a>
-                                    </li>
-                                    <li class="home">
-                                        <a href="javascript:void(0)" name="{{route('Shop_Audit')}}" title="店铺审核" class="iframeurl">
-                                            <i class="icon-double-angle-right"></i>店铺审核
-                                        <span class="badge badge-danger"></span></a>
-                                    </li>
-                                </ul>
-
                                     <a href="#" class="dropdown-toggle">
                                         <i class="icon-list"></i>
                                         <span class="menu-text">交易管理</span>
@@ -272,7 +254,6 @@
                                                 <i class="icon-double-angle-right"></i>退款管理</a>
                                         </li>
                                     </ul>
-
                             </li>
                                 <li>
                                     <a href="#" class="dropdown-toggle">
@@ -362,12 +343,18 @@
                                     <b class="arrow icon-angle-down"></b>
                                 </a>
                                 <ul class="submenu">
-                                    
+                                    <li class="home">
+                                        <a href="javascript:void(0)" name="{{route('System')}}" title="系统设置" class="iframeurl">
+                                            <i class="icon-double-angle-right"></i>系统设置</a>
+                                    </li>
                                     <li class="home">
                                         <a href="javascript:void(0)" name="{{route('System_Section')}}" title="系统栏目管理" class="iframeurl">
                                             <i class="icon-double-angle-right"></i>系统栏目管理</a>
                                     </li>
-                                  
+                                    <li class="home">
+                                        <a href="javascript:void(0)" name="{{route('System_Logs')}}" title="系统日志" class="iframeurl">
+                                            <i class="icon-double-angle-right"></i>系统日志</a>
+                                    </li>
                                 </ul>
                             </li>
                             @else

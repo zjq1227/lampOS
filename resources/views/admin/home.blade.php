@@ -39,7 +39,7 @@
                              <i class="icon-user"></i>
                           </div>
                           <div class="value">
-                              <h1>34522</h1>
+                              <h1>{{$users}}</h1>
                               <p>商城用户</p>
                           </div>
                           </a>
@@ -51,7 +51,7 @@
                               <i class="icon-tags"></i>
                           </div>
                           <div class="value">
-                              <h1>140</h1>
+                              <h1>{{$item}}</h1>
                               <p>分销记录</p>
                           </div>
                       </section>
@@ -62,7 +62,7 @@
                               <i class="icon-shopping-cart"></i>
                           </div>
                           <div class="value">
-                              <h1>345</h1>
+                              <h1>{{$orders}}</h1>
                               <p>商城订单</p>
                           </div>
                       </section>
@@ -73,7 +73,7 @@
                               <i class="icon-bar-chart"></i>
                           </div>
                           <div class="value">
-                              <h1>￥34,500</h1>
+                              <h1>￥{{$money}}</h1>
                               <p>交易记录</p>
                           </div>
                       </section>
@@ -85,11 +85,11 @@
           <div class="title_name">订单统计信息</div>
            <table class="table table-bordered">
            <tbody>
-           <tr><td class="name">未处理订单：</td><td class="munber"><a href="#">0</a>&nbsp;个</td></tr>
-           <tr><td class="name">待发货订单：</td><td class="munber"><a href="#">10</a>&nbsp;个</td></tr>
-           <tr><td class="name">待结算订单：</td><td class="munber"><a href="#">13</a>&nbsp;个</td></tr>
-           <tr><td class="name">已成交订单数：</td><td class="munber"><a href="#">26</a>&nbsp;个</td></tr>
-           <tr><td class="name">交易失败：</td><td class="munber"><a href="#">26</a>&nbsp;个</td></tr>
+           <tr><td class="name">未付款订单：</td><td class="munber"><a href="#">{{$stu0}}</a>&nbsp;个</td></tr>
+           <tr><td class="name">待发货订单：</td><td class="munber"><a href="#">{{$stu1}}</a>&nbsp;个</td></tr>
+           <tr><td class="name">待收获订单：</td><td class="munber"><a href="#">{{$stu2}}</a>&nbsp;个</td></tr>
+           <tr><td class="name">已成交订单数：</td><td class="munber"><a href="#">{{$stu4}}</a>&nbsp;个</td></tr>
+           <tr><td class="name">交易失败：</td><td class="munber"><a href="#">{{$stu5}}</a>&nbsp;个</td></tr>
            </tbody>
           </table>
          </div> 
@@ -111,46 +111,45 @@
            <table class="table table-bordered">
            <tbody>
            <tr><td class="name">注册会员登陆：</td><td class="munber"><a href="#">3240</a>&nbsp;次</td></tr>
-            <tr><td class="name">管理员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
-           {{-- <tr><td class="name">支付宝登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr> --}}
-           {{-- <tr><td class="name">QQ会员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr> --}} 
+           <tr><td class="name">新浪会员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
+           <tr><td class="name">支付宝登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
+           <tr><td class="name">QQ会员登陆：</td><td class="munber"><a href="#">1130</a>&nbsp;次</td></tr>
            </tbody>
           </table>
          </div> 
              <!--<div class="t_Record">
                <div id="main" style="height:300px; overflow:hidden; width:100%; overflow:auto" ></div>     
-              </div> -->
-      
+              </div> --> 
          </div>
  <!--记录-->
  <div class="clearfix">
   <div class="home_btn">
      <div>
-     <a href="{{ route('Product') }}"  title="添加商品" class="btn  btn-info btn-sm no-radius">
+     <a href="picture-add.html"  title="添加商品" class="btn  btn-info btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-addp.png" /></i>
      <h5 class="margin-top">添加商品</h5>
      </a>
-     <a href="{{ route('Category') }}"  title="产品分类" class="btn  btn-primary btn-sm no-radius">
+     <a href="Category_Manage.html"  title="产品分类" class="btn  btn-primary btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-cpgl.png" /></i>
      <h5 class="margin-top">产品分类</h5>
      </a>
-     <a href="{{ route('Umember') }}"  title="个人信息" class="btn  btn-success btn-sm no-radius">
+     <a href="admin_info.html"  title="个人信息" class="btn  btn-success btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-grxx.png" /></i>
-     <h5 class="margin-top">会员管理</h5>
+     <h5 class="margin-top">个人信息</h5>
      </a>
-     <a href="{{ route('System_Section') }}"  title="系统设置" class="btn  btn-info btn-sm no-radius">
+     <a href="Systems.html"  title="系统设置" class="btn  btn-info btn-sm no-radius">
      <i class="bigger-200"><img src="images/xtsz.png" /></i>
      <h5 class="margin-top">系统设置</h5>
      </a>
-     <a href="{{ route('Transaction') }}"  title="商品订单" class="btn  btn-purple btn-sm no-radius">
+     <a href="Order_handling.html"  title="商品订单" class="btn  btn-purple btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-gwcc.png" /></i>
      <h5 class="margin-top">商品订单</h5>
      </a>
-     <a href="{{ route('PictureAdvertising') }}"  title="添加广告" class="btn  btn-pink btn-sm no-radius">
+     <a href="picture-add.html"  title="添加广告" class="btn  btn-pink btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-ad.png" /></i>
      <h5 class="margin-top">添加广告</h5>
      </a>
-      <a href="{{ route('Article_List') }}"  title="添加文章" class="btn  btn-info btn-sm no-radius">
+      <a href="article_add.html"  title="添加文章" class="btn  btn-info btn-sm no-radius">
      <i class="bigger-200"><img src="images/icon-addwz.png" /></i>
      <h5 class="margin-top">添加文章</h5>
      </a>

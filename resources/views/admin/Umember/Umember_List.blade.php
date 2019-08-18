@@ -38,7 +38,7 @@
        <span class="l_f">
         <a href="javascript:ovid()" id="administrator_add" class="btn btn-warning"><i class="fa fa-plus"></i> 添加用户</a>
        </span>
-       <span class="r_f">共：<b>5</b>人</span>
+       <span class="r_f">共：<b>{{$count}}</b>人</span>
      </div>
      <!--操作按钮-->
      <div class="table_menu_list">

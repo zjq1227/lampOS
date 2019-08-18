@@ -4,7 +4,11 @@ namespace App\Http\Controllers\home\Center\Aboutmy;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\coll;
+use App\Models\goods;
+use DB;
+use Hash;
+use Illuminate\Support\Facades\Storage;
 class CollectionController extends Controller
 {
     /**
@@ -15,7 +19,13 @@ class CollectionController extends Controller
     public function index()
     {
         //收藏
-        return view('home.Center.Aboutmy.Collection');
+        $coll= DB::table('collect')
+            ->leftjoin('goods', 'collect.gid', '=', 'goods.id')
+            ->select('collect.*', 'goods.goods', 'goods.price','goods.picname')
+            ->where('uid',16)
+            ->paginate(15);
+        // dd($coll);
+        return view('home.Center.Aboutmy.Collection',['coll'=>$coll]);
     }
 
     /**
@@ -23,9 +33,12 @@ class CollectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+     public function del($id)
     {
-        //
+        // dd($id);
+          $res1 = coll::destroy($id);
+
+        return redirect('home/Center/Aboutmy/Collection');  
     }
 
     /**
@@ -34,44 +47,7 @@ class CollectionController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+  
 
     /**
      * Remove the specified resource from storage.

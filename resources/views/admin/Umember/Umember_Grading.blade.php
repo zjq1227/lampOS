@@ -38,16 +38,16 @@
       </div>
       <div class="widget-body">
          <ul class="b_P_Sort_list">
-             <li><i class="orange  fa fa-user-secret"></i><a href="#">全部(235)</a></li>
-             <li><i class="fa fa-diamond pink "></i> <a href="#">普通会员(235)</a></li>
-             <li> <i class="fa fa-diamond pink "></i> <a href="#">铁牌会员(2215)</a> </li>
-             <li> <i class="fa fa-diamond pink "></i> <a href="#">铜牌会员(3456)</a></li>
-             <li><i class="fa fa-diamond pink "></i> <a href="#">银牌会员(4332)</a></li>
-             <li><i class="fa fa-diamond pink "></i> <a href="#">金牌会员(1332)</a></li>
-             <li> <i class="fa fa-diamond grey"></i> <a href="#">钻石会员(4543)</a></li>
-             <li> <i class="fa fa-diamond red"></i> <a href="#">红钻会员(343)</a></li>
-             <li> <i class="fa fa-diamond blue"></i> <a href="#">蓝钻会员(2343)</a></li>
-             <li> <i class="fa fa-diamond grey"></i> <a href="#">黑钻2(53)</a></li>
+             <li><i class="orange  fa fa-user-secret"></i><a href="#">全部({{$count}})</a></li>
+             <li><i class="fa fa-diamond pink "></i> <a href="#">普通会员({{$arr[0]}})</a></li>
+             <li> <i class="fa fa-diamond pink "></i> <a href="#">铁牌会员({{$arr[1]}})</a> </li>
+             <li> <i class="fa fa-diamond pink "></i> <a href="#">铜牌会员({{$arr[2]}})</a></li>
+             <li><i class="fa fa-diamond pink "></i> <a href="#">银牌会员({{$arr[3]}})</a></li>
+             <li><i class="fa fa-diamond pink "></i> <a href="#">金牌会员({{$arr[4]}})</a></li>
+             <li> <i class="fa fa-diamond grey"></i> <a href="#">钻石会员({{$arr[5]}})</a></li>
+             <li> <i class="fa fa-diamond red"></i> <a href="#">红钻会员({{$arr[6]}})</a></li>
+             <li> <i class="fa fa-diamond blue"></i> <a href="#">蓝钻会员({{$arr[7]}})</a></li>
+             <li> <i class="fa fa-diamond grey"></i> <a href="#">黑钻2({{$arr[8]}})</a></li>
             </ul>
   </div>
   </div>
@@ -63,111 +63,6 @@
       <div id="Statistics" class="Statistics"></div> 
       </div>
       <!--列表样式-->
-      <div class="grading_list">
-       <div class="type_title">全部会员等级列表</div>
-         <div class="table_menu_list">
-       <table class="table table-striped table-bordered table-hover" id="sample-table">
-		<thead>
-		 <tr>
-				<th width="25"><label><input type="checkbox" class="ace"><span class="lbl"></span></label></th>
-				<th width="80">ID</th>
-				<th width="100">用户名</th>
-				<th width="80">性别</th>
-				<th width="120">手机</th>
-				<th width="150">邮箱</th>
-				
-				<th width="180">加入时间</th>
-                <th width="100">等级</th>
-                <th width="100">积分</th>
-				<th width="70">状态</th>                
-				<th width="250">操作</th>
-			</tr>
-		</thead>
-	<tbody>
-		<tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>1</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张三','member-show.html','10001','500','400')">张三</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>         
-          <td>2014-6-11 11:11:42</td>
-          <td>普通用户</td>
-          <td class="text-l">345</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check bigger-120"></i></a> 
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-        <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>2</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','1031','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>普通用户</td>
-           <td class="text-l">1345</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check bigger-120"></i></a>       
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>3</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10301','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>银牌用户</td>
-           <td class="text-l">645</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check bigger-120"></i></a>         
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>4</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10001','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>银牌用户</td>
-           <td class="text-l">645</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check bigger-120"></i></a>       
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-         <tr>
-          <td><label><input type="checkbox" class="ace"><span class="lbl"></span></label></td>
-          <td>5</td>
-          <td><u style="cursor:pointer" class="text-primary" onclick="member_show('张小泉','member-show.html','10001','500','400')">张小泉</u></td>
-          <td>男</td>
-          <td>13000000000</td>
-          <td>admin@mail.com</td>
-          <td>2014-6-11 11:11:42</td>
-          <td>银牌用户</td>
-           <td class="text-l">345</td>
-          <td class="td-status"><span class="label label-success radius">已启用</span></td>
-          <td class="td-manage">
-          <a onClick="member_stop(this,'10001')"  href="javascript:;" title="停用"  class="btn btn-xs btn-success"><i class="fa fa-check  bigger-120"></i></a>        
-          <a title="删除" href="javascript:;"  onclick="member_del(this,'1')" class="btn btn-xs btn-warning" ><i class="fa fa-trash  bigger-120"></i></a>
-          </td>
-		</tr>
-      </tbody>
-	</table>
-   </div>
-      </div>
    </div> 
   </div>
 </div>
@@ -279,7 +174,7 @@ function member_start(obj,id){
                         x: '25%',
                         width: '50%',
                         funnelAlign: 'left',
-                        max: 6200
+                        max: {{$count}}
                     }
                 }
             },
@@ -295,14 +190,15 @@ function member_start(obj,id){
             radius : '55%',
             center: ['50%', '60%'],
             data:[
-                {value:1200, name:'普通用户'},
-                {value:1100, name:'铁牌用户'},
-				{value:1300, name:'铜牌用户'},
-				{value:1000, name:'银牌用户'},
-				{value:980, name:'金牌用户'},
-				{value:850, name:'钻石用户'},
-				{value:550, name:'蓝钻用户'},
-				{value:220, name:'红钻用户'},
+                {value:{{$arr[0]}}, name:'普通用户'},
+                {value:{{$arr[1]}}, name:'铁牌用户'},
+				{value:{{$arr[2]}}, name:'铜牌用户'},
+				{value:{{$arr[3]}}, name:'银牌用户'},
+				{value:{{$arr[4]}}, name:'金牌用户'},
+				{value:{{$arr[5]}}, name:'钻石用户'},
+				{value:{{$arr[6]}}, name:'蓝钻用户'},
+        {value:{{$arr[7]}}, name:'红钻用户'},
+				{value:{{$arr[8]}}, name:'黑钻用户'}
 
             ]
         }
