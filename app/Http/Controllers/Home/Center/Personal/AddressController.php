@@ -110,7 +110,7 @@ class AddressController extends Controller
                 if(session('home_login') && !empty($id)){
                     $shipping=shipping::where('status','1')->get();
                 //    dd(json_decode($shipping,true));
-                    if(!empty(json_decode($shipping,true))){
+                    if(!empty(json_decode($shipping,true)['0'])){
                         foreach (json_decode($shipping,true) as $key => $value) {
                         //    echo $key;
                            $shippingupdate=shipping::find(json_decode($shipping,true)[$key]['id']);

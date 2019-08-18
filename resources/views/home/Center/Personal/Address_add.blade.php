@@ -130,8 +130,10 @@
                                     success:function(result){
                                         if(result!=2){
                                             // console.log(result);
-                                            alert('修改成功');
-                                            window.location.href = "{{url('home/Center/Personal/Address')}}"+"/"+id;
+                                            layer.msg('已修改!',{icon:1,time:1000});
+											setTimeout(function(){
+													window.location.href = "{{url('home/Center/Personal/Address')}}"+"/"+id;
+											},1000);
                                         }
                                     }
                                                             

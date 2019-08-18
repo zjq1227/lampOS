@@ -4,8 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Goods extends Model
+class Collect extends Model
 {
-    //商品表
-    public $table = 'goods';
+    //收藏表
+    public $table = 'collect';
 }

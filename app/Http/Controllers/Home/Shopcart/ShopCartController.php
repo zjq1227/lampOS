@@ -9,33 +9,45 @@ use App\Models\Goods;
 use App\Models\Goods_type;
 use App\Models\Shop;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Input;
 
-class ShopCartController extends Controller
+class ShopCartController extends Controller 
 {
     public function index(){
         //购物车页面
         if(session('home_login')){
-        return view('home.Shopcart.Shopcart');
-    }else{
-        return redirect("home/Login"); 
+         return view('home.Shopcart.Shopcart');
+        }else{
+            return redirect("home/Login"); 
+        }
     }
-    }
-    public function create(request $request,$id){
-       
+    // 删除所有click选中
+    public function alldel(request $request){
+        // return $request;
+        for ($i=0; $i < count($request->input('items')); $i++) { 
+            // echo $i;
+                $cart=Cart::destroy($request->input('items')[$i]);
+        }
+        if($cart){
+            return 1;
+        }
     }
     
+    // 购物车信息
     public function show($id){
         // return $id;
         if(session('home_login')){
             $cart = DB::table('cart')
             ->where('uid',$id)
             ->leftjoin('goods', 'goods.id', '=', 'Cart.gid')
+            ->leftjoin('goods_type','goods_type.id','=','Cart.tid')
             ->select('Cart.*','goods.*','Cart.id')
             ->orderBy('Cart.sid','asc')
+            // ->orderBy('goods_type.status','desc')
             ->get();
             // dd($cart);
             foreach ($cart as $key => $value) {
-                $cart[$key]->type=Goods_type::where('gid',$cart[$key]->gid)->where('status','1')->get();
+                $cart[$key]->type=Goods_type::where('gid',$cart[$key]->gid)->get()['0']['status'];
                 $cart[$key]->tprice=Goods_type::where('id',$cart[$key]->tid)->get()['0']['price'];
                 $cart[$key]->tname=Goods_type::where('id',$cart[$key]->tid)->get()['0']['name'];
             }
@@ -46,6 +58,7 @@ class ShopCartController extends Controller
         }
     }
 
+    // 添加购物车
     public function add(request $request,$id){
         // return $request;
         if(session('home_login')){
@@ -105,7 +118,7 @@ class ShopCartController extends Controller
         }
     }
     
-
+    // 修改购物车数量
     public function update(request $request,$id){
         // return $request;
         $cart=Cart::find($id);
@@ -119,13 +132,45 @@ class ShopCartController extends Controller
             return $cart;
         }
     }
-    public function store(){
 
+    // click查询
+    public function store(request $request){
+        if($request->input('status')!='all'){
+            if($request){
+                $cart=Cart::find($request->input('id'));
+                $cart->price=Goods_type::where('id',$cart->tid)->get()['0']['price'];
+                $cart->total=$cart->price*$cart->cnum;
+                return $cart->total;
+                // return $cart;
+            }
+        }else{
+            // return $request;
+            if(!empty($request->input('items')['0'])){
+                // return $request->input('items');
+                for ($i=0; $i < count($request->input('items')); $i++) { 
+                    // echo $i;
+                    if($i==0){
+                        $cart=Cart::find($request->input('items')[$i]);
+                        $cart->price=Goods_type::where('id',$cart->tid)->get()['0']['price'];
+                        $total=$cart->price*$cart->cnum;
+                    }else{
+                        $cart=Cart::find($request->input('items')[$i]);
+                        $cart->price=Goods_type::where('id',$cart->tid)->get()['0']['price'];
+                        $total+=$cart->price*$cart->cnum;
+                    }
+                }
+                return $total;
+                    return $request->input('items');
+            }
+        }
+        
     }
 
     public function edit(){
 
     }
+
+    // 删除
     public function destroy($id){
         // return $id;
         if($id){

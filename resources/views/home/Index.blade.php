@@ -252,7 +252,6 @@
 						type:"POST",
 						data:{
 							_token : '<?php echo csrf_token()?>',
-							'status':'addshopcart',
 							'gid':id,
 							},
 						dataType:"json",

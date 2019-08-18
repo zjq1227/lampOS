@@ -79,7 +79,7 @@
 								<li class="user-addresslist">
 									<span class="new-option-r" onclick="status({{$item->id}})"><i class="am-icon-check-circle"></i>设为默认</span>
 									<p class="new-tit new-p-re">
-									<span class="new-txt">{{$users->uname}}</span>
+									<span class="new-txt">{{$item->name}}</span>
 										<span class="new-txt-rd2">{{$item->phone}}</span>
 									</p>
 									<div class="new-mu_l2a new-p-re">
@@ -108,8 +108,10 @@
 												dataType:"json",
 												success:function(result){
 													if(result){
-														alert("删除成功");
-														window.location.href = "{{route('Address.index')}}";
+														layer.msg('已删除!',{icon:5,time:1000});
+														setTimeout(function(){
+															location.reload();
+														},1000);
 													}
 												}
 																		
@@ -126,8 +128,10 @@
 												dataType:"json",
 												success:function(result){
 													if(result){
-														// console.log(result);
-														window.location.href = "{{route('Address.index')}}";
+														layer.msg('已修改!',{icon:1,time:1000});
+														setTimeout(function(){
+															location.reload();
+														},1000);
 													}
 												}
 																		
@@ -213,9 +217,9 @@
 									'phone':$('#user-phone').val(),
 									},function(data) //第二个参数要传token的值 再传参数要用逗号隔开
 									{
-										console.log(data);
+										// console.log(data);
 										if(data==1){
-											alert('添加成功');
+											layer.msg('已添加!',{icon:1,time:1000});
 											window.location.href = "{{route('Address.index')}}";
 										}
 								});

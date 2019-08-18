@@ -6,9 +6,11 @@ use Illuminate\Http\Request;
 use Mail;
 use Hash;
 use App\Models\Users;
+use App\Models\Account;
 use App\Models\Users_info;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+
 class RegisterController extends Controller
 {
     /**
@@ -60,7 +62,9 @@ class RegisterController extends Controller
                 $users_info->uid = $uid;
                 $users_info->created_at =$users->created_at;
                 $users_info->updated_at=$users->updated_at;
-                    if($users_info->save()){
+                $account=New Account;
+                $account->uid=$users->id;
+                    if($users_info->save()  && $account->save()){
                         //发送邮件
                         Mail::send('home.email.email',['id'=>$users->id,'token'=>$users->token],function($m) use ($users){
                             $m->to($users->email)->subject('your reminder');

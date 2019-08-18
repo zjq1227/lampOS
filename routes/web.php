@@ -230,9 +230,11 @@ Route::get('/', function () {
                 //  物流跟踪
                 Route::get('/Logistics','OrderController@logistics')->name('Logistics');
                     // 一键支付
-                    Route::get('/Pay','OrderController@pay')->name('Pay');
+                    Route::POST('/Pay','OrderController@pay')->name('Pay');
                     // 支付成功
                     Route::get('/Success','OrderController@success')->name('Success');
+                    // 支付状态
+                    Route::get('/Success/{id}','OrderController@addsuccess');
                 // 退款售后
                 Route::get('/Change','ChangeController@index')->name('Change');
                     // 钱款去向
@@ -253,9 +255,10 @@ Route::get('/', function () {
             Route::group(['namespace'=>'Aboutmy','prefix' => 'Aboutmy'], function () {
                 // 收藏
                 Route::get('/Collection','CollectionController@index')->name('Collection');
+                Route::POST('/Collection/store','CollectionController@store')->name('Collect.store');
                 // 足迹
                 Route::get('/Foot','FootController@index')->name('Foot');
-                Route::POST('/Foot/store','FootController@index')->name('Foot.store');
+                Route::POST('/Foot/store','FootController@store')->name('Foot.store');
                 // 评价
                 Route::get('/Comment','CommentController@index')->name('Comment');
                 // 消息
@@ -274,6 +277,7 @@ Route::get('/', function () {
         // 购物车
         Route::resource('/Shopcart','Shopcart\ShopcartController');
         Route::post('/Shopcart/add/{id}','Shopcart\ShopcartController@add')->name('Shopcart.add');
+        Route::post('/Shopcart/alldel','Shopcart\ShopcartController@alldel')->name('Shopcart.alldel');
     });
 // Auth::routes();
 // Route::get('/home', 'HomeController@index')->name('home');

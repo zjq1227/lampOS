@@ -1,6 +1,7 @@
 @yield('Htop')
 {{-- <script src={{asset("Home/AmazeUI-2.4.2/assets/js/jquery.min.js")}} type="text/javascript"></script> --}}
 <script src={{asset("admin/layer/layer.js")}} type="text/javascript" ></script>  
+<script type="text/javascript" src={{asset("Home/js/jquery.js")}}></script>
 
 <div class="hmtop">
     <!--顶部导航条 -->
@@ -9,7 +10,7 @@
             <div class="topMessage">
                 <div class="menu-hd" >
 					{{-- 是否登陆 --}}
-					<a href="#" target="_top">免费注册</a>
+					<a href="{{route('Register.index')}}" target="_top">免费注册</a>
                         @if (session('home_login'))
 							<a href="javascript:void(0);" onclick="_top()" class="h">用户退出</a>
                         @endif
