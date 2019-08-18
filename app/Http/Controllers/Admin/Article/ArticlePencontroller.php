@@ -14,6 +14,9 @@ class ArticlePencontroller extends Controller
      public function Index(){
         //开始从数据库拿取数据
         $href = Href::all();
+        session(['href'=>$href]);
+        
+        // dd(session()->all());
         return view('admin.Article.Pen_list',['href'=>$href]);
     }
 

@@ -21,48 +21,9 @@
 	<body>
 
 		<!--顶部导航条 -->
-		<div class="am-container header">
-			<ul class="message-l">
-				<div class="topMessage">
-					<div class="menu-hd">
-						<a href="#" target="_top" class="h">亲，请登录</a>
-						<a href="#" target="_top">免费注册</a>
-					</div>
-				</div>
-			</ul>
-			<ul class="message-r">
-				<div class="topMessage home">
-					<div class="menu-hd"><a href="#" target="_top" class="h">商城首页</a></div>
-				</div>
-				<div class="topMessage my-shangcheng">
-					<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-				</div>
-				<div class="topMessage mini-cart">
-					<div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
-				</div>
-				<div class="topMessage favorite">
-					<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-			</ul>
-			</div>
+		@include('layouts.Hbefore')@section('Htop')@endsection
 
-			<!--悬浮搜索框-->
-
-			<div class="nav white">
-				<div class="logo"><img src={{asset("Home/images/logo.png")}} /></div>
-				<div class="logoBig">
-					<li><img src={{asset("Home/images/logobig.png")}} /></li>
-				</div>
-
-				<div class="search-bar pr">
-					<a name="index_none_header_sysc" href="#"></a>
-					<form>
-						<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-						<input id="ai-topsearch" class="submit am-btn"  value="搜索" index="1" type="submit">
-					</form>
-				</div>
-			</div>
-
-			<div class="clear"></div>
+			
 			<b class="line"></b>
            <div class="search">
 			<div class="search-list">
@@ -85,7 +46,7 @@
 			
 				
 					<div class="am-g am-g-fixed">
-						<div class="am-u-sm-12 am-u-md-12">
+						<div class="am-u-sm-12 am-u-md-12" >
 	                  	<div class="theme-popover">														
 							<div class="searchAbout">
 								<span class="font-pale">相关搜索：</span>
@@ -96,63 +57,42 @@
 							</div>
 							<ul class="select">
 								<p class="title font-normal">
-									<span class="fl">松子</span>
-									<span class="total fl">搜索到<strong class="num">997</strong>件相关商品</span>
+									<span class="fl"></span>
+									<span class="total fl">搜索到<strong class="num">以下</strong>件相关商品</span>
 								</p>
 								<div class="clear"></div>
-								<li class="select-result">
+								@if($name)
+								<li class="select-result" style="display: list-item;">
 									<dl>
 										<dt>已选</dt>
-										<dd class="select-no"></dd>
-										<p class="eliminateCriteria">清除</p>
-									</dl>
+										<dd class="select-no" style="display: none;">沙琪玛</dd>
+										<p class="eliminateCriteria" style="display: block;" onclick="demo()">清除</p>
+									<dd class="selected" id="selectA"><a href="javascript:;" onclick="demo()">{{$name}}</a></dd></dl>
 								</li>
+								@endif
 								<div class="clear"></div>
 								<li class="select-list">
 									<dl id="select1">
 										<dt class="am-badge am-round">品牌</dt>	
-									
-										 <div class="dd-conent">										
-											<dd class="select-all selected"><a href="#">全部</a></dd>
-											<dd><a href="#">百草味</a></dd>
-											<dd><a href="#">良品铺子</a></dd>
-											<dd><a href="#">新农哥</a></dd>
-											<dd><a href="#">楼兰蜜语</a></dd>
-											<dd><a href="#">口水娃</a></dd>
-											<dd><a href="#">考拉兄弟</a></dd>
-										 </div>
-						
+										
+                                         <div class="dd-conent">
+<dd class="select-all selected"><a href="#">全部</a></dd>
+@foreach ($pp as $ke=>$v)                                             <dd><a href="{{route('Search_type',$v->bname)}}">{{$v->bname}}</a></dd>
+@endforeach                                          </div>
+										
 									</dl>
 								</li>
-								<li class="select-list">
-									<dl id="select2">
-										<dt class="am-badge am-round">种类</dt>
-										<div class="dd-conent">
-											<dd class="select-all selected"><a href="#">全部</a></dd>
-											<dd><a href="#">东北松子</a></dd>
-											<dd><a href="#">巴西松子</a></dd>
-											<dd><a href="#">夏威夷果</a></dd>
-											<dd><a href="#">松子</a></dd>
-										</div>
-									</dl>
-								</li>
-								<li class="select-list">
-									<dl id="select3">
-										<dt class="am-badge am-round">选购热点</dt>
-										<div class="dd-conent">
-											<dd class="select-all selected"><a href="#">全部</a></dd>
-											<dd><a href="#">手剥松子</a></dd>
-											<dd><a href="#">薄壳松子</a></dd>
-											<dd><a href="#">进口零食</a></dd>
-											<dd><a href="#">有机零食</a></dd>
-										</div>
-									</dl>
-								</li>
-					        
 							</ul>
 							<div class="clear"></div>
+							<script>
+								function demo(obj){
+									
+									window.location.href="{{route('Search')}}";
+									
+								}
+							</script>
                         </div>
-							<div class="search-content">
+							<div class="search-content" >
 								<div class="sort">
 									<li class="first"><a title="综合">综合排序</a></li>
 									<li><a title="销量">销量排序</a></li>
@@ -161,176 +101,26 @@
 								</div>
 								<div class="clear"></div>
 
-								<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes">
+								<ul class="am-avg-sm-2 am-avg-md-3 am-avg-lg-4 boxes" class="container">
+								@foreach($goods as $k=>$v)
 									<li>
 										<div class="i-pic limit">
 											<img src={{asset("Home/images/imgsearch1.jpg")}} />											
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
+											<p class="title fl">{{$v->goods}}</p>
 											<p class="price fl">
 												<b>¥</b>
-												<strong>56.90</strong>
+												<strong>{{$v->price}}</strong>
 											</p>
 											<p class="number fl">
-												销量<span>1110</span>
+												销量<span>{{$v->num}}</span>
 											</p>
 										</div>
 									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
-									<li>
-										<div class="i-pic limit">
-											
-											<img src={{asset("Home/images/imgsearch1.jpg")}} />
-											<p class="title fl">【良品铺子旗舰店】手剥松子218g 坚果炒货零食新货巴西松子包邮</p>
-											<p class="price fl">
-												<b>¥</b>
-												<strong>56.90</strong>
-											</p>
-											<p class="number fl">
-												销量<span>1110</span>
-											</p>
-										</div>
-									</li>
+								@endforeach
 								</ul>
+								
 							</div>
+
 							<div class="search-side">
 
 								<div class="side-title">
@@ -380,40 +170,21 @@
 							</div>
 							<div class="clear"></div>
 							<!--分页 -->
-							<ul class="am-pagination am-pagination-right">
-								<li class="am-disabled"><a href="#">&laquo;</a></li>
-								<li class="am-active"><a href="#">1</a></li>
-								<li><a href="#">2</a></li>
-								<li><a href="#">3</a></li>
-								<li><a href="#">4</a></li>
-								<li><a href="#">5</a></li>
-								<li><a href="#">&raquo;</a></li>
-							</ul>
+							<div>{{ $goods->links() }}</div>
+							<script>
+								$('.pagination').each(function(){
+									for (var i = $('.pagination').children('li').length - 1; i >= 0; i--) {
+										$('.pagination').children('li').eq(i).css('display','inline');
+										$('.pagination').children('li').children('a').eq(i).css('font-size','20px');
+										$('.pagination').children('li').children('span').eq(i).css('font-size','20px');
+									}
+								})
+							</script>
+						</div>
 
-						</div>
 					</div>
-					<div class="footer">
-						<div class="footer-hd">
-							<p>
-								<a href="#">恒望科技</a>
-								<b>|</b>
-								<a href="#">商城首页</a>
-								<b>|</b>
-								<a href="#">支付宝</a>
-								<b>|</b>
-								<a href="#">物流</a>
-							</p>
-						</div>
-						<div class="footer-bd">
-							<p>
-								<a href="#">关于恒望</a>
-								<a href="#">合作伙伴</a>
-								<a href="#">联系我们</a>
-								<a href="#">网站地图</a>
-								<em>© 2015-2025 Hengwang.com 版权所有</em>
-							</p>
-						</div>
-					</div>
+					@include('layouts.Hafter')@section('Htop')@endsection
+
 				</div>
 
 			</div>

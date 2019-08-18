@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Home;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\Href;
+use DB;
 class IndexController extends Controller
 {
     /**
@@ -14,7 +15,12 @@ class IndexController extends Controller
      */
     public function index()
     {
-        //
+        $href = Href::all();
+        $config = DB::table('config')->get();
+        // dd($href);
+        session(['href'=>$href]);
+        session(['config'=>$config]);
+        // dd(session()->all());
         return view('home.Index');
     }
 

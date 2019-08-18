@@ -21,48 +21,8 @@
 			<article>
 				<div class="mt-logo">
 					<!--顶部导航条 -->
-					<div class="am-container header">
-						<ul class="message-l">
-							<div class="topMessage">
-								<div class="menu-hd">
-									<a href="#" target="_top" class="h">亲，请登录</a>
-									<a href="#" target="_top">免费注册</a>
-								</div>
-							</div>
-						</ul>
-						<ul class="message-r">
-							<div class="topMessage home">
-								<div class="menu-hd"><a href="#" target="_top" class="h">商城首页</a></div>
-							</div>
-							<div class="topMessage my-shangcheng">
-								<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-							</div>
-							<div class="topMessage mini-cart">
-								<div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
-							</div>
-							<div class="topMessage favorite">
-								<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-						</ul>
-						</div>
+					@include('layouts.Hbefore')@section('Htop')@endsection
 
-						<!--悬浮搜索框-->
-
-						<div class="nav white">
-							<div class="logoBig">
-								<li><img src={{asset("Home/images/logobig.png")}} /></li>
-							</div>
-
-							<div class="search-bar pr">
-								<a name="index_none_header_sysc" href="#"></a>
-								<form>
-									<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-									<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-								</form>
-							</div>
-						</div>
-
-						<div class="clear"></div>
-					</div>
 				</div>
 			</article>
 		</header>
@@ -102,186 +62,63 @@
                                                                                                                                      交易
                             <span class="desc">（金额单位：元）</span>
                         </h2>
-
-								<div class=" ng-scope">
-									<div class="trade-circle-select  slidedown-">
-										<a href="javascript:void(0);" class="current-circle ng-binding">2015/11/01 - 2015/11/30</a>
-
-									</div>
-									<span class="title-tag"><i class="num ng-binding">12</i>月</span>
-								</div>
 							</div>
 
 							<div class="module-income ng-scope">
 								<div class="income-slider ">
 									<div class="block-income block  fn-left">
 										<h3 class="income-title block-title">
-                                                                                                          支出
+                                      支出
                                       <span class="num ng-binding">
-                                              119.80
+                                            {{$nums}} 元  
                                        </span>
-                                    <span class="desc ng-binding">
-                                           <a href="billlist.html">查看支出明细</a>
-                                         </span>
                                              </h3>
 
-										<div ng-class="shoppingChart" class="catatory-details  fn-hide shopping">
-											<div class="catatory-chart fn-left fn-hide">
-												<div class="title">类型</div>
-												<ul>
-
-
-												</ul>
-											</div>
-											<div class="catatory-detail fn-left">
-												<div class="title ng-binding">
-													购买商品
-												</div>
-												<ul>
-												
-													<li class="ng-scope  delete-false">
-
-														<div class="  ng-scope">
-															<a href="#" class="text fn-left " title="呢子大衣">
-																<span class="emoji-span ng-binding">呢子大衣</span>
-																<span class="amount fn-right ng-binding">349.00</span>
-															</a>
-														</div>
-													</li>
-
-													<li class="ng-scope  delete-false">
-
-														<div class="  ng-scope">
-															<a href="#" class="text fn-left " title="金士顿羊年限量版16gU盘">
-																<span class="emoji-span ng-binding">金士顿羊年限量版16gU盘</span>
-																<span class="amount fn-right ng-binding">39.00</span>
-															</a>
-														</div>
-													</li>
-
-													<li class="ng-scope  delete-false">
-
-														<div class="  ng-scope">
-															<a href="#" class="text fn-left " title="呢子大衣">
-																<span class="emoji-span ng-binding">呢子大衣</span>
-																<span class="amount fn-right ng-binding">349.00</span>
-															</a>
-														</div>
-													</li>
-
-													<li class="ng-scope  delete-false">
-
-														<div class="  ng-scope">
-															<a href="#" class="text fn-left " title="金士顿羊年限量版16gU盘">
-																<span class="emoji-span ng-binding">金士顿羊年限量版16gU盘</span>
-																<span class="amount fn-right ng-binding">39.00</span>
-															</a>
-														</div>
-													</li>
-
-													<li class="ng-scope  delete-false">
-
-														<div class="  ng-scope">
-															<a href="#" class="text fn-left " title="呢子大衣">
-																<span class="emoji-span ng-binding">呢子大衣</span>
-																<span class="amount fn-right ng-binding">349.00</span>
-															</a>
-														</div>
-													</li>
-
-													<li class="ng-scope  delete-false">
-
-														<div class="  ng-scope">
-															<a href="#" class="text fn-left " title="羊毛毡底鞋垫">
-																<span class="emoji-span ng-binding">羊毛毡底鞋垫</span>
-																<span class="amount fn-right ng-binding">9.90</span>
-															</a>
-														</div>
-													</li>
-
-												</ul>
-											</div>
-										</div>
 									</div>
-									<div class="block-expense block  fn-left">
-										<div class="slide-button right"></div>
-									</div>
-									<div class="clear"></div>
 
-									<!--收入-->
-									<h3 class="expense income-title block-title">
-                                                                                                                       收入                                                              
-                                      <span class="num ng-binding">
-                                              0.00
-                                       </span>
-                                    <span class="desc ng-binding">
-                                           <a href="{{route('BillList')}}">查看收入明细</a>
-                                    </span>
-                                </h3>
+									<!--收入-->                             
 								</div>
 
 								<!--消费走势-->
-								<div class="module-consumeTrend inner-module">
-									<h3 class="module-title">消费走势</h3>
-									<div id="consumeTrend-chart" class="consumeTrend-chart">
 
-									</div>
-								</div>
+					<table width="100%">
 
+						<thead>
+							<tr>
+								<th class="memo"></th>
+								<th class="time">创建时间</th>
+								<th class="name">名称</th>
+								<th class="amount">金额</th>
+							</tr>
+						</thead>
+
+						<tbody>
+						@foreach($dec as $k=>$v)
+							<tr>
+								<td class="img">
+									<i><img src="/uploads/{{ $v->picname}}" style="width: 80px;height: 80px;border-radius: 10px;"></i>
+								</td>
+								<td class="time">
+									<p class="text-muted"> {{$v->created_at}}
+									</p>
+								</td>
+								<td class="title name">
+									<p class="content">
+										{{$v->goods}}
+									</p>
+								</td>
+
+								<td class="amount">
+									<span class="amount-pay">-{{$v->price}}</span>
+								</td>
+							</tr>
+							@endforeach
+						</tbody>
+
+					</table>
 								<!--银行卡使用情况-->
 
-								<div class="module-card inner-module">
-									<h3 class="module-title">银行卡使用情况</h3>
-									<div class="card-chart valid">
-										<div class="cards-carousel">
-											<div class="mask">
 
-												<div class="bac fn-left"></div>
-												<div class="bank ng-binding" style="background-image: url(../../images/combo.png);">中国农业银行</div>
-												<div class="details">
-													<a>查看详情</a>
-												</div>
-											</div>
-										</div>
-										<div class="cards-details">
-											<div class="bank-name">
-												<div class="name fn-left" style="background-image: url(../../images/combo.png);"></div>
-												<span class="close fn-right"><a>X</a></span>
-											</div>
-											<div class="bank-detail">
-												<div class="totalin fn-left">
-													<span class="fn-left">流入</span>
-													<span class="amount fn-right">0.00</span>
-												</div>
-												<div class="totalout fn-left">
-													<span class="fn-left">流出</span>
-													<span class="amount fn-right">0.00</span>
-												</div>
-												<div class="expand fn-left">
-													<span class="fn-left">支出</span>
-													<span class="amount fn-right">0.00</span>
-												</div>
-												<div class="withdraw fn-left">
-													<span class="fn-left">提现</span>
-													<span class="amount fn-right">
-							                                0.00
-                            						</span>
-												</div>
-												<div class="recharge fn-left">
-													<span class="fn-left">充值</span>
-													<span class="amount fn-right">
-                                                            0.00
-                            						</span>
-												</div>
-
-												<div class="refund fn-left">
-													<span class="fn-left">银行卡退款</span>
-													<span class="amount fn-right ">0.00</span>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
 
 								<script>
 									$(document).ready(function (ev) {
@@ -306,28 +143,8 @@
 					</div>
 				</div>
 				<!--底部-->
-				<div class="footer">
-					<div class="footer-hd">
-						<p>
-							<a href="#">恒望科技</a>
-							<b>|</b>
-							<a href="#">商城首页</a>
-							<b>|</b>
-							<a href="#">支付宝</a>
-							<b>|</b>
-							<a href="#">物流</a>
-						</p>
-					</div>
-					<div class="footer-bd">
-						<p>
-							<a href="#">关于恒望</a>
-							<a href="#">合作伙伴</a>
-							<a href="#">联系我们</a>
-							<a href="#">网站地图</a>
-							<em>© 2015-2025 Hengwang.com 版权所有</em>
-						</p>
-					</div>
-				</div>
+					@include('layouts.Hafter')@section('Htop')@endsection
+				
 
 			</div>
 

@@ -4,7 +4,12 @@ namespace App\Http\Controllers\home\Center\Assets;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\goods;
+use App\Models\orders;
+use App\Models\item;
+use DB;
+use Hash;
+use Illuminate\Support\Facades\Storage;
 class BillController extends Controller
 {
     /**
@@ -15,12 +20,16 @@ class BillController extends Controller
     public function index()
     {
         //账单明细
-        return view('home.Center.Assets.Bill');
-    }
-
-    public function billList(){
-        // 查看详情
-        return view('home.Center.Assets.BillList');
+        $dec = DB::table('item')
+                ->leftjoin('goods', 'item.gid', '=', 'goods.id')
+                ->leftjoin('orders', 'item.oid', '=', 'orders.id')
+                ->select('item.*', 'goods.goods' ,'goods.price','orders.status','orders.uid','goods.picname')
+                ->where([['uid',16],['status','4']])
+                ->get();
+                // dd($dec);
+             $nums= DB::table('orders')->where('uid',16)->sum('total');
+                // dd($nums);
+        return view('home.Center.Assets.Bill',['dec'=>$dec,'nums'=>$nums]);
     }
 
     /**

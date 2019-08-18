@@ -43,7 +43,7 @@ class SystemController extends Controller
         // $img->move('./uploads/'.date('Ymd'),$saveName);
         // 使用 store 存储文件
         $path = $img->store(date('Ymd'));
-        // dump($path);die;
+      
         // $a = new config;
         $id = $request->input('id');
         $name = $request->input('name');

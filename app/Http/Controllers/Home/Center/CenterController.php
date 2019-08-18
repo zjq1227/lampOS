@@ -4,7 +4,11 @@ namespace App\Http\Controllers\Home\Center;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use App\Models\goods;
+use App\Models\orders;
+use DB;
+use Hash;
+use Illuminate\Support\Facades\Storage;
 class CenterController extends Controller
 {
     /**
@@ -14,8 +18,17 @@ class CenterController extends Controller
      */
     public function index()
     {
-        //
-        return view('home.Center.Center');
+        $ds1=DB::table('item')
+            ->leftjoin('goods','item.tid','=','goods.id')
+            ->leftjoin('orders','item.oid','=','orders.id')
+            ->select('item.*','orders.deliv','orders.status','goods.picname','orders.uid','orders.delivnum','orders.created_at')
+            ->where([['uid',16],['status','2']])->get();
+            $coll= DB::table('collect')
+            ->leftjoin('goods', 'collect.gid', '=', 'goods.id')
+            ->select('collect.*', 'goods.goods', 'goods.price','goods.picname')
+            ->where('uid',16)
+            ->paginate(15);
+        return view('home.Center.Center',['ds1'=>$ds1,'coll'=>$coll]);
     }
 
     /**

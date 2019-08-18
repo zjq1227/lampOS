@@ -1,23 +1,24 @@
 @yield('bottom')
+
+<!-- {{dump(session('href'))}} -->
 <div class="footer ">
     <div class="footer-hd ">
         <p>
-            <a href="# ">恒望科技</a>
+@foreach(session('href') as $k=>$v)
+            <a href="{{$v->link}} ">{{$v->inter}}</a>
             <b>|</b>
-            <a href="# ">商城首页</a>
-            <b>|</b>
-            <a href="# ">支付宝</a>
-            <b>|</b>
-            <a href="# ">物流</a>
+@endforeach
         </p>
     </div>
     <div class="footer-bd ">
+  @foreach(session('config') as $k=>$v)
         <p>
-            <a href="# ">关于恒望</a>
-            <a href="# ">合作伙伴</a>
+            <a href="# ">{{$v->name}}</a>
+            <a href="# ">{{$v->beian}}</a>
             <a href="# ">联系我们</a>
             <a href="# ">网站地图</a>
-            <em>© 2015-2025 Hengwang.com 版权所有</em>
+            <em>{{$v->banquan}}版权所有</em>
         </p>
+@endforeach
     </div>
 </div>

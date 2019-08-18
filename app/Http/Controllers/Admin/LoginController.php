@@ -30,7 +30,7 @@ class LoginController extends Controller
    		$userinfo = DB::table('uadmin')->where('uname',$uname)->first();
    		// dd($userinfo);
    		if(!$userinfo){
-			echo "<script>alert('用户名或者密码错误111111');location.href='/admin/login';</script>";   			
+			echo "<script>alert('用户名或者密码错误');location.href='/admin/login';</script>";   			
    			exit;
    		}
 

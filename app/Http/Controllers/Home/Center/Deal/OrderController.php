@@ -24,13 +24,20 @@ class OrderController extends Controller
  
         
         $item = DB::table('orders')->where([['orders.uid',16],['ord_stu','0']])->get();
+        $nudp = DB::table('orders')->where([['orders.uid',16],['ord_stu','0']])->count();
         // $item = DB::table('orders')->where('status','0')->get();
         
         foreach ($item as $k => &$v) {
              $v->sub  = DB::table('item')->where('oid',$v->id)->get();
                foreach ($v->sub as $k2 => &$v2) {
                 //查询sku商品数据插入
-                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+                $v2->sub  = DB::table('goods_type')->where('id',$v2->tid)->get();
+                foreach ($v2->sub as $k3 => $v3) {
+                    $v2->sub[$k3]->goods=DB::table('goods')->where('id',$v3->gid)->get()['0']->goods;
+                }
+                
+                
+                // echo $v2->sub;
             }
         }
         // dd( $item);
@@ -41,7 +48,10 @@ class OrderController extends Controller
              $v->sub  = DB::table('item')->where('oid',$v->id)->get();
                foreach ($v->sub as $k2 => &$v2) {
                 //查询sku商品数据插入
-                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+                $v2->sub  = DB::table('goods_type')->where('id',$v2->tid)->get();
+                foreach ($v2->sub as $k3 => $v3) {
+                    $v2->sub[$k3]->goods=DB::table('goods')->where('id',$v3->gid)->get()['0']->goods;
+                }
             }
         }
         //已发货
@@ -50,7 +60,10 @@ class OrderController extends Controller
              $v->sub  = DB::table('item')->where('oid',$v->id)->get();
                foreach ($v->sub as $k2 => &$v2) {
                 //查询sku商品数据插入
-                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+                $v2->sub  = DB::table('goods_type')->where('id',$v2->tid)->get();
+                foreach ($v2->sub as $k3 => $v3) {
+                    $v2->sub[$k3]->goods=DB::table('goods')->where('id',$v3->gid)->get()['0']->goods;
+                }
             }
         }
         //已收货
@@ -58,8 +71,11 @@ class OrderController extends Controller
             foreach ($orders2 as $k => &$v) {
              $v->sub  = DB::table('item')->where('oid',$v->id)->get();
                foreach ($v->sub as $k2 => &$v2) {
-                //查询sku商品数据插入
-                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+               //查询sku商品数据插入
+                $v2->sub  = DB::table('goods_type')->where('id',$v2->tid)->get();
+                foreach ($v2->sub as $k3 => $v3) {
+                    $v2->sub[$k3]->goods=DB::table('goods')->where('id',$v3->gid)->get()['0']->goods;
+                }
             }
         }
         //订单完成
@@ -68,11 +84,14 @@ class OrderController extends Controller
              $v->sub  = DB::table('item')->where('oid',$v->id)->get();
                foreach ($v->sub as $k2 => &$v2) {
                 //查询sku商品数据插入
-                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+                $v2->sub  = DB::table('goods_type')->where('id',$v2->tid)->get();
+                foreach ($v2->sub as $k3 => $v3) {
+                    $v2->sub[$k3]->goods=DB::table('goods')->where('id',$v3->gid)->get()['0']->goods;
+                }
             }
         }
         $i=0;
-        if($item){
+        if($nudp !== 0){
             foreach ($item as $key => $value) {
                 foreach ($value->sub as $k => $v) {
                     
@@ -99,7 +118,7 @@ class OrderController extends Controller
 
     public function orderInfo($id){
         //订单详情
-        dump($id);
+        // dump($id);
         $orders = DB::table('orders')
             ->leftjoin('shop', 'orders.sid', '=', 'shop.id')
             ->leftjoin('shipping', 'orders.shid', '=', 'shipping.id')
@@ -112,9 +131,13 @@ class OrderController extends Controller
              $v->sub  = DB::table('item')->where('oid',$v->id)->get();
                foreach ($v->sub as $k2 => &$v2) {
                 //查询sku商品数据插入
-                $v2->sub  = DB::table('goods')->where('id',$v2->gid)->get();
+                $v2->sub  = DB::table('goods_type')->where('id',$v2->tid)->get();
+                foreach ($v2->sub as $k3 => $v3) {
+                    $v2->sub[$k3]->goods=DB::table('goods')->where('id',$v3->gid)->get()['0']->goods;
+                }
             }
         }
+
         $i=0;
         if($item){
             foreach ($item as $key => $value) {
@@ -159,9 +182,15 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function suc($id)
     {
-        //
+        // dd($id);
+        $res0 = DB::table('orders')->find($id);
+        $orders = orders::all();
+          $res1 = DB::table('orders')
+                ->where('id', $id)
+                ->update(['status' => '4']);
+        return redirect('home/Center/Deal/Order');  
     }
 
     /**

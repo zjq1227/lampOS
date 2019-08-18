@@ -5,7 +5,7 @@
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| 这里是前后台的路由进行页面跳转控制
+| 这里是后台的路由进行页面跳转控制
 | 
 |
 |
@@ -81,14 +81,8 @@ Route::get('/', function () {
                 Route::get('/Brand', 'Admin\Product\ProductBrandController@index')->name('Brand');
                 // 品牌管理添加
                 Route::get('/Brand_add', 'Admin\Product\ProductBrandController@addList')->name('Brand_add');
-                // 品牌添加处理
-                Route::post('/Do_add', 'Admin\Product\ProductBrandController@doadd')->name('Do_add');
                 // 品牌管理修改
-                Route::get('/Brand_upload/{id}', 'Admin\Product\ProductBrandController@uploadList')->name('Brand_upload');   
-                // 品牌管理修改处理             
-                Route::post('/Brand_upload_update', 'Admin\Product\ProductBrandController@doupdate')->name('Brand_upload_update'); 
-                // 品牌状态的修改处理
-                Route::get('/Brand_status_update', 'Admin\Product\ProductBrandController@statusupdate')->name('Brand_status_update'); 
+                Route::get('/Brand_upload', 'Admin\Product\ProductBrandController@uploadList')->name('Brand_upload');                
                 // 分类管理
                 Route::get('/Category', 'Admin\Product\ProductCategoryController@index')->name('Category');
                 Route::get('/Category_add', 'Admin\Product\ProductCategoryController@addList')->name('Category_add');
@@ -97,14 +91,8 @@ Route::get('/', function () {
             Route::group(['prefix' => 'Picture'], function () {
                 // 广告管理
                 Route::get('/P','Admin\Picture\PictureAdvertisingController@index')->name('PictureAdvertising');
-                //广告类型的添加
-                Route::post('/P_type_add','Admin\Picture\PictureAdvertisingController@typeadd')->name('PictureAdvertising_Type_Add');
-                //广告添加
-                Route::post('/P_pic_add','Admin\Picture\PictureAdvertisingController@picadd')->name('PictureAdvertising_Pic_Add');
                 // 广告修改
-                Route::get('/P_upload','Admin\Picture\PictureAdvertisingController@upload')->name('PictureAdvertising_Upload');
-                // 广告类型的修改
-                Route::get('/P_list_upload','Admin\Picture\PictureAdvertisingController@listupload')->name('PictureAdvertising_type_Upload');
+                Route::get('/P_upload','Admin\Picture\PictureAdvertisingController@uploadList')->name('PictureAdvertising_Upload');
                 // 分类管理
                 Route::get('/Picture_Sortads','Admin\Picture\PictureSortadsController@index')->name('Picture_Sortads');
                 // 分类管理修改
@@ -152,16 +140,10 @@ Route::get('/', function () {
             Route::group(['prefix' => 'Payment'], function () {
                 // 账户管理
                 Route::get('Management','Admin\Payment\PaymentManagementController@index')->name('Management');
-                // 账户状态修改
-                Route::get('Management_update','Admin\Payment\PaymentManagementController@update')->name('Management_update');
-                // 消费详情
-                Route::get('Details/{id?}','Admin\Payment\PaymentManagementController@addList')->name('Details');
+                // 
+                Route::get('Details','Admin\Payment\PaymentManagementController@addList')->name('Details');
                 // 支付方式z
                 Route::get('Method','Admin\Payment\PaymentMethodController@index')->name('Method');
-                // 支付方式添加
-                Route::post('Method_add','Admin\Payment\PaymentMethodController@create')->name('Method_add');
-                // 支付方式修改
-                Route::get('Method_update','Admin\Payment\PaymentMethodController@update')->name('Method_update');
                 // 支付配置
                 Route::get('Configure','Admin\Payment\PaymentConfigureController@index')->name('Configure');
             });
@@ -189,24 +171,12 @@ Route::get('/', function () {
             Route::group(['prefix' => 'Article'], function () {
                 // 文章列表
                 Route::get('List','Admin\Article\ArticleListController@index')->name('Article_List');
-                // 文章添加
-                Route::get('Sort_Add','Admin\Article\ArticleListController@addList')->name('Article_List_Add');
-                //执行文章添加
-                Route::post('Article_Add','Admin\Article\ArticleListController@create')->name('Article_Article_Add');
-                //文章前线的修改
-                Route::get('Article_Add','Admin\Article\ArticleListController@update')->name('Article_Article_update');
-                //文章的删除
-                Route::get('Article_Del/{id?}','Admin\Article\ArticleListController@store')->name('Article_Article_Del');
                 // 文章列表修改
                 Route::get('List_Upload','Admin\Article\ArticleListController@uploadList')->name('Article_List_Upload');
-                // 文章类型管理
+                // 文章管理
                 Route::get('Sort','Admin\Article\ArticleSortController@index')->name('Article_Sort');
-                //文章类型的添加
-                Route::post('Sort_Create','Admin\Article\ArticleSortController@create')->name('Article_Create');
-                //文章类型的删除
-                Route::get('Sort_Del/{id?}','Admin\Article\ArticleSortController@store')->name('Article_Del');
-                //文章类型权限的修改
-                Route::get('Sort_Update','Admin\Article\ArticleSortController@update')->name('Article_Update');
+                // 文章添加
+                Route::get('Sort_Add','Admin\Article\ArticleSortController@addList')->name('Article_Sort_Add');
                 // 文章管理修改
                 Route::get('Sort_Upload','Admin\Article\ArticleSortController@uploadList')->name('Article_Sort_Upload');
                 // 友情链接
@@ -221,13 +191,11 @@ Route::get('/', function () {
                 Route::get('S','Admin\System\SystemController@index')->name('System');
                 // 系统栏目管理
                 Route::get('Section','Admin\System\SystemSectionController@index')->name('System_Section');
-                //  系统的添加
-                Route::post('Creates','Admin\System\SystemController@create')->name('System_Create');
+                // 系统设置修改
+                Route::post('Section_Create','Admin\System\SystemController@create')->name('System_Create');
                 // 系统日志
                 Route::get('Logs','Admin\System\SystemLogsController@index')->name('System_Logs');
-
             });
-            
     // Route::get('login', 'Admin\LoginController@showLoginForm')->name('admin.login');
     // Route::post('login', 'Admin\LoginController@login'); 
     // Route::post('logout', 'Admin\LoginController@logout');
@@ -268,6 +236,7 @@ Route::get('/', function () {
                 Route::get('/Order','OrderController@index')->name('Order');
                 //订单删除
                 Route::get('/Ordel/{id}','OrderController@Ordel')->name('Ordel');
+                Route::get('/Ordsuc/{id}','OrderController@suc')->name('Ordsuc');
                 // 订单详情
                 Route::get('/Orderinfo/{id}','OrderController@orderInfo')->name('Orderinfo');
                 //  物流跟踪
@@ -297,8 +266,10 @@ Route::get('/', function () {
             Route::group(['namespace'=>'Aboutmy','prefix' => 'Aboutmy'], function () {
                 // 收藏
                 Route::get('/Collection','CollectionController@index')->name('Collection');
+                Route::any('/del/{id}','CollectionController@del')->name('del');
                 // 足迹
                 Route::get('/Foot','FootController@index')->name('Foot');
+                Route::get('/Footdel/{id}','FootController@destory')->name('Footdel');
                 // 评价
                 Route::get('/Comment','CommentController@index')->name('Comment');
                 // 消息
@@ -310,7 +281,9 @@ Route::get('/', function () {
         // 详情
         Route::group(['namespace'=>'Details','prefix' => 'Details'], function () {
             // 搜索详情
-            Route::get('/Search','SearchController@index')->name('Search');
+            Route::any('/Search','SearchController@index')->name('Search');
+            // 品牌商品详情
+            Route::get('/Search_type/{name}','SearchController@brand')->name('Search_type');
             // 商品详情
             Route::get('/Introduction','IntroductionController@index')->name('Introduction');            
         });

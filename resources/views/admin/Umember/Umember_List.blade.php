@@ -72,7 +72,7 @@
           </td>
           <td>{{ $v->pic}}</td>
           <td>{{ $v->Email }}</td>
-          <td><img src="/uploads/{{ $v->userinfo->profile }}" style="width: 50px;border-radius: 8px;"</td>
+          <td><img src="/uploads/{{ $v->userinfo->profile }}" style="width: 50px;border-radius: 8px;"></td>
           <td>普通用户</td>
           <td class="td-status">
              @if (($v->status)==1 )

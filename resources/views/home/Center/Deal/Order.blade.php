@@ -22,51 +22,7 @@
 		<!--头 -->
 		<header>
 			<article>
-				<div class="mt-logo">
-					<!--顶部导航条 -->
-					<div class="am-container header">
-						<ul class="message-l">
-							<div class="topMessage">
-								<div class="menu-hd">
-									<a href="#" target="_top" class="h">亲，请登录</a>
-									<a href="#" target="_top">免费注册</a>
-								</div>
-							</div>
-						</ul>
-						<ul class="message-r">
-							<div class="topMessage home">
-								<div class="menu-hd"><a href="#" target="_top" class="h">商城首页</a></div>
-							</div>
-							<div class="topMessage my-shangcheng">
-								<div class="menu-hd MyShangcheng"><a href="#" target="_top"><i class="am-icon-user am-icon-fw"></i>个人中心</a></div>
-							</div>
-							<div class="topMessage mini-cart">
-								<div class="menu-hd"><a id="mc-menu-hd" href="#" target="_top"><i class="am-icon-shopping-cart  am-icon-fw"></i><span>购物车</span><strong id="J_MiniCartNum" class="h">0</strong></a></div>
-							</div>
-							<div class="topMessage favorite">
-								<div class="menu-hd"><a href="#" target="_top"><i class="am-icon-heart am-icon-fw"></i><span>收藏夹</span></a></div>
-						</ul>
-						</div>
-
-						<!--悬浮搜索框-->
-
-						<div class="nav white">
-							<div class="logoBig">
-								<li><img src={{asset("Home/images/logobig.png")}} /></li>
-							</div>
-
-							<div class="search-bar pr">
-								<a name="index_none_header_sysc" href="#"></a>
-								<form>
-									<input id="searchInput" name="index_none_header_sysc" type="text" placeholder="搜索" autocomplete="off">
-									<input id="ai-topsearch" class="submit am-btn" value="搜索" index="1" type="submit">
-								</form>
-							</div>
-						</div>
-
-						<div class="clear"></div>
-					</div>
-				</div>
+				@include('layouts.Hbefore')@section('Htop')@endsection
 			</article>
 		</header>
             <div class="nav-table">
@@ -122,7 +78,7 @@
 											<td class="td-inner">数量</td>
 										</div>
 										<div class="th th-operation">
-											<td class="td-inner">&nbsp;&nbsp;&nbsp;&nbsp;
+											<td class="td-inner">总价
 											</td>
 										</div>
 										<div class="th th-amount">
@@ -161,8 +117,8 @@
 																		<div class="item-basic-info">
 																			<a href="#">
 																				<p>{{$d->goods}}</p>
-																				<p class="info-little">颜色：12#川南玛瑙
-																					<br/>包装：裸装 </p>
+																				<p class="info-little">类型：{{$d->name}}
+																					<br/> </p>
 																			</a>
 																		</div>
 																	</div>
@@ -180,6 +136,7 @@
 																</li>
 																<li class="td td-operation">
 																	<div class="item-operation">
+																	{{$sub->nums * $d->price}}
 																	</div>
 																</li>
 														</ul>
@@ -188,7 +145,7 @@
 													<div class="order-right">
 														<li class="td td-amount">
 															<div class="item-amount">
-																合计：{{$count?$count:""}}
+																合计：{{$count}}
 															</div>
 														</li>
 														@if(($value->status)=='3')
@@ -213,8 +170,9 @@
 																</div>
 															</li>
 															<li class="td td-change">
-																<div class="am-btn am-btn-danger anniu"><a href='{{route("Ordel",$value->id)}}'>
-																	删除订单</a></div>
+																<div class="am-btn am-btn-danger anniu">
+																	<a title="收货" onclick="Order_form_desc(this,{{$value->id}})" >删除订单</a></div>
+											
 															</li>
 														</div>
 														@elseif(($value->status)=='1')
@@ -234,7 +192,12 @@
 																<div class="item-status">
 																	<p class="Mystatus">待收货</p>
 																	<p class="order-info"><a href='{{route("Orderinfo",$value->id)}}'>订单详情</a></p>
+
 																</div>
+															</li>
+															<li class="td td-change">
+																<div class="am-btn am-btn-danger anniu">
+																	<a title="收货" onclick="Order_form_sel(this,{{$value->id}})" >确认收货</a></div>
 															</li>
 														</div>
 														@elseif(($value->status)=='4')
@@ -247,7 +210,7 @@
 															</li>
 															<li class="td td-change">
 																<div class="am-btn am-btn-danger anniu">
-																	删除订单</div>
+																	<a title="收货" onclick="Order_form_desc(this,{{$value->id}})" >删除订单</a></div>
 															</li>
 														</div>
 														@elseif(($value->status)=='5')
@@ -323,7 +286,7 @@
 																		<div class="item-basic-info">
 																			<a href="#">
 																				<p>{{$d->goods}}</p>
-																				<p class="info-little">颜色：12#川南玛瑙
+																				<p class="info-little">类型：{{$d->name}}
 																					<br/>包装：裸装 </p>
 																			</a>
 																		</div>
@@ -427,7 +390,7 @@
 																		<div class="item-basic-info">
 																			<a href="#">
 																				<p>{{$d->goods}}</p>
-																				<p class="info-little">颜色：12#川南玛瑙
+																				<p class="info-little">类型：{{$d->name}}
 																					<br/>包装：裸装 </p>
 																			</a>
 																		</div>
@@ -527,7 +490,7 @@
 																		<div class="item-basic-info">
 																			<a href="#">
 																				<p>{{$d->goods}}</p>
-																				<p class="info-little">颜色：12#川南玛瑙
+																				<p class="info-little">类型：{{$d->name}}
 																					<br/>包装：裸装 </p>
 																			</a>
 																		</div>
@@ -566,6 +529,10 @@
 																<div class="item-status">
 																	<p class="Mystatus">待收货</p>
 																</div>
+															</li>
+															<li class="td td-change">
+																<div class="am-btn am-btn-danger anniu">
+																	<a title="收货" onclick="Order_form_sel(this,{{$value->id}})" >确认收货</a></div>
 															</li>
 														</div>
 													</div>
@@ -627,7 +594,7 @@
 																		<div class="item-basic-info">
 																			<a href="#">
 																				<p>{{$d->goods}}</p>
-																				<p class="info-little">颜色：12#川南玛瑙
+																				<p class="info-little">类型：{{$d->name}}
 																					<br/>包装：裸装 </p>
 																			</a>
 																		</div>
@@ -669,7 +636,7 @@
 															</li>
 															<li class="td td-change">
 																<div class="am-btn am-btn-danger anniu">
-																	删除订单</div>
+																	<a title="收货" onclick="Order_form_desc(this,{{$value->id}})" >删除订单</a></div
 															</li>
 														</div>
 													</div>
@@ -684,29 +651,8 @@
 					</div>
 				</div>
 				<!--底部-->
-			<div class="footer">
-					<div class="footer-hd">
-						<p>
-							<a href="#">恒望科技</a>
-							<b>|</b>
-							<a href="#">商城首页</a>
-							<b>|</b>
-							<a href="#">支付宝</a>
-							<b>|</b>
-							<a href="#">物流</a>
-						</p>
-					</div>
-					<div class="footer-bd">
-						<p>
-							<a href="#">关于恒望</a>
-							<a href="#">合作伙伴</a>
-							<a href="#">联系我们</a>
-							<a href="#">网站地图</a>
-							<em>© 2015-2025 Hengwang.com 版权所有</em>
-						</p>
-					</div>
+					@include('layouts.Hafter')@section('Htop')@endsection
 
-				</div>
 			</div>
 			<aside class="menu">
 				<ul>
@@ -763,6 +709,26 @@ function Order_form_del(obj,id){
           function(){
             // alert(id);
             location.href='{{Url("home/Center/Deal/Chdit/")}}'+'/'+id;  
+            },);
+        };
+function Order_form_desc(obj,id){
+          layer.confirm('是否删除？', {
+           btn: ['是','否'] ,//按钮
+           icon:2, 
+          }, 
+          function(){
+            // alert(id);
+            location.href='{{Url("home/Center/Deal/Ordel/")}}'+'/'+id;  
+            },);
+        };
+ function Order_form_sel(obj,id){
+          layer.confirm('确认收货？', {
+           btn: ['是','否'] ,//按钮
+           icon:2, 
+          }, 
+          function(){
+            // alert(id);
+            location.href='{{Url("home/Center/Deal/Ordsuc/")}}'+'/'+id;  
             },);
         };
 </script>
