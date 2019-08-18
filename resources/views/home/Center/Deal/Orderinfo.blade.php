@@ -84,7 +84,7 @@
 											@endif
 										</d>，期待再次为您服务</p>
 										<div class="time-list">
-											<span class="date">2015-12-19</span><span class="week">周六</span><span class="time">15:35:42</span>
+											<span class="date">{{$v->created_at}}</span><span class="week"></span><span class="time">15:35:42</span>
 										</div>
 										<div class="inquire">
 										  	<!--  <option value="0">顺丰快递</option>
@@ -166,7 +166,7 @@
 										<div class="order-status5">
 												<div class="order-title">
 													<div class="dd-num">订单编号：<a href="javascript:;">{{$value->code}}</a></div>
-													<span>成交时间：2015-12-20</span>
+													<span>成交时间：{{$v->created_at}}</span>
 													<!--    <em>店铺：小桔灯</em>-->
 												</div>
 												<div class="order-content">				

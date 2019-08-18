@@ -19,7 +19,7 @@ class CenterController extends Controller
     public function index()
     {
         $ds1=DB::table('item')
-            ->leftjoin('goods','item.tid','=','goods.id')
+            ->leftjoin('goods','item.gid','=','goods.id')
             ->leftjoin('orders','item.oid','=','orders.id')
             ->select('item.*','orders.deliv','orders.status','goods.picname','orders.uid','orders.delivnum','orders.created_at')
             ->where([['uid',16],['status','2']])->get();

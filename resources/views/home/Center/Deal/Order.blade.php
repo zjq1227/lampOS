@@ -99,7 +99,7 @@
 										<div class="order-status5">
 												<div class="order-title">
 													<div class="dd-num">订单编号：<a href="javascript:;">{{$value->code}}</a></div>
-													<span>成交时间：2015-12-20</span>
+													<span>成交时间：{{$value->created_at}}</span>
 													<!--    <em>店铺：小桔灯</em>-->
 												</div>
 												<div class="order-content">				
